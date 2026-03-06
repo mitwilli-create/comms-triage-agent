@@ -153,7 +153,7 @@ Request
   │
   └─ Medium/High Touch → [Prompt 3: ESCALATION]
                            → Input: Form data + triage reasoning
-                           → Output: Escalation summary for Naresh
+                           → Output: Escalation summary for [ESCALATION_OWNER]
 ```
 
 Each prompt call is independent. The output of Prompt 1 is passed as context into Prompts 2 and 3, but they are separate API calls, not a single conversation.
@@ -234,7 +234,7 @@ Knowledge base content is stored in the `KnowledgeBase` tab of the Google Sheet 
 
 ### What the Agent Sends via Gmail
 
-| Scenario | Email to Requester | Email to Naresh |
+| Scenario | Email to Requester | Email to [ESCALATION_OWNER] |
 |----------|--------------------|-----------------|
 | Low Touch — complete | Revised draft + rationale | None |
 | Medium Touch — escalated | "Your request has been received and routed" | Escalation summary |
@@ -268,7 +268,7 @@ The sender alias (`CONFIG.SENDER_ALIAS`) must be configured as a "Send mail as" 
 
 ## Integration 5: Google Chat — Escalation Notifications
 
-**Role:** Real-time escalation alerts to the coverage owner (Naresh, or designated backup).
+**Role:** Real-time escalation alerts to the coverage owner ([ESCALATION_OWNER], or designated backup).
 
 ### How Chat Notifications Work
 
@@ -338,7 +338,7 @@ The `KnowledgeBase` tab in the Agent Sheet stores named blocks of text that are 
 | `hard_rules` | Hard escalation trigger rules |
 | `revision_rules` | Smart Brevity and editing guidelines |
 | `audience_profiles` | L8+ IC and VP/Director preferences |
-| `escalation_template` | Format for Naresh escalation notifications |
+| `escalation_template` | Format for [ESCALATION_OWNER] escalation notifications |
 
 ### Loading Knowledge Base at Runtime
 
@@ -384,9 +384,9 @@ These integrations are planned for future releases and are scoped but not yet bu
 **Use case:** After triage, agent sends a pre-filled follow-up form to the requester when clarifying questions are needed.  
 **Status:** Potential — requires Forms API.
 
-### Moma (Internal Knowledge Base)
+### [INTERNAL_KB]
 **Use case:** Agent queries internal org charts and style guides for audience context during high-stakes revisions.  
-**Status:** Blocked — Uberproxy does not allow external API calls to internal Moma endpoints. Requires internal tooling solution.
+**Status:** Blocked — [INTERNAL_PROXY] does not allow external API calls to internal [INTERNAL_KB] endpoints. Requires internal tooling solution.
 
 ### Slack / External Chat
 **Use case:** Port escalation notifications to Slack for organizations not using Google Chat.  

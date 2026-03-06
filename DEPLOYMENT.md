@@ -169,13 +169,13 @@ var CONFIDENCE_THRESHOLDS = {
 };
 ```
 
-### Megan Kacholia Hard Rule
+### [VP_NAME] Hard Rule
 
 The agent contains a hard-coded escalation rule for any request mentioning specific leadership names. This rule is evaluated **before** the AI scoring chain and cannot be overridden by confidence scores:
 
 ```javascript
 function checkHardEscalationRules(formData) {
-  var triggers = ['Megan', 'Kacholia'];
+  var triggers = ['[VP_NAME]', '[VP_LAST_NAME]'];
   for (var i = 0; i < triggers.length; i++) {
     if (formData.summary.indexOf(triggers[i]) !== -1 ||
         formData.audience.indexOf(triggers[i]) !== -1) {

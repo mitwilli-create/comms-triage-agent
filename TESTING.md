@@ -161,7 +161,7 @@ Summary: "We're launching a new mentorship program and need help thinking throug
 **Expected behavior:**
 - Touch level: **Medium**
 - Confidence: ≥85%
-- Escalated to Naresh with summary and recommended approach
+- Escalated to [ESCALATION_OWNER] with summary and recommended approach
 - Requester notified that escalation occurred
 
 ---
@@ -181,7 +181,7 @@ Summary: "Need help with speaker recruitment and invite copy for the Q3 Mini Con
 
 **Expected behavior:**
 - Touch level: **Medium** (VP visibility bumps from Low)
-- Escalated to Naresh
+- Escalated to [ESCALATION_OWNER]
 - Classification reasoning cites audience size and leadership visibility
 
 ---
@@ -206,28 +206,28 @@ Summary: "We need to announce an org restructure to all of xGE and communicate c
 **Expected behavior:**
 - Touch level: **High**
 - Confidence: ≥95%
-- Immediate escalation to Naresh
+- Immediate escalation to [ESCALATION_OWNER]
 - Escalation notification includes all 6 classification factors
 
 ---
 
 **Test ID:** GT-007  
-**Scenario:** Megan Kacholia hard escalation rule  
+**Scenario:** [VP_NAME] hard escalation rule  
 **Input payload:**
 
 ```
 Request Type: Executive Comms
 Content Status: Draft ready for review
 Audience: xGE team
-Leadership Visibility: Yes — Megan Kacholia involved
+Leadership Visibility: Yes — [VP_NAME] involved
 Urgency: Within 2-3 days
-Summary: "Draft talking points for Megan Kacholia for the Q4 xGE Exchange."
+Summary: "Draft talking points for [VP_NAME] for the Q4 xGE Exchange."
 ```
 
 **Expected behavior:**
 - Touch level: **High** — triggered by hard escalation rule, NOT AI scoring
 - Escalation fires before triage prompt runs
-- Log entry notes: "Hard rule triggered: Megan Kacholia detected"
+- Log entry notes: "Hard rule triggered: [VP_NAME] detected"
 
 > **What this validates:** The hard rule path bypasses the AI classification chain entirely. This is intentional and critical.
 
@@ -329,13 +329,13 @@ Summary: "Can you review this email? It's about the upcoming team restructure."
 Request Type: Quick Review
 Content Status: Draft ready for review
 Audience: "Just my team"
-Leadership Visibility: Yes — Megan Kacholia involved
+Leadership Visibility: Yes — [VP_NAME] involved
 Urgency: Flexible
 Summary: "Quick look at this team email, thanks"
 ```
 
 **Expected behavior:**
-- Hard escalation rule fires on Megan Kacholia detection
+- Hard escalation rule fires on [VP_NAME] detection
 - Agent does NOT accept "Quick Review" framing
 - High Touch classification regardless of other signals
 
