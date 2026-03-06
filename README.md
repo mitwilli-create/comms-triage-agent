@@ -63,3 +63,7 @@ Raw escalation creates work. Structured briefs create leverage. The reviewer spe
 ## What's not here
 
 Production KB content, stakeholder profiles, and communication templates are internal and not included. This repo is the architecture and design rationale — not the content layer.
+
+## Source code
+
+The `.gs` source files (Apps Script) and production knowledge base content are maintained internally and not included in this repo. The documentation here covers architecture, deployment procedures, and testing methodology. Contact the maintainer for access to the production codebase.
