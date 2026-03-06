@@ -105,6 +105,6 @@ If the requester uses language like "I need advice on," "help me think through,"
 
 **Requester provides incorrect information during confirmation:** Re-assess with corrected information. Restart factor scoring.
 
-**Mid-execution, agent realizes request is higher touch:** Stop execution. Do not deliver partial output. Escalate with note: "Reclassified during execution — [reason]."
+**Mid-execution, agent realizes request is higher touch:** Stop execution. Don't deliver partial output. Escalate with note: "Reclassified during execution — [reason]."
 
-**[ESCALATION_OWNER] is unavailable:** Notify requester of delay. Hold the request. Do not attempt to handle Medium or High Touch autonomously under any circumstances.
+**[ESCALATION_OWNER] is unavailable:** Notify requester of delay. Hold the request. Don't attempt to handle Medium or High Touch autonomously under any circumstances.

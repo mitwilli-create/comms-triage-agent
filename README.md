@@ -52,7 +52,7 @@ Classification and generation have different failure modes. Separating them mean
 Models are often confidently wrong. Surfacing uncertainty as a first-class signal catches the cases where the classification looks right but isn't. The failure mode this prevents: a low-confidence borderline request handled autonomously and sent to the wrong person.
 
 **Why structured escalation briefs?**
-Raw escalation creates work. Structured briefs create leverage. The reviewer spends 2 minutes confirming a recommendation instead of 20 minutes reconstructing context from scratch.
+Raw escalation creates work. Structured briefs save time. The reviewer spends 2 minutes confirming a recommendation instead of 20 minutes reconstructing context from scratch.
 
 ## Tech stack
 

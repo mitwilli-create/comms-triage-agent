@@ -39,7 +39,7 @@ Google Form → Apps Script Trigger → Gemini API (3-prompt chain) → Google S
 - Basic familiarity with Google Apps Script editor
 - Estimated quota: ~50–100 Gemini API calls/week for typical xGE volume
 
-> **ES5 Compatibility Note:** Google Apps Script runs on the V8 engine but has quirks with certain modern JS syntax. This codebase is written to be fully ES5-compatible. Do not introduce arrow functions, `let`/`const` in loops, or template literals without testing.
+> **ES5 Compatibility Note:** Google Apps Script runs on the V8 engine but has quirks with certain modern JS syntax. This codebase is fully ES5-compatible. Don't introduce arrow functions, `let`/`const` in loops, or template literals without testing.
 
 ---
 
@@ -171,7 +171,7 @@ var CONFIDENCE_THRESHOLDS = {
 
 ### [VP_NAME] Hard Rule
 
-The agent contains a hard-coded escalation rule for any request mentioning specific leadership names. This rule is evaluated **before** the AI scoring chain and cannot be overridden by confidence scores:
+The agent contains a hard-coded escalation rule for any request mentioning specific leadership names. This rule is evaluated **before** the AI scoring chain and can't be overridden by confidence scores:
 
 ```javascript
 function checkHardEscalationRules(formData) {
@@ -186,7 +186,7 @@ function checkHardEscalationRules(formData) {
 }
 ```
 
-> **Design principle:** Hard rules for high-stakes routing outperform probabilistic scoring. Do not remove or weaken these rules.
+> **Design principle:** Hard rules for high-stakes routing outperform probabilistic scoring. Don't remove or weaken these rules.
 
 ---
 
