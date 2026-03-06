@@ -60,10 +60,25 @@ Raw escalation creates work. Structured briefs create leverage. The reviewer spe
 - Gemini API
 - Google Workspace (Sheets, Gmail, Drive)
 
+## How this maps to comms automation at scale
+
+This agent is one implementation of a broader pattern: using LLMs to automate communications workflows that don't scale with headcount. The same architecture — classify, handle, escalate — applies to:
+
+| Communications workflow | What the agent would do | Status |
+|---|---|---|
+| **Rapid-response monitoring** | Monitor inbound signals, classify urgency, alert the right person with a structured brief | ✅ Built (this repo) |
+| **Press clips digest** | Ingest coverage from multiple sources, classify by topic/sentiment, deliver formatted daily briefing | Planned |
+| **Briefing generation** | Synthesize background materials + recent coverage into spokesperson prep docs | Pattern exists (escalation briefs use the same synthesize → structure → deliver flow) |
+| **Message pull-through tracking** | Analyze earned coverage against key narratives to measure message accuracy | Planned |
+| **Internal comms workflow** | Streamline drafting, review, and distribution of all-hands content and leadership messages | Pattern exists (low-touch draft generation applies directly) |
+| **Comms automation playbook** | Document tools, workflows, and outcomes so other teams can replicate | This repo is the playbook for this system |
+
+The core insight: most comms workflows share the same bottleneck — a human manually classifying what needs attention and what doesn't. Confidence-based triage with structured escalation solves that bottleneck regardless of the specific workflow.
+
 ## What's not here
 
 Production KB content, stakeholder profiles, and communication templates are internal and not included. This repo is the architecture and design rationale — not the content layer.
 
 ## Source code
 
-The `.gs` source files (Apps Script) and production knowledge base content are maintained internally and not included in this repo. The documentation here covers architecture, deployment procedures, and testing methodology. Contact the maintainer for access to the production codebase.
+Full production source is in [`src/comms_agent.gs`](src/comms_agent.gs) — 4,700+ lines of Apps Script with Gemini API integration. All internal identifiers, names, and credentials have been replaced with placeholders. See [`src/README.md`](src/README.md) for setup instructions and a section-by-section breakdown.
