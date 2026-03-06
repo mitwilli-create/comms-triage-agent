@@ -842,10 +842,10 @@ WHY THIS WORKS:
 **Transformation:** Vague impact → specific numbers
 
 BEFORE:
-"[ORG_NAME] helped drive the Configs Data Push Code Green, accelerating convergence of configuration and data push mechanisms across Google to CDPush and Conductor. We exited Code Green on March 11, 2025."
+"[ORG_NAME] helped drive the [INTERNAL_PROGRAM_5] Code Green, accelerating convergence of configuration and data push mechanisms across the company to [INTERNAL_TOOL_1] and [INTERNAL_TOOL_2]. We exited Code Green on March 11, 2025."
 
 AFTER:
-"[ORG_NAME] helped drive the Configs Data Push Code Green, accelerating convergence of configuration and data push mechanisms across Google to CDPush and Conductor. This effort significantly reduced configs push ecosystem fragmentation (~10 mechanisms closed/migrated, ~8 in progress), improved production principle compliance, and enhanced Google-wide reliability. We exited Code Green on March 11, 2025."
+"[ORG_NAME] helped drive the [INTERNAL_PROGRAM_5] Code Green, accelerating convergence of configuration and data push mechanisms across the company to [INTERNAL_TOOL_1] and [INTERNAL_TOOL_2]. This effort significantly reduced configs push ecosystem fragmentation (~10 mechanisms closed/migrated, ~8 in progress), improved production principle compliance, and enhanced company-wide reliability. We exited Code Green on March 11, 2025."
 
 WHY THIS WORKS:
 - "Accelerating convergence" is vague — what does that mean in practice?
@@ -891,7 +891,7 @@ These rules OVERRIDE all other classification logic:
 |---------|---------------|---------|
 | "[VP_NAME]" or "[VP_NAME_LAST]" appears ANYWHERE in the request | HIGH TOUCH | escalation_agent |
 | Audience is EXTERNAL to [ORG_NAME] (other PAs, Core teams not in [ORG_NAME], external partners) | HIGH TOUCH | escalation_agent |
-| "external", "outside Google", "cross-PA" appears in scope | HIGH TOUCH | escalation_agent |
+| "external", "outside [ORG_NAME]", "cross-PA" appears in scope | HIGH TOUCH | escalation_agent |
 | "website", "site", "[INTERNAL_DOCS]", "web page", "landing page" in request type or summary | MEDIUM TOUCH minimum | escalation_agent |
 
 ## [ORG_NAME] LEADERSHIP — NEVER ESCALATE
@@ -899,7 +899,7 @@ These rules OVERRIDE all other classification logic:
 CRITICAL: [ORG_NAME] has its own leadership team. Communications TO or FROM [ORG_NAME] leadership are INTERNAL and should be LOW TOUCH.
 
 [ORG_NAME] Leadership includes (but is not limited to):
-- Andrew Stein (Chief of Product) — INTERNAL, do not escalate
+- [EXEC_NAME] (Chief of Product) — INTERNAL, do not escalate
 - [ESCALATION_OWNER] — INTERNAL, do not escalate
 - Any Director, VP, or senior leader WITHIN [ORG_NAME] — INTERNAL, do not escalate
 - "[ORG_NAME] Leadership" as an audience — INTERNAL, do not escalate
@@ -953,7 +953,7 @@ ANY of these:
 - Mandate or governance communication
 - No draft provided but content creation expected
 - Website/site/[INTERNAL_DOCS] content (requires IA/structural decisions)
-- Audience is cross-org but NOT external to Google
+- Audience is cross-org but NOT external to the company
 
 ### HIGH TOUCH (routing: "escalation_agent")
 ANY of these:
@@ -1048,7 +1048,7 @@ STOP — Return routing_error. [VP_NAME] communications require human review.
 
 ### [ORG_NAME] LEADERSHIP — DO NOT ESCALATE
 "[ORG_NAME] Leadership" is INTERNAL. Do not return routing_error for:
-- Andrew Stein (Chief of Product) — [ORG_NAME] internal
+- [EXEC_NAME] (Chief of Product) — [ORG_NAME] internal
 - Any [ORG_NAME] Director or VP — [ORG_NAME] internal
 - "[ORG_NAME] Leadership" as audience — [ORG_NAME] internal
 
@@ -1072,7 +1072,7 @@ Apply GENERAL [ORG_NAME] TEAM rules:
 ### Never Hallucinate
 - NEVER invent meeting names, channel names, dates, processes
 - Use placeholders: [DATE], [CHANNEL], [LINK], [CONTACT]
-- Google uses GChat and Gmail — NOT Slack
+- This organization uses GChat and Gmail — NOT Slack
 
 ### [VP_NAME] Rule (ABSOLUTE)
 - If "[VP_NAME]" or "[VP_NAME_LAST]" appears ANYWHERE, return routing_error
@@ -1080,7 +1080,7 @@ Apply GENERAL [ORG_NAME] TEAM rules:
 ### [ORG_NAME] LEADERSHIP — DO NOT ESCALATE
 [ORG_NAME] has its own internal leadership. These are NOT external VP/Directors:
 - "[ORG_NAME] Leadership" as audience — INTERNAL, proceed with revision
-- Andrew Stein — INTERNAL, proceed with revision
+- [EXEC_NAME] — INTERNAL, proceed with revision
 - Any Director or VP within [ORG_NAME] — INTERNAL, proceed with revision
 
 Only return routing_error for VP/Director if they are OUTSIDE [ORG_NAME] (e.g., "Core VP", "Cloud Director", "PA leadership outside [ORG_NAME]").
@@ -1595,7 +1595,7 @@ Your comms request has been received, but we couldn't access the draft document 
 
 Please check that:
 1. The document exists and hasn't been moved or deleted
-2. The sharing settings allow access (try "Anyone at Google with the link can view")
+2. The sharing settings allow access (try "Anyone at the organization with the link can view")
 3. The link is a Google Doc (not a folder, sheet, or external link)
 
 Your request has been escalated to our team who will follow up. You can also resubmit with an updated link at [INTERNAL_URL].
@@ -1704,7 +1704,7 @@ function getContentFromDraftLink(draftLink) {
       if (errorMsg.includes('permission') || errorMsg.includes('access') || errorMsg.includes('denied')) {
         return { 
           content: '', 
-          error: 'Permission denied. Please share the document with [TEAM_EMAIL_PREFIX]@ or set to "Anyone at Google with the link can view".' 
+          error: 'Permission denied. Please share the document with [TEAM_EMAIL_PREFIX]@ or set to "Anyone at the organization with the link can view".' 
         };
       }
       return { 
@@ -1834,15 +1834,15 @@ function handleEscalation(formData, triageResult, rowNumber, config) {
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * NARESH ESCALATION PACKAGE v2.0 — FINAL
+ * [ESCALATION_OWNER] ESCALATION PACKAGE v2.0 — FINAL
  * ═══════════════════════════════════════════════════════════════════════════
  * 
  * PURPOSE: Optimized escalation experience for [ESCALATION_OWNER] during [OWNER_NAME]'s leave
  * 
  * NEW SCRIPT PROPERTIES REQUIRED:
- *   - MEDIUM_TOUCH_TEMPLATE_ID: 1U280O_lRX4obAP2G2iVeTGC82j5q3VpkZ4S2Wdx1ia0
- *   - HIGH_TOUCH_TEMPLATE_ID: 1mus9blna4xNle0nv5PnqtCemJD3OifC_I-SxShY_tqE
- *   - HIGH_TOUCH_MEGAN_TEMPLATE_ID: 1gcHgKM5ivxFkJfhPh_8BBnAaYQLRH2qJQdCpMXooYoQ
+ *   - MEDIUM_TOUCH_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
+ *   - HIGH_TOUCH_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
+ *   - HIGH_TOUCH_MEGAN_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
  * 
  * INSTALLATION:
  *   1. Add the three Script Properties above
@@ -2222,7 +2222,7 @@ function createEscalationStarterDoc(formData, triageResult, rowNumber, config, e
   
   if (touchLevel === 'high' && isMeganInvolved) {
     templateId = templates.HIGH_TOUCH_MEGAN;
-    docPrefix = '[URGENT-MEGAN]';
+    docPrefix = '[URGENT-VP]';
     subfolderName = 'Urgent Review';
   } else if (touchLevel === 'high') {
     templateId = templates.HIGH_TOUCH;
@@ -2520,7 +2520,7 @@ function getMediumConfig(requestType) {
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MEGAN PROMPT HELPERS
+// [VP_NAME] PROMPT HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -2546,7 +2546,7 @@ function getRecommendedMeganPrompt(formData) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// MEGAN DETECTION HELPERS
+// [VP_NAME] DETECTION HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -2597,7 +2597,7 @@ function detectDifficultNews(summary, notes) {
  */
 function detectUpwardComms(audience) {
   var audienceLower = (audience || '').toLowerCase();
-  var upwardIndicators = ['jen', 'fitzpatrick', 'svp', 'vp', 'vice president', 'senior vice', 'cto', 'ceo'];
+  var upwardIndicators = ['[EXEC_NAME_2]', '[EXEC_NAME_2_LAST]', 'svp', 'vp', 'vice president', 'senior vice', 'cto', 'ceo'];
   return upwardIndicators.some(function(indicator) { return audienceLower.includes(indicator); });
 }
 
@@ -2667,7 +2667,7 @@ function sendEscalationEmail(formData, triageResult, rowNumber, starterDocUrl, c
   
   // Subject line
   const subjectPrefix = touchLevel === 'HIGH' ? '[HIGH TOUCH]' : '[MEDIUM TOUCH]';
-  const meganFlag = isMeganInvolved ? ' [MEGAN]' : '';
+  const meganFlag = isMeganInvolved ? ' [VP]' : '';
   const subjectContent = formData.subject || formData.request_type || 'New Request';
   const subject = `${subjectPrefix}${meganFlag} ${subjectContent} - ${formData.team || 'Unknown Team'}`;
   
@@ -2817,7 +2817,7 @@ const recommendedPrompt = getRecommendedMeganPrompt(formData);
 <div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #fce8e6; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
-    <strong style="font-size: 15px;">HIGH TOUCH — MEGAN KACHOLIA INVOLVED</strong>
+    <strong style="font-size: 15px;">HIGH TOUCH — [VP_NAME] INVOLVED</strong>
   </div>
 
   <p><strong>${formData.subject || 'New Request'}</strong></p>
@@ -3080,8 +3080,8 @@ function testUpwardCommsDetection() {
     request_type: 'Email',
     content_status: 'Outline/rough notes only',
     subject: 'Flag: Unstaffed products process for Core',
-    summary: 'Need to draft an email from [VP_NAME] to Jen Fitzpatrick flagging the new unstaffed products process we want to roll out to Core Directors.',
-    target_audience: 'Jen Fitzpatrick (SVP)',
+    summary: 'Need to draft an email from [VP_NAME] to [EXEC_NAME_2] flagging the new unstaffed products process we want to roll out to Core Directors.',
+    target_audience: '[EXEC_NAME_2] (SVP)',
     megan_involved: 'Yes - sent by [VP_NAME]',
     urgency: 'Within 1 week',
     has_draft: false
@@ -3091,7 +3091,7 @@ function testUpwardCommsDetection() {
     touch_level: 'high',
     confidence: 100,
     confidence_label: 'high',
-    request_summary: 'Email from [VP_NAME] to Jen about unstaffed products process',
+    request_summary: 'Email from [VP_NAME] to [EXEC_NAME_2] about unstaffed products process',
     classification_reasoning: {
       primary_factors: ['[VP_NAME] involvement', 'SVP audience'],
       escalation_triggers: ['ABSOLUTE RULE: [VP_NAME] involvement', 'Senior leadership audience']
@@ -3582,7 +3582,7 @@ function testQAFixes_v17() {
   Logger.log('\n--- Test 4: Prompt detection ---');
   var p1 = getRecommendedMeganPrompt({ summary: 'Normal email draft', target_audience: '[ORG_NAME] team' });
   var p2 = getRecommendedMeganPrompt({ summary: 'Unfortunately we need to delay the launch', target_audience: '[ORG_NAME] team' });
-  var p3 = getRecommendedMeganPrompt({ summary: 'Quarterly update', target_audience: 'SVP Jen Fitzpatrick' });
+  var p3 = getRecommendedMeganPrompt({ summary: 'Quarterly update', target_audience: 'SVP [EXEC_NAME_2]' });
   
   check('4a - Default → Prompt 1', p1.indexOf('PROMPT 1') > -1);
   check('4b - Difficult news → Prompt 2', p2.indexOf('PROMPT 2') > -1);
@@ -3755,7 +3755,7 @@ var METRICS_START_DATE = new Date('2026-02-02T00:00:00');
   currentRow += 1;
   
   // ═══ SECTION 8: MEGAN RULE TRIGGERS ═══
-  currentRow = writeSectionHeader(metricsSheet, currentRow, 'MEGAN RULE TRIGGERS');
+  currentRow = writeSectionHeader(metricsSheet, currentRow, '[VP_NAME] RULE TRIGGERS');
   var meganRows = rows.filter(function(r) { return r.megan.indexOf('yes') !== -1; });
   var meganInfo = [
     ['Total [VP_NAME]-flagged requests', meganRows.length],
@@ -4240,7 +4240,7 @@ var METRICS_START_DATE = new Date('2026-02-02T00:00:00');
   currentRow += 1;
   
   // ═══ SECTION 9: MEGAN RULE TRIGGERS ═══
-  currentRow = writeSectionHeader(metricsSheet, currentRow, 'MEGAN RULE TRIGGERS');
+  currentRow = writeSectionHeader(metricsSheet, currentRow, '[VP_NAME] RULE TRIGGERS');
   var meganRows = rows.filter(function(r) { return r.megan.indexOf('yes') !== -1; });
   var meganInfo = [
     ['Total [VP_NAME]-flagged requests', meganRows.length],

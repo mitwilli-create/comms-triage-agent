@@ -152,7 +152,7 @@ Summary: "Update the Training page text with the new dates for Storytelling trai
 ```
 Request Type: Strategy Consultation
 Content Status: Nothing yet — need content created
-Audience: Cross-org (multiple teams within Google)
+Audience: Cross-org (multiple teams within the company)
 Leadership Visibility: No
 Urgency: Within 2 weeks
 Summary: "We're launching a new mentorship program and need help thinking through the comms rollout strategy."

@@ -142,4 +142,4 @@ All files are maintained in the Agent Building Workshop Claude Project and shoul
 
 ---
 
-xGE Office of Cross-Google Engineering  ·  Internal Document
+xGE Office of [CROSS_ORG_ENGINEERING]  ·  Internal Document

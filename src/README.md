@@ -18,13 +18,13 @@ This is a single-file Apps Script project. All logic lives in one file for ease 
 | Dynamic Knowledge Base | Core KB loader, Living Docs (conditional), Engagement Summaries (name-matched) |
 | KB Constants | Smart Brevity rules, Audience Profiles, Revision Examples (embedded) |
 | Prompts | `TRIAGE_PROMPT`, `REVISION_PROMPT`, `ESCALATION_PROMPT` -- the three-prompt architecture |
-| Main Entry Point | `onFormSubmit()` -- form handler, Megan/site pre-checks, triage routing |
+| Main Entry Point | `onFormSubmit()` -- form handler, [VP_NAME]/site pre-checks, triage routing |
 | Form Parsing | `parseFormResponse()` -- maps Google Form fields to data object |
 | Gemini API | `callGemini()`, `callGeminiForTriage()`, `callGeminiForRevision()`, `callGeminiForEscalation()` |
 | Low Touch Handler | Autonomous revision flow: draft access, Gemini revision, doc creation, email notification |
 | Escalation Handler | Medium/High touch flow: starter doc creation, Chat Space ping, email to escalation owner |
 | Template System | Template-based starter docs for Medium, High, and High+VP escalation paths |
-| Megan Helpers | Prompt detection, medium config, communication type detection |
+| [VP_NAME] Helpers | Prompt detection, medium config, communication type detection |
 | Escalation Email | BLUF-format HTML emails (Medium, High, High+VP variants) |
 | Notifications | Gmail sending, Google Chat Space webhooks, bypass monitoring |
 | Friday Digest | Weekly summary stats posted to Chat Space |
