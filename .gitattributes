@@ -1,0 +1,3 @@
+# Google Apps Script uses JavaScript syntax but .gs extension
+# Override GitHub Linguist detection
+*.gs linguist-language=JavaScript
