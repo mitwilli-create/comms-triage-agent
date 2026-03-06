@@ -1,0 +1,414 @@
+{
+  "audit_metadata": {
+    "generated_at": "2026-03-06T14:16:06.888083",
+    "root_directory": "/Users/mitchellwilliams/Downloads/agent-docs/BATCH1B_comms-docs/",
+    "file_types_processed": [
+      ".md",
+      ".txt"
+    ],
+    "exclusions": [
+      ".docx"
+    ],
+    "total_files": 24,
+    "total_size_bytes": 196552,
+    "errors": []
+  },
+  "files": [
+    {
+      "path": "Dependency Analysis_ Core Knowledge Base Artifact.md",
+      "filename": "Dependency Analysis_ Core Knowledge Base Artifact.md",
+      "size_bytes": 5224,
+      "line_count": 94,
+      "md5": "c7c2f4b711b4059445782cdee9e1596c",
+      "category": "Internal Triage Agent Supporting Materials",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "Dependency Analysis: Core Knowledge Base Artifact\n1. Mission & Scope\nMission: \"Map the Road\"\nThe primary mission of the Dependency Analysis (DA) team is to enable data-driven decisions regarding the organization\u2019s technical stack (source). The initiative addresses the problem that while the organization has built \"too many routes\" to planetary-scale outcomes, there is no \"measurable map\" to guide teams optimally (Dependency Analysis - ...).\nCore Objectives (OKRs)\n\t\u2022\tBenchmarking & ROI: Deliver t"
+    },
+    {
+      "path": "ESCALATION_PROMPT_FINAL.md",
+      "filename": "ESCALATION_PROMPT_FINAL.md",
+      "size_bytes": 10752,
+      "line_count": 290,
+      "md5": "bb4550c90086ff44956e72592fba4d09",
+      "category": "AI Prompt Engineering Artifacts",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# ESCALATION PROMPT \u2014 Final (Deployment-Ready)\n\n**Version:** 1.0  \n**Last Updated:** January 31, 2026  \n**Purpose:** Format Medium/High Touch requests for [ESCALATION_OWNER] handoff  \n**Output:** JSON with Chat Space message, Sheet status, and requester email\n\n---\n\n## PASTE THIS INTO APPS SCRIPT\n\n```\nYou are the [TEAM_NAME] Internal Comms escalation formatter. Your job is to format escalation summaries for [ESCALATION_OWNER] when requests exceed the autonomous agent's scope.\n\n## YOUR ROLE\n\nYou r"
+    },
+    {
+      "path": "Engagement_Summary_Prompts.md",
+      "filename": "Engagement_Summary_Prompts.md",
+      "size_bytes": 9775,
+      "line_count": 315,
+      "md5": "ccd2e4582a471b7d0004bacbd83de781",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# Engagement Summary Prompts\n\n**For use with:** [INTERNAL_LINK] (Chrome Extension)  \n**Purpose:** Generate communication strategy profiles for unfamiliar audiences  \n**Last Updated:** February 1, 2026\n\n---\n\n## Quick Start\n\n1. Install [INTERNAL_LINK] if not already installed\n2. Navigate to target page ([INTERNAL_DIRECTORY] profiles or distribution list)\n3. Click LLM Extension icon \u2192 **Pin this page**\n4. Open new LLM Extension chat\n5. Paste appropriate prompt below\n6. Review output \u2192 Apply to your communication\n\n-"
+    },
+    {
+      "path": "OPERATIONAL_DOCUMENTATION.md",
+      "filename": "OPERATIONAL_DOCUMENTATION.md",
+      "size_bytes": 14858,
+      "line_count": 396,
+      "md5": "39ce1944a377ba91895358784c960813",
+      "category": "Internal Triage Agent Supporting Materials",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# [TEAM_NAME] Internal Comms Agent \u2014 Operational Documentation\n\n**Version:** 1.0  \n**Last Updated:** January 31, 2026  \n**Coverage Period:** Feb 5 - Mar 5, 2026 ([OWNER_NAME]'s medical leave)\n\n---\n\n## PART 1: USER JOURNEY\n\n### What Users Experience\n\nUsers interact with the intake form and receive emails from \"[TEAM_NAME] Communications\" \u2014 they don't know an AI agent is involved.\n\n```\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502                           USER JOUR"
+    },
+    {
+      "path": "PACKAGE_INDEX.md",
+      "filename": "PACKAGE_INDEX.md",
+      "size_bytes": 5105,
+      "line_count": 151,
+      "md5": "fd7d040c274d2dd7c53ab33509bd836f",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "# [TEAM_NAME] Internal Comms Agent \u2014 Final Package Index\n\n**Version:** 1.0  \n**Created:** January 31, 2026  \n**Status:** Deployment Ready (pending configuration)\n\n---\n\n## PACKAGE CONTENTS\n\n### Core Prompts (Paste into Apps Script)\n\n| File | Purpose | Location |\n|------|---------|----------|\n| `TRIAGE_PROMPT_FINAL.md` | Classify requests into Low/Medium/High touch | `/prompts/` |\n| `REVISION_PROMPT_FINAL.md` | Execute Low Touch revisions, produce Email Draft Doc | `/prompts/` |\n| `ESCALATION_PROM"
+    },
+    {
+      "path": "REVISION_PROMPT_FINAL.md",
+      "filename": "REVISION_PROMPT_FINAL.md",
+      "size_bytes": 12185,
+      "line_count": 282,
+      "md5": "13e334e4fc3ace8f459e2e5228edc1ad",
+      "category": "AI Prompt Engineering Artifacts",
+      "has_template_vars": true,
+      "has_code_blocks": true,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "# REVISION PROMPT \u2014 Final (Deployment-Ready)\n\n**Version:** 1.0  \n**Last Updated:** January 31, 2026  \n**Purpose:** Execute Low Touch revisions and produce Email Draft Doc  \n**Output:** JSON with notification email content and Email Draft Doc content\n\n---\n\n## PASTE THIS INTO APPS SCRIPT\n\n```\nYou are the [TEAM_NAME] Internal Comms revision engine, executing edits on behalf of the [TEAM_NAME] Communications team.\n\n## YOUR ROLE\n\nYou handle Low Touch requests: email draft reviews, announcement edits,"
+    },
+    {
+      "path": "Staging_Environment_Setup_Guide.md",
+      "filename": "Staging_Environment_Setup_Guide.md",
+      "size_bytes": 10861,
+      "line_count": 397,
+      "md5": "9c090d841928d42a5ebf1f09eb9c9e88",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# [TEAM_NAME] Comms Agent \u2014 Staging Environment Setup Guide\n\n**Purpose:** Set up a safe testing environment before deploying v1.3 to production  \n**Time Required:** 30-45 minutes  \n**Prerequisites:** enterprise account with Drive, Forms, Sheets, Apps Script access  \n**Last Updated:** February 1, 2026\n\n---\n\n## Overview\n\nThis guide creates a **complete staging environment** that mirrors production without touching real data. Use it to:\n\n- Test new code changes before deployment\n- Validate form-to-"
+    },
+    {
+      "path": "TRIAGE_PROMPT_FINAL.md",
+      "filename": "TRIAGE_PROMPT_FINAL.md",
+      "size_bytes": 10255,
+      "line_count": 313,
+      "md5": "5540ad5c2ff3b136278f43dc1008a4f6",
+      "category": "AI Prompt Engineering Artifacts",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "# TRIAGE PROMPT \u2014 Final (Deployment-Ready)\n\n**Version:** 1.0  \n**Last Updated:** January 31, 2026  \n**Purpose:** Classify incoming comms requests into Low/Medium/High touch levels  \n**Output:** JSON object for Apps Script routing\n\n---\n\n## PASTE THIS INTO APPS SCRIPT\n\n```\nYou are the [TEAM_NAME] Internal Comms Triage Agent. Your job is to classify incoming communications requests and route them appropriately.\n\n## YOUR ROLE\n\nYou receive form submission data and classify the request into one of thr"
+    },
+    {
+      "path": "Technical Roadmap Report (TRR) Principles.md",
+      "filename": "Technical Roadmap Report (TRR) Principles.md",
+      "size_bytes": 6901,
+      "line_count": 86,
+      "md5": "548cfa7a1ec7968de4a0b36be68c6f68",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": false,
+      "content_preview": "Technical Roadmap Report (TRR) Principles\n1. Introduction\nThe Problem\nInfrastructure fragmentation at the organization often persists not due to a lack of technical skill, but because of good-faith disagreements between experts on which solution is best (TRR Principles).\nWhat is a TRR?\nA Technical Roadmap Report (TRR) is a document designed to propose a plan to solve a specific cross-organizational technical problem which doesn\u2019t already have a well-established solution (TRR Principles). The rep"
+    },
+    {
+      "path": "Unified ROI Framework_ Foundational Report.md",
+      "filename": "Unified ROI Framework_ Foundational Report.md",
+      "size_bytes": 6063,
+      "line_count": 99,
+      "md5": "76ec56775b7297a2f4da646c2e767356",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "Unified ROI Framework: Foundational Report\n1. Framework Deconstruction\nMission & Core Value\nThe Unified ROI Framework aims to establish a consistent, VP-reviewed financial framework for the Office of [ORG_UNIT] ([TEAM_NAME]) and Core Finance (source). Its primary goal is to address the lack of a standardized method for evaluating technical initiatives, enabling:\n\n\t\u2022\tData-driven prioritization of engineering investments (source).\n\t\u2022\tStandardized decision-making to reduce coordination headwinds (U"
+    },
+    {
+      "path": "[TEAM_NAME]_Comms_Agent_Phase1_Operations_Guide.md",
+      "filename": "[TEAM_NAME]_Comms_Agent_Phase1_Operations_Guide.md",
+      "size_bytes": 13277,
+      "line_count": 410,
+      "md5": "1d9291fefbb585d68b889c6f3ea4dce3",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# [TEAM_NAME] Comms Agent \u2014 Phase 1 Operations Guide\n\n**For:** [ESCALATION_OWNER] (Primary), [BACKUP_OPERATOR] (Backup)  \n**Coverage Period:** February 5 \u2013 March 5, 2026 ([OWNER_NAME]'s Medical Leave)  \n**Version:** 1.3  \n**Last Updated:** February 1, 2026\n\n---\n\n## Quick Reference Card\n\n| Situation | Action |\n|-----------|--------|\n| \ud83d\udd34 HIGH TOUCH email arrives | Open Starter Doc \u2192 Follow checklist \u2192 Run engagement summary if needed |\n| \ud83d\udd36 MEDIUM TOUCH email arrives | Open Starter Doc \u2192 Assess com"
+    },
+    {
+      "path": "[TEAM_NAME]_Comms_Agent_Phase2_Action_Guide.md",
+      "filename": "[TEAM_NAME]_Comms_Agent_Phase2_Action_Guide.md",
+      "size_bytes": 13381,
+      "line_count": 313,
+      "md5": "47f4a551583d7238e2a4bccd70757446",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": true,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "# [TEAM_NAME] Comms Agent \u2014 Phase 2 Action Guide\n\n**Autonomous Engagement Summaries: Security Review & Requirements**\n\n**Status:** \ud83d\udfe1 PRE-WORK ONLY  \n**Scope Boundary:** File security review and document requirements during [OWNER_NAME]'s leave.  \n**Implementation:** Deferred to [OWNER_NAME]'s return (May 2026)  \n**Prepared for:** [BACKUP_OPERATOR], [ESCALATION_OWNER]  \n**Last Updated:** February 1, 2026\n\n---\n\n## Executive Summary\n\nPhase 2 enables the agent to **automatically generate engagement "
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES.md",
+      "filename": "AUDIENCE_PROFILES.md",
+      "size_bytes": 13339,
+      "line_count": 402,
+      "md5": "963db5ca61355a24722593bd40eed196",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "Audience Profiles \u2014 Internal Comms Agent Knowledge Base\nSource: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com)\u2028Audience: [TEAM_NAME] (L8+ Principal Engineers, Distinguished Engineers, [CORP_NAME] Fellows)\u2028Purpose: Guide revision style based on who will READ the communication\n\n\nPart 0: Audience Detection (Agent Logic)\nHow to Identify Audience from Form Data\nThe agent receives a \"Target Audience\" field from the intake form. Use these signals:\n\nForm Input Contains...\nClassify As\nApply Pro"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES_Technical_Leadership.md",
+      "filename": "AUDIENCE_PROFILES_Technical_Leadership.md",
+      "size_bytes": 11292,
+      "line_count": 318,
+      "md5": "1ba055205895e2a5f08e0acfe0baaf88",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "Audience Profiles for Technical Leadership Communication\nSource: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com)\u2028Audience: [TEAM_NAME] (L8+ Principal Engineers, Distinguished Engineers, [CORP_NAME] Fellows)\u2028Purpose: Knowledge base for Internal Comms Agent\n\n\nPart 1: Senior IC Preferences (Staff+/Principal/Distinguished)\nHow They Want to Receive Information\nPreference\nDetails\nFormat\nWritten docs (documents, design docs, strategy docs) \u2014 \"documents is my IDE\"\nLength\nDense but focused; comp"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/[CORP_NAME]_Values.md",
+      "filename": "[CORP_NAME]_Values.md",
+      "size_bytes": 3743,
+      "line_count": 35,
+      "md5": "de9664cb4ffcfc3c4e8d4dbee58c88c5",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": false,
+      "content_preview": "Organization Values\nMission: \u201cOrganize the world\u2019s information and make it universally accessible and useful.\u201d\n\nOurs is not a conventional mission. Few organizations would imagine such a thing, much less pursue it. We have no choice but to match the ambition of our mission with an equal amount of responsibility in carrying it out. To sign up for the mission is to sign up for the responsibility that comes with it (source).\nThe Three Respects\nOur values are how we conduct ourselves in the pursuit "
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/Intake_Form_Optimization_Recommendations.md",
+      "filename": "Intake_Form_Optimization_Recommendations.md",
+      "size_bytes": 6498,
+      "line_count": 265,
+      "md5": "51157eccb97d7c2a8b712829729ec030",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "Intake Form Optimization \u2014 Based on 4-Quarter Report Analysis\nSource: [TEAM_NAME] Internal Comms Audit (Jan 2025 \u2013 Jan 2026)\u2028Purpose: Align intake form fields with real request patterns to improve triage accuracy\n\n\nCurrent Form Fields vs. Reality\nCurrent \"Type of Request\" Options\n\t\u2022\t[TEAM_NAME] Win (enter into [INTERNAL_LINK])\n\t\u2022\tAnnouncement (project milestone, initiative launch)\n\t\u2022\tEvent Promotion ([TEAM_NAME] Mini Connect, Tech Talk)\n\t\u2022\tProduct/Service Update (new feature, deprecation)\n\t\u2022\tCon"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/Internal_Comms_Agent_Scope.md",
+      "filename": "Internal_Comms_Agent_Scope.md",
+      "size_bytes": 6005,
+      "line_count": 219,
+      "md5": "5d6c88f3564bec8032a62edba41747a5",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "Agent Scope Document: Internal Comms Triage Agent\nStatus: \u2705 Scoping Complete (Phase 0 Done)\u2028Ready for: Phase 1 \u2014 Knowledge Base Construction\u2028Deadline: Tuesday AM demo\u2028Build time remaining: ~10-12 hours across Sat-Sun\n\n\nOverview\nProblem: [Comms Lead] needs an agent to triage and handle internal communications requests while he recovers from surgery (Feb 5+), ensuring low-touch requests are handled autonomously while medium/high-touch requests are appropriately escalated.\n\nUser: [TEAM_NAME] teams subm"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/ORG_BACKGROUND.md",
+      "filename": "ORG_BACKGROUND.md",
+      "size_bytes": 12720,
+      "line_count": 136,
+      "md5": "0289b56dd12e96897668b3596f363c6e",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": true,
+      "content_preview": "[TEAM_NAME]_101: Office of [ORG_UNIT] Overview\n1. Mission and Mandate\nMission: [TEAM_NAME]\u2019s mission is to \"Define and Drive the organization's Technical Roadmap.\" ([TEAM_NAME]_101) The organization aims to make [CORP_NAME] Engineering more efficient, faster, and better prepared for the future\u2014ensuring our stacks are \"Fit for purpose.\" ([TEAM_NAME]_101)\n\nContext & Origin: In 2021, the Office of [ORG_UNIT] ([TEAM_NAME]) was founded to address widely acknowledged coordination headwinds across the compa"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/SMART_BREVITY_RULES.md",
+      "filename": "SMART_BREVITY_RULES.md",
+      "size_bytes": 10439,
+      "line_count": 346,
+      "md5": "26310fb0f4a3cae06c283657f4459d01",
+      "category": "Communications Strategy Documents",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": false,
+      "content_preview": "Smart Brevity Rules \u2014 Internal Comms Agent Knowledge Base\nPurpose: This document teaches the agent how to revise internal communications using Smart Brevity methodology, and how to explain each edit to AI-skeptical users.\n\nCore Principle: Every revision must include a rationale. Users need to understand WHY a change was made, not just WHAT changed.\n\n\n1. The Smart Brevity Framework\nEvery communication follows this structure:\n\nElement\nPurpose\nConstraint\nHeadline/Subject\nGrab attention, teach somet"
+    },
+    {
+      "path": "[TEAM_NAME] Comms Agent - Foundational KB/TRIAGE_CRITERIA.md",
+      "filename": "TRIAGE_CRITERIA.md",
+      "size_bytes": 7398,
+      "line_count": 250,
+      "md5": "ed78838f2bdd369e63a159da864b7562",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": false,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": true,
+      "content_preview": "Triage Criteria \u2014 Internal Comms Agent\nPurpose: Classify incoming requests into Low, Medium, or High touch levels\u2028Owner: [OWNER_NAME], Communications Lead, [TEAM_NAME]\u2028Agent Behavior: Assess factors, assign level + confidence score, route accordingly\n\n\nTouch Level Definitions\nLow Touch\nWhat it is: Async revision work with rationale. No meeting required.\n\nAgent action: Handle autonomously \u2014 review materials, apply revisions, provide rationale for every change, deliver via email/doc.\n\nTypical requ"
+    },
+    {
+      "path": "Templates/[TEMPLATE] HIGH TOUCH_ Executive Involved.md",
+      "filename": "[TEMPLATE] HIGH TOUCH_ Executive Involved.md",
+      "size_bytes": 2769,
+      "line_count": 74,
+      "md5": "0b1839db98ca5bee56ca09dcd7abd85f",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": true,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": false,
+      "content_preview": "HIGH TOUCH: [EXECUTIVE/VP] INVOLVED\n\n\u26a0\ufe0f EXECUTIVE COMMS PROTOCOLS APPLY \u2028This request requires content in [VP_NAME]'s voice. \u2028Use the [VP_NAME] Gem prompts provided in this document to draft communications. \n\nRequest ID: {{REQUEST_ID}} | Created: {{TIMESTAMP}}\n\n\nWHY HIGH TOUCH ([EXECUTIVE/VP])\nConfidence: {{CONFIDENCE}}%\n\nEscalation Triggers: \u2028{{ESCALATION_TRIGGERS}}\nORIGINAL REQUEST\n{{SUMMARY}}\n\n{{ADDITIONAL_NOTES_SECTION}}\n\n{{DRAFT_LINK_SECTION}}\nAUDIENCE INTELLIGENCE \u2192 LLM EXTENSION PROMPTS\nTo underst"
+    },
+    {
+      "path": "Templates/[TEMPLATE] HIGH TOUCH_ Full Partnership Required.md",
+      "filename": "[TEMPLATE] HIGH TOUCH_ Full Partnership Required.md",
+      "size_bytes": 1512,
+      "line_count": 49,
+      "md5": "2efa402690064ef214a02a511066bb4d",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": true,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": false,
+      "content_preview": "HIGH TOUCH: Full Partnership Required\n\nPriority request requiring comprehensive support through execution.\n\nRequest ID: {{REQUEST_ID}} | Created: {{TIMESTAMP}}\n\n\nWHY HIGH TOUCH\nConfidence: {{CONFIDENCE}}%\n\nPrimary Factors:\n{{PRIMARY_FACTORS}}\nORIGINAL REQUEST\n{{SUMMARY}}\n\n{{ADDITIONAL_NOTES_SECTION}}\n\n{{DRAFT_LINK_SECTION}}\nAUDIENCE INTELLIGENCE \u2192 LLM EXTENSION PROMPTS\nTo understand {{TARGET_AUDIENCE}}\u2019s communication style and priorities:\n\nOpen [INTERNAL_LINK] in Chrome\nNavigate to {{TARGET_AUD"
+    },
+    {
+      "path": "Templates/[TEMPLATE] Low Touch Email Draft.md",
+      "filename": "[TEMPLATE] Low Touch Email Draft.md",
+      "size_bytes": 422,
+      "line_count": 18,
+      "md5": "1877ba203a468e0e6ef2e234573d5f46",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": true,
+      "has_code_blocks": false,
+      "has_internal_links": false,
+      "has_redacted_names": false,
+      "content_preview": "EMAIL DRAFT\n\n\nWHY I MADE THESE CHANGES\nAudience Analysis\n{{AUDIENCE_ANALYSIS}}\nRationale\n{{RATIONALE_LIST}}\nSalutation/Closing\nLeft blank for you to personalize. Your recipients know your voice.\n\n\nNeed help identifying the right distribution list? \nThat's a \ud83d\udfe1Medium Touch request.\u2028Reply to this email, and we can help (may take 1-2 days).\n\n{{QUALITY_CHECK}}\nConfidence: High | Audience: Matched | Revisions: Complete\n"
+    },
+    {
+      "path": "Templates/[TEMPLATE] MEDIUM TOUCH_ Strategy & Consultation Required.md",
+      "filename": "[TEMPLATE] MEDIUM TOUCH_ Strategy & Consultation Required.md",
+      "size_bytes": 1778,
+      "line_count": 53,
+      "md5": "7a7eec53ede17401e1b5094b4df91dc3",
+      "category": "Workflow Automation Templates",
+      "has_template_vars": true,
+      "has_code_blocks": false,
+      "has_internal_links": true,
+      "has_redacted_names": false,
+      "content_preview": "MEDIUM TOUCH: Strategy & Consultation Required\n\nThis request needs strategic guidance or playbook creation before execution.\n\nRequest ID: {{REQUEST_ID}} | Created: {{TIMESTAMP}}\n\n\nWHY MEDIUM TOUCH\nConfidence: {{CONFIDENCE}}%\n\nPrimary Factors:\n{{PRIMARY_FACTORS}}\nORIGINAL REQUEST\n{{SUMMARY}}\n\n{{ADDITIONAL_NOTES_SECTION}}\n\n{{DRAFT_LINK_SECTION}}\nAUDIENCE INTELLIGENCE \u2192 LLM EXTENSION PROMPTS\nTo understand {{TARGET_AUDIENCE}}\u2019s communication style and priorities:\n\nOpen [INTERNAL_LINK] in Chrome\nNavi"
+    }
+  ],
+  "categories": {
+    "Internal Triage Agent Supporting Materials": [
+      "Dependency Analysis_ Core Knowledge Base Artifact.md",
+      "OPERATIONAL_DOCUMENTATION.md"
+    ],
+    "AI Prompt Engineering Artifacts": [
+      "ESCALATION_PROMPT_FINAL.md",
+      "REVISION_PROMPT_FINAL.md",
+      "TRIAGE_PROMPT_FINAL.md"
+    ],
+    "Communications Strategy Documents": [
+      "Engagement_Summary_Prompts.md",
+      "Technical Roadmap Report (TRR) Principles.md",
+      "Unified ROI Framework_ Foundational Report.md",
+      "[TEAM_NAME]_Comms_Agent_Phase2_Action_Guide.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES_Technical_Leadership.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/[CORP_NAME]_Values.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/ORG_BACKGROUND.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/SMART_BREVITY_RULES.md"
+    ],
+    "Workflow Automation Templates": [
+      "PACKAGE_INDEX.md",
+      "Staging_Environment_Setup_Guide.md",
+      "[TEAM_NAME]_Comms_Agent_Phase1_Operations_Guide.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/Intake_Form_Optimization_Recommendations.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/Internal_Comms_Agent_Scope.md",
+      "[TEAM_NAME] Comms Agent - Foundational KB/TRIAGE_CRITERIA.md",
+      "Templates/[TEMPLATE] HIGH TOUCH_ Executive Involved.md",
+      "Templates/[TEMPLATE] HIGH TOUCH_ Full Partnership Required.md",
+      "Templates/[TEMPLATE] Low Touch Email Draft.md",
+      "Templates/[TEMPLATE] MEDIUM TOUCH_ Strategy & Consultation Required.md"
+    ]
+  },
+  "anomalies": [
+    {
+      "type": "very_small_file",
+      "file": "Templates/[TEMPLATE] Low Touch Email Draft.md",
+      "size_bytes": 422
+    }
+  ],
+  "duplicate_check": {},
+  "category_summary": {
+    "Internal Triage Agent Supporting Materials": 2,
+    "AI Prompt Engineering Artifacts": 3,
+    "Communications Strategy Documents": 8,
+    "Workflow Automation Templates": 11
+  },
+  "migration_recommendations": {
+    "executive_comms_rag_agent_repo": {
+      "description": "Curated communication strategy docs, workflow templates, AI prompt engineering artifacts",
+      "recommended_files": [
+        "ESCALATION_PROMPT_FINAL.md",
+        "REVISION_PROMPT_FINAL.md",
+        "TRIAGE_PROMPT_FINAL.md",
+        "Engagement_Summary_Prompts.md",
+        "Technical Roadmap Report (TRR) Principles.md",
+        "Unified ROI Framework_ Foundational Report.md",
+        "[TEAM_NAME]_Comms_Agent_Phase2_Action_Guide.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES_Technical_Leadership.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/[CORP_NAME]_Values.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/ORG_BACKGROUND.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/SMART_BREVITY_RULES.md",
+        "PACKAGE_INDEX.md",
+        "Staging_Environment_Setup_Guide.md",
+        "[TEAM_NAME]_Comms_Agent_Phase1_Operations_Guide.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/AUDIENCE_PROFILES.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/Intake_Form_Optimization_Recommendations.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/Internal_Comms_Agent_Scope.md",
+        "[TEAM_NAME] Comms Agent - Foundational KB/TRIAGE_CRITERIA.md",
+        "Templates/[TEMPLATE] HIGH TOUCH_ Executive Involved.md",
+        "Templates/[TEMPLATE] HIGH TOUCH_ Full Partnership Required.md",
+        "Templates/[TEMPLATE] Low Touch Email Draft.md",
+        "Templates/[TEMPLATE] MEDIUM TOUCH_ Strategy & Consultation Required.md"
+      ]
+    },
+    "internal_comms_triage_agent_repo": {
+      "description": "Supporting documentation, process flow diagrams, escalation protocol templates",
+      "recommended_files": [
+        "Dependency Analysis_ Core Knowledge Base Artifact.md",
+        "OPERATIONAL_DOCUMENTATION.md"
+      ]
+    }
+  }
+}

@@ -1,9 +1,9 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * [ORG_NAME] INTERNAL COMMS AGENT v1.4 — Apps Script Implementation
+ * [TEAM_NAME] INTERNAL COMMS AGENT v1.4 — Apps Script Implementation
  * ═══════════════════════════════════════════════════════════════════════════
 // PURPOSE: Automated triage and revision of internal communications requests
-// OWNER: [OWNER_NAME], Communications Lead, [ORG_NAME]
+// OWNER: [OWNER_NAME], Communications Lead, [TEAM_NAME]
 // BACKUP: [ESCALATION_OWNER] (during [OWNER_NAME]'s medical leave Feb 5 - Mar 5, 2026)
 // LAST UPDATED: February 2, 2026
 //
@@ -32,7 +32,7 @@
 //   - 14 new Script Properties for living document IDs
 //
 //   TRIAGE FIXES:
-//   - [ORG_NAME] Leadership = INTERNAL (does NOT trigger escalation)
+//   - [TEAM_NAME] Leadership = INTERNAL (does NOT trigger escalation)
 //   - Removed "L8+ by name" inference — trusts form's audience field
 //   - VP/Director rule scoped to EXTERNAL only
 //   - Only [VP_NAME] triggers automatic HIGH TOUCH escalation
@@ -40,7 +40,7 @@
 //   OUTPUT QUALITY:
 //   - Chat notifications shortened to 5 lines max
 //   - Clickable hyperlink to sheet row in Chat
-//   - Single * for bold in Google Chat (not **)
+//   - Single * for bold in enterprise chat (not **)
 //   - Word count statistics removed entirely
 //   - "Edit not reinvent" philosophy for Low Touch
 //   - Forbidden phrases enforced (no "Smart Brevity", "Go deeper", etc.)
@@ -50,7 +50,7 @@
 //   BUG FIXES:
 //   - Field mapping: "Type of Request: " (trailing space) now captured
 //   - Engagement summary matching: prefers individual over group matches
-//   - HTML stripping from Google Doc body
+//   - HTML stripping from document body
 //   - Email notification spacing tightened
 //
 // v1.3 (Jan 31, 2026) — Template System & Error Handling
@@ -77,29 +77,29 @@
 //
 // CORE:
 //    - GEMINI_API_KEY: Gemini API access key
-//    - TRACKING_SHEET_ID: Google Sheet for request tracking
+//    - TRACKING_SHEET_ID: tracking spreadsheet for request tracking
 //    - CHAT_SPACE_WEBHOOK: Webhook URL for Chat Space notifications
 //    - OUTPUT_FOLDER_ID: Drive folder for output documents
 //    - ARCHIVE_FOLDER_ID: Drive folder for quarterly archives
 //    - ESCALATION_EMAIL: Email for escalations ([ESCALATION_OWNER] for prod)
-//    - EMAIL_TEMPLATE_ID: Google Doc template for Low Touch outputs
+//    - EMAIL_TEMPLATE_ID: document template for Low Touch outputs
 //
 // KNOWLEDGE BASE:
 //    - CORE_KB_FOLDER_ID: Folder containing core KB docs (12 docs)
 //    - ES_FOLDER_ID: Folder containing engagement summaries
 //
 // LIVING DOCUMENTS (loaded conditionally):
-//    - DOC_XGE_COMMS_GUIDE: Always loaded
-//    - DOC_XGE_HOW_WE_WORK: Always loaded
-//    - DOC_ICM_STRATEGY: [INTERNAL_PROGRAM_1] triggers
-//    - DOC_ICM_COMMS_STRATEGY: [INTERNAL_PROGRAM_1] triggers
-//    - DOC_TRR_PLAYBOOK: [INTERNAL_PROGRAM_2] triggers
+//    - DOC_[TEAM_NAME]_COMMS_GUIDE: Always loaded
+//    - DOC_[TEAM_NAME]_HOW_WE_WORK: Always loaded
+//    - DOC_ICM_STRATEGY: ICM triggers
+//    - DOC_ICM_COMMS_STRATEGY: ICM triggers
+//    - DOC_TRR_PLAYBOOK: TRR triggers
 //    - DOC_APPROVALS_USER_GUIDE: Mandate/governance triggers
-//    - DOC_CMP_STRATEGY: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4] triggers
-//    - DOC_STACKS_POR: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4] triggers
-//    - DOC_STACKS_ARCHITECTURE: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4] triggers
-//    - DOC_ROI_CHARTER: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4] triggers
-//    - DOC_DEPENDENCY_PRD: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4] triggers
+//    - DOC_CMP_STRATEGY: CMP/ROI/Stacks triggers
+//    - DOC_STACKS_POR: CMP/ROI/Stacks triggers
+//    - DOC_STACKS_ARCHITECTURE: CMP/ROI/Stacks triggers
+//    - DOC_ROI_CHARTER: CMP/ROI/Stacks triggers
+//    - DOC_DEPENDENCY_PRD: CMP/ROI/Stacks triggers
 //    - DOC_SITE_STYLE_GUIDE: Website triggers
 //    - DOC_ONBOARDING: Onboarding triggers
 //
@@ -115,22 +115,22 @@
 //
 // LOW TOUCH (revision_agent):
 //   - Quick Review requests with draft provided
-//   - Audience internal to [ORG_NAME] (including [ORG_NAME] Leadership)
+//   - Audience internal to [TEAM_NAME] (including [TEAM_NAME] Leadership)
 //   - No [VP_NAME] involvement
 //   - Flexible timeline
-//   - NOT site/website/[INTERNAL_DOCS] content
+//   - NOT site/website/g3doc content
 //   → Agent handles autonomously, minimal KB loaded
 //
 // MEDIUM TOUCH (escalation_agent):
 //   - New content creation
 //   - Strategy/consultation requests
-//   - Website/[INTERNAL_DOCS] content
+//   - Website/g3doc content
 //   - Mandate/governance communications
 //   → Escalates to [ESCALATION_OWNER] with full KB briefing
 //
 // HIGH TOUCH (escalation_agent):
 //   - [VP_NAME] involved (ABSOLUTE RULE)
-//   - External audiences (outside [ORG_NAME])
+//   - External audiences (outside [TEAM_NAME])
 //   - Sensitive topics
 //   → Priority escalation to [ESCALATION_OWNER]
 //
@@ -147,13 +147,13 @@
 // ═══════════════════════════════════════════════════════════════════════════
  *
  * SETUP INSTRUCTIONS:
- * 1. Create new Apps Script project: script.google.com
+ * 1. Create new Apps Script project: [AUTOMATION_PLATFORM_URL]
  * 2. Paste this entire file
  * 3. Configure SCRIPT PROPERTIES (File → Project Settings → Script Properties):
  *    - GEMINI_API_KEY: Your Gemini API key
  *    - TRACKING_SHEET_ID: ID of your tracking spreadsheet
  *    - CHAT_SPACE_WEBHOOK: Webhook URL for Chat Space notifications
- *    - OUTPUT_FOLDER_ID: Google Drive folder ID for Email Draft Docs
+ *    - OUTPUT_FOLDER_ID: cloud storage folder ID for Email Draft Docs
  *    - ESCALATION_EMAIL: Email for escalation notifications (your email for testing, [ESCALATION_OWNER]'s for production)
  * 4. Ensure parseFormResponse() matches YOUR form question titles EXACTLY
  * 5. Ensure sheet column indices in getConfig() match your sheet structure
@@ -183,27 +183,28 @@ function getConfig() {
     // Sheet configuration
     REQUESTS_TAB: 'Requests',
 
-    // Column indices (1-indexed) - UPDATE IF YOUR SHEET DIFFERS
-    COL_TIMESTAMP: 1,
-    COL_EMAIL: 2,
-    COL_TEAM: 3,
-    COL_TYPE: 4,
-    COL_CONTENT_STATUS: 5,
-    COL_SUBJECT: 6,
-    COL_SUMMARY: 7,
-    COL_AUDIENCE: 8,
-    COL_VP: 9,
-    COL_URGENCY: 10,
-    COL_SENDER: 11,
-    COL_DRAFT_LINK: 12,
-    COL_ADDITIONAL_NOTES: 13,
-    COL_TOUCH_LEVEL: 14,
-    COL_STATUS: 15,
-    COL_DOC_LINK: 16,
-    COL_PROCESSED: 17,
+    // Column indices (1-indexed) - v1.6: Added Audience Type col 14
+  COL_TIMESTAMP: 1,
+  COL_EMAIL: 2,
+  COL_TEAM: 3,
+  COL_TYPE: 4,
+  COL_CONTENT_STATUS: 5,
+  COL_SUBJECT: 6,
+  COL_SUMMARY: 7,
+  COL_AUDIENCE: 8,
+  COL_EXEC_INVOLVED: 9,
+  COL_URGENCY: 10,
+  COL_SENDER: 11,
+  COL_DRAFT_LINK: 12,
+  COL_ADDITIONAL_NOTES: 13,
+  COL_AUDIENCE_TYPE: 14,   // v1.6 NEW - dropdown field
+  COL_TOUCH_LEVEL: 15,     // was 14
+  COL_STATUS: 16,           // was 15
+  COL_DOC_LINK: 17,         // was 16
+  COL_PROCESSED: 18,        // was 17
 
     // Email settings
-    SENDER_NAME: '[ORG_NAME] Communications',
+    SENDER_NAME: '[TEAM_NAME] Communications',
     REPLY_TO: '[TEAM_EMAIL]'
   };
 }
@@ -284,52 +285,52 @@ function getLivingDocsConfig() {
   return {
     // Always load
     always: [
-      { name: '[ORG_NAME] Comms Guide', id: props.getProperty('DOC_XGE_COMMS_GUIDE') },
-      { name: '[ORG_NAME] Team: How We Work', id: props.getProperty('DOC_XGE_HOW_WE_WORK') }
+      { name: '[TEAM_NAME] Comms Guide', id: props.getProperty('DOC_[TEAM_NAME]_COMMS_GUIDE') },
+      { name: '[TEAM_NAME] Team: How We Work', id: props.getProperty('DOC_[TEAM_NAME]_HOW_WE_WORK') }
     ],
     
-    // [INTERNAL_PROGRAM_1] triggers: "[INTERNAL_PROGRAM_1]", "change management", "mandate"
+    // ICM triggers: "ICM", "change management", "mandate"
     icm: [
-      { name: '[INTERNAL_PROGRAM_1] Strategy and Principles', id: props.getProperty('DOC_ICM_STRATEGY') },
-      { name: '[ORG_NAME] [INTERNAL_PROGRAM_1] Communication Strategy', id: props.getProperty('DOC_ICM_COMMS_STRATEGY') }
+      { name: 'ICM Strategy and Principles', id: props.getProperty('DOC_ICM_STRATEGY') },
+      { name: '[TEAM_NAME] ICM Communication Strategy', id: props.getProperty('DOC_ICM_COMMS_STRATEGY') }
     ],
     
-    // [INTERNAL_PROGRAM_2] triggers: "[INTERNAL_PROGRAM_2]", "technical recommendation"
+    // TRR triggers: "TRR", "technical recommendation"
     trr: [
-      { name: '[ORG_NAME] [INTERNAL_PROGRAM_2] Playbook v2', id: props.getProperty('DOC_TRR_PLAYBOOK') },
-      { name: '[INTERNAL_PROGRAM_2] Principles', id: props.getProperty('DOC_TRR_PRINCIPLES') }
+      { name: '[TEAM_NAME] TRR Playbook v2', id: props.getProperty('DOC_TRR_PLAYBOOK') },
+      { name: 'TRR Principles', id: props.getProperty('DOC_TRR_PRINCIPLES') }
     ],
     
     // Mandate triggers: request_type = "Mandate/Governance" OR "approval"
     mandate: [
-      { name: '[ORG_NAME] Approvals - User Guide', id: props.getProperty('DOC_APPROVALS_USER_GUIDE') }
+      { name: '[TEAM_NAME] Approvals - User Guide', id: props.getProperty('DOC_APPROVALS_USER_GUIDE') }
     ],
     
-    // [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4]/Dependency triggers
+    // CMP/ROI/Stacks/Dependency triggers
     cmpRoiStacks: [
-      { name: '[INTERNAL_PROGRAM_3] Product Strategy and Narrative', id: props.getProperty('DOC_CMP_STRATEGY') },
-      { name: '[INTERNAL_PROGRAM_4] POR v2', id: props.getProperty('DOC_STACKS_POR') },
-      { name: '[INTERNAL_PROGRAM_4] Architecture Overview', id: props.getProperty('DOC_STACKS_ARCHITECTURE') },
+      { name: 'CMP Product Strategy and Narrative', id: props.getProperty('DOC_CMP_STRATEGY') },
+      { name: 'Stacks POR v2', id: props.getProperty('DOC_STACKS_POR') },
+      { name: 'Stacks Architecture Overview', id: props.getProperty('DOC_STACKS_ARCHITECTURE') },
       { name: 'Unified ROI Framework - Charter', id: props.getProperty('DOC_ROI_CHARTER') },
       { name: 'Unified ROI Framework', id: props.getProperty('DOC_UNIFIED_ROI') },
       { name: 'Dependency Analysis V1 + PRD', id: props.getProperty('DOC_DEPENDENCY_PRD') },
       { name: 'Dependency Analysis', id: props.getProperty('DOC_DEPENDENCY_ANALYSIS') }
     ],
     
-    // Website triggers: request_type = "Website Update" OR "site", "[INTERNAL_DOCS]"
+    // Website triggers: request_type = "Website Update" OR "site", "g3doc"
     website: [
-      { name: '[ORG_NAME] Site Style Guide', id: props.getProperty('DOC_SITE_STYLE_GUIDE') }
+      { name: '[TEAM_NAME] Site Style Guide', id: props.getProperty('DOC_SITE_STYLE_GUIDE') }
     ],
     
     // Onboarding triggers: "onboarding", "new hire"
     onboarding: [
-      { name: '[ORG_NAME] Onboarding', id: props.getProperty('DOC_ONBOARDING') }
+      { name: '[TEAM_NAME] Onboarding', id: props.getProperty('DOC_ONBOARDING') }
     ]
   };
 }
 
 /**
- * Reads a Google Doc by ID and returns its content
+ * Reads a document by ID and returns its content
  * @param {string} docId - The document ID
  * @param {string} docName - The document name for logging
  * @returns {string} Document content or empty string on error
@@ -365,7 +366,7 @@ function getCoreKB() {
   
   try {
     const folder = DriveApp.getFolderById(folderId);
-    const files = folder.getFilesByType(MimeType.GOOGLE_DOCS);
+    const files = folder.getFilesByType(MimeType.DOCUMENT);
     
     let result = '\n\n## CORE KNOWLEDGE BASE\n\n';
     
@@ -402,8 +403,10 @@ function getLivingDocs(formData) {
     formData.target_audience || '',
     formData.summary || '',
     formData.subject || '',
-    formData.additional_notes || ''
-  ].join(' ').toLowerCase();
+formData.additional_notes || ''
+  ].join(' ').toLowerCase().replace(/-/g, ' ');  // v1.6: normalize hyphens for alias matching
+  
+  Logger.log('Search text for ES matching: ' + searchText);
   
   const requestType = (formData.request_type || '').toLowerCase();
   
@@ -412,19 +415,19 @@ function getLivingDocs(formData) {
   // Always load
   docsToLoad = docsToLoad.concat(LIVING_DOCS.always);
   
-  // [INTERNAL_PROGRAM_1] triggers
+  // ICM triggers
   if (searchText.includes('icm') || 
       searchText.includes('change management') || 
       searchText.includes('mandate')) {
     docsToLoad = docsToLoad.concat(LIVING_DOCS.icm);
-    Logger.log('Triggered: [INTERNAL_PROGRAM_1] docs');
+    Logger.log('Triggered: ICM docs');
   }
   
-  // [INTERNAL_PROGRAM_2] triggers
+  // TRR triggers
   if (searchText.includes('trr') || 
       searchText.includes('technical recommendation')) {
     docsToLoad = docsToLoad.concat(LIVING_DOCS.trr);
-    Logger.log('Triggered: [INTERNAL_PROGRAM_2] docs');
+    Logger.log('Triggered: TRR docs');
   }
   
   // Mandate triggers
@@ -435,19 +438,19 @@ function getLivingDocs(formData) {
     Logger.log('Triggered: Mandate docs');
   }
   
-  // [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4]/Dependency triggers
+  // CMP/ROI/Stacks/Dependency triggers
   if (searchText.includes('cmp') || 
       searchText.includes('roi') || 
       searchText.includes('stacks') ||
       searchText.includes('dependency')) {
     docsToLoad = docsToLoad.concat(LIVING_DOCS.cmpRoiStacks);
-    Logger.log('Triggered: [INTERNAL_PROGRAM_3]/ROI/[INTERNAL_PROGRAM_4]/Dependency docs');
+    Logger.log('Triggered: CMP/ROI/Stacks/Dependency docs');
   }
   
   // Website triggers
   if (requestType.includes('website') || 
       searchText.includes('site') ||
-      searchText.includes('[INTERNAL_DOCS]')) {
+      searchText.includes('g3doc')) {
     docsToLoad = docsToLoad.concat(LIVING_DOCS.website);
     Logger.log('Triggered: Website docs');
   }
@@ -491,7 +494,7 @@ function getEngagementSummaries(formData) {
   
   try {
     var folder = DriveApp.getFolderById(esFolderId);
-    var files = folder.getFilesByType(MimeType.GOOGLE_DOCS);
+    var files = folder.getFilesByType(MimeType.DOCUMENT);
     
     var searchText = [
       formData.requester_name || '',
@@ -507,7 +510,7 @@ function getEngagementSummaries(formData) {
     var groupMatches = [];
     
     var groupNames = [
-      'xge leadership',
+      '[TEAM_NAME] leadership',
       'domain stewards',
       'core leadership',
       'senior tech ics'
@@ -538,9 +541,10 @@ function getEngagementSummaries(formData) {
       }
     }
     
-    var matchedSummaries = individualMatches.length > 0 ? individualMatches : groupMatches;
-    
-    if (matchedSummaries.length === 0) {
+  // v1.6: Load BOTH individual AND group summaries (individual first for priority)
+  var matchedSummaries = individualMatches.length > 0 ? individualMatches.concat(groupMatches) : groupMatches;
+  
+  if (matchedSummaries.length === 0) {
       Logger.log('No engagement summaries matched this request');
       return '';
     }
@@ -697,12 +701,12 @@ Avoid:
 
 ### Cross-Org Communications
 Key considerations:
-- No assumed context — explain [ORG_NAME] terminology
+- No assumed context — explain [TEAM_NAME] terminology
 - Relevance first — lead with their benefit
 - Clear ownership — who does what
 - Minimal jargon — spell out acronyms
 
-### General [ORG_NAME] Team
+### General [TEAM_NAME] Team
 Preferences:
 - Clear subject lines indicating action needed
 - TL;DR for anything over 100 words
@@ -726,14 +730,14 @@ These examples demonstrate how to transform communications content. Each shows a
 **Transformation:** Dense paragraph → structured sections with clear headers
 
 BEFORE:
-"The Office of [CROSS_ORG_ENGINEERING] has upcoming major engineering decisions ready for broader feedback. This email along with the [ORG_ANNOUNCE_LIST]@ and [ORG_APPROVALS_LIST]@ lists are part of our work to create a more predictable process for gathering company-wide feedback on key decisions. We will be sending out these announcements as often as every two weeks as needed.
+"The Office of [ORG_UNIT] has upcoming major engineering decisions ready for broader feedback. This email along with the [TEAM_NAME]-announce@ and [TEAM_NAME]-approvals-announce@ lists are part of our work to create a more predictable process for gathering company-wide feedback on key decisions. We will be sending out these announcements as often as every two weeks as needed.
 
 Please click the 'Provide Feedback' link next to the proposed decision below to help us make better decisions. You can also forward this email to key technical leaders in your organization who may have valuable insights."
 
 AFTER:
-"The Office of [CROSS_ORG_ENGINEERING] ([ORG_NAME]) is ready to get your input on upcoming, major engineering decisions.
+"The Office of [ORG_UNIT] ([TEAM_NAME]) is ready to get your input on upcoming, major engineering decisions.
 
-**Why it Matters:** We're building a more predictable process for gathering company-wide feedback. This email, along with the [ORG_ANNOUNCE_LIST]@ lists, is part of that effort.
+**Why it Matters:** We're building a more predictable process for gathering company-wide feedback. This email, along with the [TEAM_NAME]-announce@ lists, is part of that effort.
 
 **Action Requested:** Please click the 'Feedback' link next to the proposed decision below. You can also forward this email to key technical leaders who may have valuable insights."
 
@@ -786,10 +790,10 @@ WHY THIS WORKS:
 **Transformation:** Verbose title → shortened for mobile viewing
 
 BEFORE:
-"[ORG_NAME] Domains Quarterly Insights - 2025 Q2 Newsletter"
+"[TEAM_NAME] Domains Quarterly Insights - 2025 Q2 Newsletter"
 
 AFTER:
-"[ORG_NAME] Domains Insights - 2025 Q2"
+"[TEAM_NAME] Domains Insights - 2025 Q2"
 
 WHY THIS WORKS:
 - "Quarterly" is redundant when "Q2" already appears
@@ -807,11 +811,11 @@ BEFORE:
 "A new roadmap (V2) aims to consolidate 30+ solutions into a few centrally-supported systems, streamlining practices, improving data sharing, ensuring compliance."
 
 AFTER:
-"An [ORG_NAME]-orchestrated V2 roadmap will consolidate 30+ solutions into fewer systems, streamlining practices, improving sharing, ensuring compliance."
+"An [TEAM_NAME]-orchestrated V2 roadmap will consolidate 30+ solutions into fewer systems, streamlining practices, improving sharing, ensuring compliance."
 
 WHY THIS WORKS:
 - Original didn't credit the team that did the work
-- "[ORG_NAME]-orchestrated" was chosen over "[ORG_NAME]-driven" — accurate to the team's role (facilitator, not owner)
+- "[TEAM_NAME]-orchestrated" was chosen over "[TEAM_NAME]-driven" — accurate to the team's role (facilitator, not owner)
 - Attribution should reflect actual contribution level
 - Rule: When adding credit, use verbs that match the team's actual role (orchestrated, facilitated, supported — not "drove" or "led" if you didn't)
 
@@ -842,10 +846,10 @@ WHY THIS WORKS:
 **Transformation:** Vague impact → specific numbers
 
 BEFORE:
-"[ORG_NAME] helped drive the [INTERNAL_PROGRAM_5] Code Green, accelerating convergence of configuration and data push mechanisms across the company to [INTERNAL_TOOL_1] and [INTERNAL_TOOL_2]. We exited Code Green on March 11, 2025."
+"[TEAM_NAME] helped drive the Configs Data Push Code Green, accelerating convergence of configuration and data push mechanisms across the organization to CDPush and Conductor. We exited Code Green on March 11, 2025."
 
 AFTER:
-"[ORG_NAME] helped drive the [INTERNAL_PROGRAM_5] Code Green, accelerating convergence of configuration and data push mechanisms across the company to [INTERNAL_TOOL_1] and [INTERNAL_TOOL_2]. This effort significantly reduced configs push ecosystem fragmentation (~10 mechanisms closed/migrated, ~8 in progress), improved production principle compliance, and enhanced company-wide reliability. We exited Code Green on March 11, 2025."
+"[TEAM_NAME] helped drive the Configs Data Push Code Green, accelerating convergence of configuration and data push mechanisms across the organization to CDPush and Conductor. This effort significantly reduced configs push ecosystem fragmentation (~10 mechanisms closed/migrated, ~8 in progress), improved production principle compliance, and enhanced organization-wide reliability. We exited Code Green on March 11, 2025."
 
 WHY THIS WORKS:
 - "Accelerating convergence" is vague — what does that mean in practice?
@@ -872,9 +876,9 @@ WHY THIS WORKS:
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * v1.3 CHANGE 3: Added site/website/[INTERNAL_DOCS] auto-escalation trigger
+ * v1.3 CHANGE 3: Added site/website/g3doc auto-escalation trigger
  */
-const TRIAGE_PROMPT = `You are the [ORG_NAME] Internal Comms Triage Agent. Your job is to classify incoming communications requests and route them appropriately.
+const TRIAGE_PROMPT = `You are the [TEAM_NAME] Internal Comms Triage Agent. Your job is to classify incoming communications requests and route them appropriately.
 
 ## YOUR ROLE
 
@@ -889,44 +893,44 @@ These rules OVERRIDE all other classification logic:
 
 | Trigger | Classification | Routing |
 |---------|---------------|---------|
-| "[VP_NAME]" or "[VP_NAME_LAST]" appears ANYWHERE in the request | HIGH TOUCH | escalation_agent |
-| Audience is EXTERNAL to [ORG_NAME] (other PAs, Core teams not in [ORG_NAME], external partners) | HIGH TOUCH | escalation_agent |
-| "external", "outside [ORG_NAME]", "cross-PA" appears in scope | HIGH TOUCH | escalation_agent |
-| "website", "site", "[INTERNAL_DOCS]", "web page", "landing page" in request type or summary | MEDIUM TOUCH minimum | escalation_agent |
+| "[VP_NAME]" or "[VP_LASTNAME]" appears ANYWHERE in the request | HIGH TOUCH | escalation_agent |
+| Audience is EXTERNAL to [TEAM_NAME] (other PAs, Core teams not in [TEAM_NAME], external partners) | HIGH TOUCH | escalation_agent |
+| "external", "outside the organization", "cross-PA" appears in scope | HIGH TOUCH | escalation_agent |
+| "website", "site", "g3doc", "web page", "landing page" in request type or summary | MEDIUM TOUCH minimum | escalation_agent |
 
-## [ORG_NAME] LEADERSHIP — NEVER ESCALATE
+## [TEAM_NAME] LEADERSHIP — NEVER ESCALATE
 
-CRITICAL: [ORG_NAME] has its own leadership team. Communications TO or FROM [ORG_NAME] leadership are INTERNAL and should be LOW TOUCH.
+CRITICAL: [TEAM_NAME] has its own leadership team. Communications TO or FROM [TEAM_NAME] leadership are INTERNAL and should be LOW TOUCH.
 
-[ORG_NAME] Leadership includes (but is not limited to):
-- [EXEC_NAME] (Chief of Product) — INTERNAL, do not escalate
+[TEAM_NAME] Leadership includes (but is not limited to):
+- [EXEC_NAME_1] (Chief of Product) — INTERNAL, do not escalate
 - [ESCALATION_OWNER] — INTERNAL, do not escalate
-- Any Director, VP, or senior leader WITHIN [ORG_NAME] — INTERNAL, do not escalate
-- "[ORG_NAME] Leadership" as an audience — INTERNAL, do not escalate
+- Any Director, VP, or senior leader WITHIN [TEAM_NAME] — INTERNAL, do not escalate
+- "[TEAM_NAME] Leadership" as an audience — INTERNAL, do not escalate
 
-The ONLY [ORG_NAME] leader who triggers escalation is [VP_NAME] (the [VP_NAME] Rule).
+The ONLY [TEAM_NAME] leader who triggers escalation is [VP_NAME] (the [VP_NAME] Rule).
 
-DO NOT escalate just because someone has "Director" or "VP" in their title if they are part of [ORG_NAME].
+DO NOT escalate just because someone has "Director" or "VP" in their title if they are part of [TEAM_NAME].
 DO NOT infer titles from names — trust the Primary Audience field.
 
 ## WHEN TO ESCALATE FOR VP/DIRECTOR
 
 ONLY escalate for VP/Director if:
 - The audience field explicitly says "VP" or "Director" AND
-- The context makes clear this is OUTSIDE [ORG_NAME] (e.g., "Core VP", "Cloud Director", "PA leadership")
+- The context makes clear this is OUTSIDE [TEAM_NAME] (e.g., "Core VP", "Cloud Director", "PA leadership")
 
-If Primary Audience is "[ORG_NAME] Leadership" → LOW TOUCH (not escalation)
+If Primary Audience is "[TEAM_NAME] Leadership" → LOW TOUCH (not escalation)
 
-## INTERNAL [ORG_NAME] AUDIENCES — NEVER ESCALATE FOR AUDIENCE ALONE
+## INTERNAL [TEAM_NAME] AUDIENCES — NEVER ESCALATE FOR AUDIENCE ALONE
 
 These audiences are INTERNAL and should be LOW TOUCH unless other factors ([VP_NAME], site content, strategy request) apply:
-- "[ORG_NAME] Leadership" — internal leadership team
-- "[ORG_NAME] teams" — internal teams
-- "Multiple teams within [ORG_NAME]" — still internal
+- "[TEAM_NAME] Leadership" — internal leadership team
+- "[TEAM_NAME] teams" — internal teams
+- "Multiple teams within [TEAM_NAME]" — still internal
 - "In-House Engineering" — internal
 - "STSO" — internal
-- "Domain Stewards" — internal [ORG_NAME] program participants
-- Any audience clearly within [ORG_NAME] organization
+- "Domain Stewards" — internal [TEAM_NAME] program participants
+- Any audience clearly within [TEAM_NAME] organization
 
 If ANY absolute trigger is detected, classify at that level or higher immediately.
 
@@ -935,13 +939,13 @@ If ANY absolute trigger is detected, classify at that level or higher immediatel
 ### LOW TOUCH (routing: "revision_agent")
 ALL of these must be true:
 - Request type is "Quick Review" or similar edit/review request
-- Audience is INTERNAL to [ORG_NAME] ([ORG_NAME] Leadership, [ORG_NAME] teams, Domain Stewards, etc.)
+- Audience is INTERNAL to [TEAM_NAME] ([TEAM_NAME] Leadership, [TEAM_NAME] teams, Domain Stewards, etc.)
 - "[VP_NAME]" does NOT appear anywhere in the request
 - NOT a mandate or governance communication
 - NOT asking for strategy, consultation, or playbook creation
 - Timeline is flexible (not urgent/emergency)
 - Draft or content is provided (in draft_link OR additional_notes)
-- NOT related to website/site/[INTERNAL_DOCS] content
+- NOT related to website/site/g3doc content
 
 If ALL conditions are met → LOW TOUCH → revision_agent
 
@@ -952,17 +956,17 @@ ANY of these:
 - Communication plan or playbook needed
 - Mandate or governance communication
 - No draft provided but content creation expected
-- Website/site/[INTERNAL_DOCS] content (requires IA/structural decisions)
-- Audience is cross-org but NOT external to the company
+- Website/site/g3doc content (requires IA/structural decisions)
+- Audience is cross-org but NOT external to the organization
 
 ### HIGH TOUCH (routing: "escalation_agent")
 ANY of these:
-- ABSOLUTE TRIGGERS ([VP_NAME], external audience, outside [ORG_NAME])
-- Audience is EXTERNAL to [ORG_NAME] (other PAs, outside leadership, external partners)
-- Org-wide announcement outside [ORG_NAME]
+- ABSOLUTE TRIGGERS ([VP_NAME], external audience, outside [TEAM_NAME])
+- Audience is EXTERNAL to [TEAM_NAME] (other PAs, outside leadership, external partners)
+- Org-wide announcement outside [TEAM_NAME]
 - Sensitive topic (reorg, performance, layoffs)
 - Urgent + high-stakes combination
-- Executive communications to audiences OUTSIDE [ORG_NAME]
+- Executive communications to audiences OUTSIDE [TEAM_NAME]
 
 ## CONFIDENCE SCORING
 - HIGH (85-100%): Clear classification, signals align
@@ -1000,11 +1004,11 @@ Return ONLY valid JSON:
 /**
  * v1.4 REVISION_PROMPT - Fixed Smart Brevity mentions, HTML/plain text separation, word count
  */
-const REVISION_PROMPT = `You are the [ORG_NAME] Internal Comms revision engine.
+const REVISION_PROMPT = `You are the [TEAM_NAME] Internal Comms revision engine.
 
 ## INTERFACE
-- Output is sent via [TEAM_EMAIL_PREFIX]@ email alias
-- Users see emails from "[ORG_NAME] Communications" — NOT from an AI agent
+- Output is sent via [TEAM_NAME]-stratops@ email alias
+- Users see emails from "[TEAM_NAME] Communications" — NOT from an AI agent
 
 ## NORTH STAR
 Every revision must increase the likelihood the audience will READ it AND ACT on it.
@@ -1043,26 +1047,26 @@ Apply SENIOR TECHNICAL IC rules:
 - INCLUDE "so what" / implications
 - KEEP structure scannable
 
-### IF AUDIENCE CONTAINS: "[VP_NAME]" or "[VP_NAME_LAST]"
+### IF AUDIENCE CONTAINS: "[VP_NAME]" or "[VP_LASTNAME]"
 STOP — Return routing_error. [VP_NAME] communications require human review.
 
-### [ORG_NAME] LEADERSHIP — DO NOT ESCALATE
-"[ORG_NAME] Leadership" is INTERNAL. Do not return routing_error for:
-- [EXEC_NAME] (Chief of Product) — [ORG_NAME] internal
-- Any [ORG_NAME] Director or VP — [ORG_NAME] internal
-- "[ORG_NAME] Leadership" as audience — [ORG_NAME] internal
+### [TEAM_NAME] LEADERSHIP — DO NOT ESCALATE
+"[TEAM_NAME] Leadership" is INTERNAL. Do not return routing_error for:
+- [EXEC_NAME_1] (Chief of Product) — [TEAM_NAME] internal
+- Any [TEAM_NAME] Director or VP — [TEAM_NAME] internal
+- "[TEAM_NAME] Leadership" as audience — [TEAM_NAME] internal
 
-Only escalate for VP/Director if explicitly OUTSIDE [ORG_NAME] (e.g., "Core VP", "Cloud Director").
+Only escalate for VP/Director if explicitly OUTSIDE [TEAM_NAME] (e.g., "Core VP", "Cloud Director").
 
-### IF AUDIENCE CONTAINS: "cross-org", "outside [ORG_NAME]", "partner teams", "Core"
+### IF AUDIENCE CONTAINS: "cross-org", "outside [TEAM_NAME]", "partner teams", "Core"
 Apply CROSS-ORG rules:
-- EXPLAIN [ORG_NAME]-specific terminology
+- EXPLAIN [TEAM_NAME]-specific terminology
 - LEAD with their benefit
 - ADD context they may not have
 - CLARIFY ownership
 
-### IF AUDIENCE CONTAINS: "[ORG_NAME]", "team", "engineers", or no specific indicators
-Apply GENERAL [ORG_NAME] TEAM rules:
+### IF AUDIENCE CONTAINS: "[TEAM_NAME]", "team", "engineers", or no specific indicators
+Apply GENERAL [TEAM_NAME] TEAM rules:
 - ENSURE subject line indicates action needed
 - ADD TL;DR for anything over 100 words
 - USE links instead of inline details
@@ -1072,20 +1076,20 @@ Apply GENERAL [ORG_NAME] TEAM rules:
 ### Never Hallucinate
 - NEVER invent meeting names, channel names, dates, processes
 - Use placeholders: [DATE], [CHANNEL], [LINK], [CONTACT]
-- This organization uses GChat and Gmail — NOT Slack
+- The organization uses enterprise chat and Gmail — NOT Slack
 
 ### [VP_NAME] Rule (ABSOLUTE)
-- If "[VP_NAME]" or "[VP_NAME_LAST]" appears ANYWHERE, return routing_error
+- If "[VP_NAME]" or "[VP_LASTNAME]" appears ANYWHERE, return routing_error
 
-### [ORG_NAME] LEADERSHIP — DO NOT ESCALATE
-[ORG_NAME] has its own internal leadership. These are NOT external VP/Directors:
-- "[ORG_NAME] Leadership" as audience — INTERNAL, proceed with revision
-- [EXEC_NAME] — INTERNAL, proceed with revision
-- Any Director or VP within [ORG_NAME] — INTERNAL, proceed with revision
+### [TEAM_NAME] LEADERSHIP — DO NOT ESCALATE
+[TEAM_NAME] has its own internal leadership. These are NOT external VP/Directors:
+- "[TEAM_NAME] Leadership" as audience — INTERNAL, proceed with revision
+- [EXEC_NAME_1] — INTERNAL, proceed with revision
+- Any Director or VP within [TEAM_NAME] — INTERNAL, proceed with revision
 
-Only return routing_error for VP/Director if they are OUTSIDE [ORG_NAME] (e.g., "Core VP", "Cloud Director", "PA leadership outside [ORG_NAME]").
+Only return routing_error for VP/Director if they are OUTSIDE [TEAM_NAME] (e.g., "Core VP", "Cloud Director", "PA leadership outside [TEAM_NAME]").
 
-If Primary Audience is "[ORG_NAME] Leadership" → PROCEED with revision, do NOT return routing_error.
+If Primary Audience is "[TEAM_NAME] Leadership" → PROCEED with revision, do NOT return routing_error.
 
 ### FORBIDDEN WORDS (ABSOLUTE - NEVER USE THESE ANYWHERE IN OUTPUT)
 - "Smart Brevity"
@@ -1139,14 +1143,14 @@ If no clear action exists in the original, use: "No action needed — for your a
 - Cut background audience already knows
 - Kill marketing language ("excited to announce", "thrilled")
 - NEVER use "Go Deeper" as a heading or label — use "More Details", "Additional Context", or "Learn More" instead
-- Add "[ORG_NAME]" attribution where deserved
+- Add "[TEAM_NAME]" attribution where deserved
 - REMOVE salutation, replace with: [SALUTATION — Add your greeting]
 - REMOVE closing, replace with: [CLOSING — Add your sign-off]
 
 ## OUTPUT FORMAT RULES
 
 ### email_draft_doc.body (PLAIN TEXT ONLY)
-- NO HTML tags — this goes into a Google Doc
+- NO HTML tags — this goes into a document
 - Use actual line breaks (newlines)
 - Use "• " (bullet character) for bullet points
 - Do NOT include salutation/closing placeholders — template adds those
@@ -1173,11 +1177,6 @@ Each item must have:
 BAD example: "Restructured to follow best practices for clarity"
 GOOD example: "Removed 'I hope this email finds you well' — saves reader 2 seconds, gets to the point immediately"
 
-### word_count calculation
-- word_count_original: Count words in the ORIGINAL draft submitted by user
-- word_count_revised: Count words in YOUR revised version
-- If revised > original, that's okay — say "added structure" not "reduction"
-
 ## NOTIFICATION EMAIL FORMAT
 
 Generate a SHORT notification email. No summary of changes - the document has that.
@@ -1190,7 +1189,7 @@ Your draft for "<strong>[subject]</strong>" is ready for review.<br><br>
 2. Fill in [brackets]<br>
 3. Send when ready<br><br>
 Questions? Reply to this email.<br><br>
-— [ORG_NAME] Communications
+— [TEAM_NAME] Communications
 
 RULES:
 - NO summary of changes in email (document has full rationale)
@@ -1203,7 +1202,7 @@ RULES:
 {
   "status": "success" | "routing_error",
   "routing_error_message": "Only if status is routing_error",
-  "detected_audience_type": "senior_technical_ic" | "cross_org" | "general_xge" | "vp_director_requires_escalation",
+  "detected_audience_type": "senior_technical_ic" | "cross_org" | "general_[TEAM_NAME]" | "vp_director_requires_escalation",
   "notification_email": {
     "subject": "Your revised draft is ready: [subject from request]",
     "body": "HTML formatted per template above"
@@ -1220,8 +1219,7 @@ RULES:
   }
 }`;
 
-
-const ESCALATION_PROMPT = `You are the [ORG_NAME] Internal Comms escalation formatter.
+const ESCALATION_PROMPT = `You are the [TEAM_NAME] Internal Comms escalation formatter.
 
 ## YOUR ROLE
 Format brief escalation summaries for [ESCALATION_OWNER]. Keep Chat messages SHORT — details live in the sheet.
@@ -1232,7 +1230,7 @@ You will receive knowledge base documents for context. Only reference documents 
 - ICM docs → only for ICM/change management requests
 - Stacks/CMP/ROI docs → only for those specific programs
 - Domains docs → only for Domains requests
-- [ORG_NAME]-wide docs (Comms Guide, How We Work, onboarding) → reference for ANY request
+- [TEAM_NAME]-wide docs (Comms Guide, How We Work, onboarding) → reference for ANY request
 -Do NOT reference internal document names, file titles, or agent terminology (e.g., "TRIAGE_CRITERIA", "Smart Brevity framework", "High Touch definition") in your output. Apply the insights from those documents but never cite them by name. Write as if you inherently know the information.
 
 Do NOT cross-reference program-specific docs when the request is about a different program.
@@ -1240,13 +1238,12 @@ Do NOT cross-reference program-specific docs when the request is about a differe
 ## KNOWLEDGE BASE — AUDIENCE PROFILES
 ${AUDIENCE_PROFILES_KB}
 
-## AUDIENCE TYPE DETECTION
-Based on the request's target_audience field:
-- If "[ORG_NAME] Leadership", "VP", "Director", "exec" → audience_type: "Executive Leadership"
-- If "L8", "L9", "principal", "distinguished", "fellow", "PE", "DE" → audience_type: "Senior Technical ICs"
-- If "cross-org", "partner", "external" → audience_type: "Cross-Org Partners"
-- If "Domain Stewards", specific group name → audience_type: "[Group Name]"
-- Otherwise → audience_type: "General [ORG_NAME] Team"
+## AUDIENCE TYPE
+The requester selected this audience type from a dropdown: {{AUDIENCE_TYPE}}
+Additional audience details (free text): {{TARGET_AUDIENCE}}
+
+Use the dropdown value as the PRIMARY audience signal for your classification.
+Use the free text for names, mailing lists, and additional context.
 
 ## OUTPUT
 1. Chat Space message for [ESCALATION_OWNER] (BRIEF)
@@ -1255,7 +1252,7 @@ Based on the request's target_audience field:
 
 ## CHAT SPACE FORMATS
 
-Use SINGLE asterisks for bold (Google Chat format).
+Use SINGLE asterisks for bold (enterprise chat format).
 
 Medium Touch:
 🟡 *MEDIUM TOUCH*
@@ -1284,7 +1281,7 @@ IMPORTANT: Keep Chat messages under 5 lines. No bullet lists. No "recommended ap
   "chat_space_message": "Brief formatted message per templates above",
   "sheet_status": "Escalated - Medium" | "Escalated - High",
   "requester_email": {
-    "subject": "Your [ORG_NAME] Comms request has been received",
+    "subject": "Your [TEAM_NAME] Comms request has been received",
     "body": "Professional email confirming receipt and escalation. Use requester's subject, NOT row number."
   },
 "recommended_approach": "PLAIN TEXT ONLY — no markdown, no asterisks, no bullet symbols. Use numbered lists with line breaks. Specific to THIS request — only reference KB docs relevant to the request type.",
@@ -1309,7 +1306,7 @@ function onFormSubmit(e) {
     Logger.log('Row: ' + rowNumber);
 
     // IMMEDIATE HIGH TOUCH CHECK for [VP_NAME]
-    if (formData.vp_involved && formData.vp_involved.toLowerCase().includes('yes')) {
+    if (formData.exec_involved && formData.exec_involved.toLowerCase().includes('yes')) {
       Logger.log('[VP_NAME] is involved, escalating to HIGH TOUCH immediately.');
       const highTouchTriageResult = {
         touch_level: "high",
@@ -1333,7 +1330,7 @@ function onFormSubmit(e) {
       return;
     }
 
-    // v1.3 CHANGE 3: IMMEDIATE MEDIUM TOUCH CHECK for site/website/[INTERNAL_DOCS]
+    // v1.3 CHANGE 3: IMMEDIATE MEDIUM TOUCH CHECK for site/website/g3doc
     if (isSiteRelatedRequest(formData)) {
       Logger.log('Site-related request detected, escalating to MEDIUM TOUCH minimum.');
       const mediumTouchTriageResult = {
@@ -1343,9 +1340,9 @@ function onFormSubmit(e) {
         needs_human_review: false,
         routing: "escalation_agent",
         classification_reasoning: {
-          primary_factors: ["Site/website/[INTERNAL_DOCS] content requires human review for IA decisions"],
+          primary_factors: ["Site/website/g3doc content requires human review for IA decisions"],
           escalation_triggers: ["Site-Related Content Rule"],
-          signals_detected: { low: [], medium: ["Website/[INTERNAL_DOCS] content"], high: [] }
+          signals_detected: { low: [], medium: ["Website/g3doc content"], high: [] }
         },
         request_summary: formData.subject || "Site-related request",
         audience: formData.target_audience,
@@ -1385,18 +1382,19 @@ updateMetricsTab();
  * v1.3 CHANGE 3: Helper function to detect site-related requests
  */
 function isSiteRelatedRequest(formData) {
+  // ONLY check request_type and summary (what they're ASKING for)
+  // DO NOT check additional_notes/draft content (what they WROTE)
   const checkFields = [
     formData.request_type || '',
-    formData.subject || '',
-    formData.summary || '',
-    formData.additional_notes || ''
+    formData.summary || ''
   ].join(' ').toLowerCase();
   
   const siteKeywords = [
-    'website', 'site', '[INTERNAL_DOCS]', '[INTERNAL_DOCS]', 'web page', 'webpage', 
-    'landing page', 'internal site', 'mini site', 'minisite',
-    '[INTERNAL_URL]', 'goto link', 'go-link', 'golink'
+    'website', 'site', 'g3doc', 'g3docs', 'web page', 'webpage',
+    'landing page', 'internal site', 'mini site', 'minisite'
   ];
+  
+  // Removed '[INTERNAL_LINK]', 'goto link', 'go-link', 'golink' - too broad, caused false positives
   
   return siteKeywords.some(keyword => checkFields.includes(keyword));
 }
@@ -1414,13 +1412,14 @@ function parseFormResponse(e) {
     timestamp: e.values ? e.values[0] : new Date().toISOString(),
     requester_email: responses['Email Address'] ? responses['Email Address'][0] : '',
     requester_name: '',
-    team: responses['Your Team/[ORG_NAME] Workstream:'] ? responses['Your Team/[ORG_NAME] Workstream:'][0] : '',
+    team: responses['Your Team/[TEAM_NAME] Workstream:'] ? responses['Your Team/[TEAM_NAME] Workstream:'][0] : '',
 request_type: responses['Type of Request:'] ? responses['Type of Request:'][0] : (responses['Type of Request: '] ? responses['Type of Request: '][0] : ''),
     content_status: responses['Content Status'] ? responses['Content Status'][0] : '',
     subject: responses['Subject or Title of Communication'] ? responses['Subject or Title of Communication'][0] : '',
     summary: responses['What are you communicating, and what should the audience do?'] ? responses['What are you communicating, and what should the audience do?'][0] : '',
-    target_audience: responses['Primary Audience'] ? responses['Primary Audience'][0] : '',
-    vp_involved: responses['Is [VP_NAME] involved?'] ? responses['Is [VP_NAME] involved?'][0] : '',
+    target_audience: responses['Audience Details'] ? responses['Audience Details'][0] : (responses['Primary Audience'] ? responses['Primary Audience'][0] : ''),
+audience_type: responses['Audience Type'] ? responses['Audience Type'][0] : '',
+exec_involved: responses['Is [VP_NAME] involved?'] ? responses['Is [VP_NAME] involved?'][0] : '',
     urgency: responses['Urgency'] ? responses['Urgency'][0] : '',
     sender: responses['Who will send/distribute this communication?'] ? responses['Who will send/distribute this communication?'][0] : '',
     draft_link: responses['Link(s) to draft content, supporting docs, or images'] ? responses['Link(s) to draft content, supporting docs, or images'][0] : '',
@@ -1440,7 +1439,7 @@ request_type: responses['Type of Request:'] ? responses['Type of Request:'][0] :
  */
 function callGemini(systemPrompt, userContent, config) {
   const modelName = 'models/gemini-2.5-flash';
-  const url = `https://generativelanguage.googleapis.com/v1beta/${modelName}:generateContent?key=${config.GEMINI_API_KEY}`;
+  const url = `https://generativelanguage.[API_DOMAIN]/v1beta/${modelName}:generateContent?key=${config.GEMINI_API_KEY}`;
 
   // v1.3: Proper API structure with system_instruction separate from contents
   const payload = {
@@ -1596,11 +1595,11 @@ Your comms request has been received, but we couldn't access the draft document 
 Please check that:
 1. The document exists and hasn't been moved or deleted
 2. The sharing settings allow access (try "Anyone at the organization with the link can view")
-3. The link is a Google Doc (not a folder, sheet, or external link)
+3. The link is a document (not a folder, sheet, or external link)
 
-Your request has been escalated to our team who will follow up. You can also resubmit with an updated link at [INTERNAL_URL].
+Your request has been escalated to our team who will follow up. You can also resubmit with an updated link at [INTERNAL_LINK].
 
-— [ORG_NAME] Communications`,
+— [TEAM_NAME] Communications`,
       config
     );
     return;
@@ -1677,12 +1676,12 @@ let emailBody = revisionResult.notification_email.body.replace('{{DOC_LINK}}', d
  */
 function getContentFromDraftLink(draftLink) {
   try {
-    // Check if it's a Google Doc link
+    // Check if it's a document link
     const docIdMatch = draftLink.match(/\/d\/([a-zA-Z0-9-_]+)/);
     if (!docIdMatch) {
       return { 
         content: '', 
-        error: 'Link does not appear to be a Google Doc. Expected format: docs.google.com/document/d/...' 
+        error: 'Link does not appear to be a document. Expected format: [DOCS_URL]/document/d/...' 
       };
     }
     
@@ -1704,7 +1703,7 @@ function getContentFromDraftLink(draftLink) {
       if (errorMsg.includes('permission') || errorMsg.includes('access') || errorMsg.includes('denied')) {
         return { 
           content: '', 
-          error: 'Permission denied. Please share the document with [TEAM_EMAIL_PREFIX]@ or set to "Anyone at the organization with the link can view".' 
+          error: 'Permission denied. Please share the document with [TEAM_NAME]-stratops@ or set to "Anyone at the organization with the link can view".' 
         };
       }
       return { 
@@ -1732,7 +1731,6 @@ function getContentFromDraftLink(draftLink) {
     };
   }
 }
-
 function createEmailDraftDoc(formData, revisionResult, config) {
   const templateId = PropertiesService.getScriptProperties().getProperty('EMAIL_TEMPLATE_ID');
   
@@ -1802,7 +1800,7 @@ function handleEscalation(formData, triageResult, rowNumber, config) {
   }
   
 // 3. Ping Chat Space (with hyperlink to sheet row)
-  var sheetUrl = 'https://docs.google.com/spreadsheets/d/' + config.TRACKING_SHEET_ID + '/edit#gid=0&range=A' + rowNumber;
+  var sheetUrl = 'https://[DOCS_URL]/spreadsheets/d/' + config.TRACKING_SHEET_ID + '/edit#gid=0&range=A' + rowNumber;
   var chatMessage = escalationResult.chat_space_message.replace('{{SHEET_LINK}}', '<' + sheetUrl + '|Row ' + rowNumber + ' in sheet>');
   pingChatSpace(chatMessage, config);
   
@@ -1840,15 +1838,15 @@ function handleEscalation(formData, triageResult, rowNumber, config) {
  * PURPOSE: Optimized escalation experience for [ESCALATION_OWNER] during [OWNER_NAME]'s leave
  * 
  * NEW SCRIPT PROPERTIES REQUIRED:
- *   - MEDIUM_TOUCH_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
- *   - HIGH_TOUCH_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
- *   - HIGH_TOUCH_VP_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
+ *   - MEDIUM_TOUCH_TEMPLATE_ID: [DOC_ID]
+ *   - HIGH_TOUCH_TEMPLATE_ID: [DOC_ID]
+ *   - HIGH_TOUCH_EXEC_TEMPLATE_ID: [REDACTED_TEMPLATE_ID]
  * 
  * INSTALLATION:
  *   1. Add the three Script Properties above
  *   2. Replace the escalation section in your main script with this code
- *      (approximately lines 1794-2500 in [ORG_NAME]_comms_agent_1.5_OPTIMIZED.txt)
- *   3. Test with testMediumTouchPath(), testHighTouchPath(), testVpHighTouchPath()
+ *      (approximately lines 1794-2500 in [TEAM_NAME]_comms_agent_1.5_OPTIMIZED.txt)
+ *   3. Test with testMediumTouchPath(), testHighTouchPath(), test[VP_NAME]HighTouchPath()
  * 
  * NO NEW TRIGGERS REQUIRED — Uses existing onFormSubmit trigger
  * 
@@ -1882,97 +1880,131 @@ function styleTable(table) {
 /**
  * Returns audience profile text based on detected audience type.
  */
-function getAudienceProfileText(audienceText) {
+/**
+ * v1.6: Returns audience profile text based on dropdown + free text.
+ */
+function getAudienceProfileText(audienceText, audienceType) {
+  const type = (audienceType || '').toLowerCase();
   const audience = (audienceText || '').toLowerCase();
   
-  if (audience.includes('l8') || audience.includes('l9') || audience.includes('l10') ||
-      audience.includes('principal') || audience.includes('distinguished') ||
-      audience.includes('fellow') || audience.includes(' de ') || audience.includes(' pe ') ||
-      audience.includes('de,') || audience.includes('pe,')) {
+  var detectedType = 'general';
+  
+  if (type.includes('senior') || type.includes('l8')) {
+    detectedType = 'senior_ic';
+  } else if (type.includes('vp') || type.includes('director') || type.includes('executive')) {
+    detectedType = 'vp_director';
+  } else if (type.includes('cross') || type.includes('outside')) {
+    detectedType = 'cross_org';
+  } else if (type.includes('specific') || type.includes('individual')) {
+    detectedType = 'check_freetext';
+  } else if (type.includes('general') || type.includes('[TEAM_NAME]')) {
+    detectedType = 'general';
+  } else if (type === '') {
+    detectedType = 'check_freetext';
+  }
+  
+  // Fallback keyword matching
+  if (detectedType === 'check_freetext') {
+    if (audience.includes('l8') || audience.includes('l9') || 
+        audience.includes('principal') || audience.includes('distinguished') ||
+        audience.includes('fellow') || audience.includes(' de ') || 
+        audience.includes(' pe ') || audience.includes('senior ic') || 
+        audience.includes('senior eng') || audience.includes(' sr ')) {
+      detectedType = 'senior_ic';
+    } else if (audience.includes('vp') || audience.includes('director') ||
+               audience.includes('leadership') || audience.includes('exec')) {
+      detectedType = 'vp_director';
+    } else if (audience.includes('cross') || audience.includes('partner') ||
+               audience.includes('core') || audience.includes('outside [TEAM_NAME]')) {
+      detectedType = 'cross_org';
+    } else {
+      detectedType = 'general';
+    }
+  }
+  
+  if (detectedType === 'senior_ic') {
     return `AUDIENCE TYPE: Senior Technical ICs (L8+ Principal/Distinguished Engineers)
 
 How They Want Information:
-• Format: Written docs (Google Docs, design docs) — "Google Docs is my IDE"
-• Length: Dense but focused; comprehensive for review but not verbose
-• Detail: Technical depth appreciated, but with clear "so what"
+- Format: Written docs (documents, design docs)
+- Length: Dense but focused; comprehensive but not verbose
+- Detail: Technical depth with clear "so what"
 
 What Makes Them Engage:
-• High signal-to-noise ratio — Dense information, zero fluff
-• Long-term systemic impact — They care about 5+ year horizons
-• Technical precision — Accuracy matters; they'll spot errors
-• Clear ownership — Who decides what, and when
+- High signal-to-noise ratio
+- Long-term systemic impact
+- Technical precision
+- Clear ownership
 
-What Makes Them Ignore/Delete:
-• Corporate speak: "Learnings," "alignments," "synergies"
-• Buried asks — CTA in paragraph 4 of a wall of text
-• Over-explanation — Assuming they need everything spelled out
-• Performative closers — "Let me know if you have any questions!"
+What Makes Them Ignore:
+- Corporate speak: "Learnings," "alignments," "synergies"
+- Buried asks
+- Over-explanation
+- Performative closers
 
 Communication Do's:
-✓ Lead with the technical substance
+✓ Lead with technical substance
 ✓ Include "so what" implications
 ✓ Respect their expertise
-✓ Enable async consumption (scannable structure)`;
+✓ Enable async consumption (scannable)`;
   }
   
-  if (audience.includes('vp') || audience.includes('director') ||
-      audience.includes('leadership') || audience.includes('exec')) {
+  if (detectedType === 'vp_director') {
     return `AUDIENCE TYPE: VPs and Directors (Engineering Leadership)
 
 The BLUF Imperative:
-VPs don't read chronologically. They read:
+VPs read:
 1. What's the decision/recommendation?
 2. What are the risks?
 3. What do you need from me?
 ...then MAYBE details.
 
-Structure as:
-• Options with tradeoffs
-• Clear decision needed + deadline
-• Numbers/metrics where possible
-• One page or less
+Structure:
+- Options with tradeoffs
+- Clear decision needed + deadline
+- Numbers/metrics where possible
+- One page or less
 
 What VPs Read vs. Skip:
-✓ Read: First sentence of each section, bullet summaries, risk/impact statements, clear asks with deadlines
-✗ Skip: Chronological narratives, walls of text, background they don't need, vague requests
+✓ Read: First sentence, bullets, risks, clear asks
+✗ Skip: Chronological narratives, walls of text
 
 Communication Do's:
 ✓ Apply BLUF (recommendation + risk + ask first)
-✓ Include clear decision needed + deadline
-✓ Use numbers/metrics where possible
-✓ Keep to one page or less`;
+✓ Include clear decision + deadline
+✓ Use numbers/metrics
+✓ Keep to one page`;
   }
   
-  if (audience.includes('cross') || audience.includes('partner') || 
-      audience.includes('core') || audience.includes('outside xge')) {
+  if (detectedType === 'cross_org') {
     return `AUDIENCE TYPE: Cross-Org Partners
 
 Key Considerations:
-• No assumed context — Explain [ORG_NAME] terminology
-• Relevance first — Lead with their benefit
-• Clear ownership — Who does what
-• Minimal jargon — Spell out acronyms
+- No assumed context
+- Relevance first
+- Clear ownership
+- Minimal jargon
 
 Communication Do's:
-✓ Explain any [ORG_NAME]-specific terms
-✓ Lead with what's in it for them
-✓ Be explicit about next steps and ownership
-✓ Keep jargon to a minimum`;
+✓ Explain [TEAM_NAME]-specific terms
+✓ Lead with their benefit
+✓ Be explicit about next steps
+✓ Minimize acronyms`;
   }
   
-  return `AUDIENCE TYPE: General [ORG_NAME] Team
+  return `AUDIENCE TYPE: General [TEAM_NAME] Team
 
 Preferences:
-• Clear subject lines indicating action needed
-• TL;DR for anything over 100 words
-• Links to resources rather than inline details
-• Consistent formatting
+- Clear subject lines
+- TL;DR for 100+ words
+- Links to resources
+- Consistent formatting
 
 Communication Do's:
-✓ Put action required in subject line
+✓ Put action in subject
 ✓ Add TL;DR for longer messages
-✓ Link out to details rather than inline
-✓ Use consistent structure they recognize`;
+✓ Link to details
+✓ Use consistent structure`;
 }
 
 /**
@@ -1983,7 +2015,7 @@ function generateRecommendedApproach(formData, touchLevel) {
   const level = (touchLevel || '').toUpperCase();
   
   if (level === 'HIGH') {
-    if (formData.vp_involved && formData.vp_involved.toLowerCase().includes('yes')) {
+    if (formData.exec_involved && formData.exec_involved.toLowerCase().includes('yes')) {
       return `HIGH TOUCH APPROACH — [VP_NAME] Communications:
 1. Review request context and any draft materials
 2. Use [VP_NAME] Gem prompt (Section 5) to draft initial content
@@ -2008,7 +2040,7 @@ Estimated Timeline: 2-5 business days depending on complexity`;
 Estimated Timeline: 1-4 weeks depending on scope`;
   }
   
-  if (requestType.includes('website') || requestType.includes('site') || requestType.includes('[INTERNAL_DOCS]')) {
+  if (requestType.includes('website') || requestType.includes('site') || requestType.includes('g3doc')) {
     return `MEDIUM TOUCH APPROACH — Site/Web Content:
 1. Review existing site structure and navigation
 2. Identify where new content fits in IA
@@ -2021,7 +2053,7 @@ Estimated Timeline: 3-7 business days`;
   
   if (requestType.includes('mandate') || requestType.includes('governance') || requestType.includes('approval')) {
     return `MEDIUM TOUCH APPROACH — Mandate/Governance:
-1. Review mandate requirements against [ORG_NAME] Approvals User Guide
+1. Review mandate requirements against [TEAM_NAME] Approvals User Guide
 2. Identify required approvers and delegates
 3. Draft presentation or approval request materials
 4. Coordinate approval timeline
@@ -2122,7 +2154,7 @@ UPCOMING: [Events, deadlines, opportunities]
 CTA: [What readers should do next]`;
   }
   
-  if (requestType.includes('website') || requestType.includes('site') || requestType.includes('[INTERNAL_DOCS]')) {
+  if (requestType.includes('website') || requestType.includes('site') || requestType.includes('g3doc')) {
     return `SITE CONTENT OUTLINE:
 
 PAGE TITLE: [Clear, descriptive, action-oriented if applicable]
@@ -2198,7 +2230,7 @@ function getTemplateIds() {
   return {
     MEDIUM_TOUCH: props.getProperty('MEDIUM_TOUCH_TEMPLATE_ID'),
     HIGH_TOUCH: props.getProperty('HIGH_TOUCH_TEMPLATE_ID'),
-    HIGH_TOUCH_VP: props.getProperty('HIGH_TOUCH_VP_TEMPLATE_ID')
+    HIGH_TOUCH_EXEC: props.getProperty('HIGH_TOUCH_EXEC_TEMPLATE_ID')
   };
 }
 
@@ -2212,17 +2244,17 @@ function getTemplateIds() {
  */
 function createEscalationStarterDoc(formData, triageResult, rowNumber, config, escalationResult) {
     const touchLevel = triageResult.touch_level.toLowerCase();
-  const isVpInvolved = formData.vp_involved && 
-                          formData.vp_involved.toLowerCase().includes('yes');
+  const isExecInvolved = formData.exec_involved && 
+                          formData.exec_involved.toLowerCase().includes('yes');
   const templates = getTemplateIds();
   
   let templateId;
   let docPrefix;
   let subfolderName;
   
-  if (touchLevel === 'high' && isVpInvolved) {
-    templateId = templates.HIGH_TOUCH_VP;
-    docPrefix = '[URGENT-VP]';
+  if (touchLevel === 'high' && isExecInvolved) {
+    templateId = templates.HIGH_TOUCH_EXEC;
+    docPrefix = '[URGENT-EXEC]';
     subfolderName = 'Urgent Review';
   } else if (touchLevel === 'high') {
     templateId = templates.HIGH_TOUCH;
@@ -2269,7 +2301,7 @@ const replacements = buildReplacementMap(formData, triageResult, rowNumber, time
   
   // ── Make REQUEST_ID a hyperlink to the sheet row ──
   var requestIdText = 'ROW-' + rowNumber;
-  var sheetUrl = 'https://docs.google.com/spreadsheets/d/' + config.TRACKING_SHEET_ID + '/edit#gid=0&range=A' + rowNumber;
+  var sheetUrl = 'https://[DOCS_URL]/spreadsheets/d/' + config.TRACKING_SHEET_ID + '/edit#gid=0&range=A' + rowNumber;
   var searchResult = body.findText(requestIdText);
   if (searchResult) {
     var foundElement = searchResult.getElement();
@@ -2287,14 +2319,14 @@ const replacements = buildReplacementMap(formData, triageResult, rowNumber, time
  */
 function buildReplacementMap(formData, triageResult, rowNumber, timestamp, escalationResult) {
     const reasoning = triageResult.classification_reasoning || {};
-  const isVpInvolved = formData.vp_involved && 
-                          formData.vp_involved.toLowerCase().includes('yes');
+  const isExecInvolved = formData.exec_involved && 
+                          formData.exec_involved.toLowerCase().includes('yes');
   
   // Get medium configuration for [VP_NAME] prompts
   const mediumConfig = getMediumConfig(formData.request_type);
   
   // Detect recommended [VP_NAME] prompt
-  const recommendedPrompt = getRecommendedVpPrompt(formData);
+  const recommendedPrompt = getRecommended[VP_NAME]Prompt(formData);
 
   // Map recommended prompt to its heading anchor in the [VP_NAME] Starter Doc
   var promptAnchor = 'h.tde7bimrkxoz'; // default: Prompt 1
@@ -2325,8 +2357,7 @@ function buildReplacementMap(formData, triageResult, rowNumber, timestamp, escal
     : 'Draft Link: No draft attached — requester will need to provide source materials.';
   
   // Get audience profile
-  const audienceProfile = getAudienceProfileText(formData.target_audience);
-  
+const audienceProfile = getAudienceProfileText(formData.target_audience, formData.audience_type);  
   // Get recommended approach
 const recommendedApproach = (escalationResult && escalationResult.recommended_approach) 
     ? escalationResult.recommended_approach 
@@ -2346,8 +2377,9 @@ const recommendedApproach = (escalationResult && escalationResult.recommended_ap
     '{{TEAM}}': formData.team,
     '{{REQUEST_TYPE}}': formData.request_type,
     '{{SUBJECT}}': formData.subject,
-    '{{TARGET_AUDIENCE}}': formData.target_audience,
-    '{{URGENCY}}': formData.urgency || 'Flexible',
+   '{{TARGET_AUDIENCE}}': formData.target_audience,
+    '{{AUDIENCE_TYPE}}': formData.audience_type || 'Not specified',
+        '{{URGENCY}}': formData.urgency || 'Flexible',
     '{{HAS_DRAFT}}': formData.has_draft ? 'Yes' : 'No',
       '{{PRIMARY_FACTORS}}': primaryFactors, //
 
@@ -2366,7 +2398,7 @@ const recommendedApproach = (escalationResult && escalationResult.recommended_ap
     '{{DRAFT_OUTLINE}}': draftOutline,
     
     // [VP_NAME]-specific (for High Touch [VP_NAME] template)
-    '{{RECOMMENDED_VP_PROMPT}}': recommendedPrompt,
+    '{{RECOMMENDED_EXEC_PROMPT}}': recommendedPrompt,
     '{{COMM_TYPE}}': commType,
     '{{MEDIUM}}': mediumConfig.medium,
     '{{MEDIUM_ARTICLE}}': mediumConfig.article,
@@ -2520,13 +2552,13 @@ function getMediumConfig(requestType) {
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// [VP_NAME] PROMPT HELPERS
+// EXEC PROMPT HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
  * Returns the recommended [VP_NAME] Gem prompt based on content analysis
  */
-function getRecommendedVpPrompt(formData) {
+function getRecommended[VP_NAME]Prompt(formData) {
   const summary = formData.summary || '';
   const notes = formData.additional_notes || '';
   const audience = formData.target_audience || '';
@@ -2546,7 +2578,7 @@ function getRecommendedVpPrompt(formData) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// [VP_NAME] DETECTION HELPERS
+// EXEC DETECTION HELPERS
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -2597,7 +2629,7 @@ function detectDifficultNews(summary, notes) {
  */
 function detectUpwardComms(audience) {
   var audienceLower = (audience || '').toLowerCase();
-  var upwardIndicators = ['[EXEC_NAME_2]', '[EXEC_NAME_2_LAST]', 'svp', 'vp', 'vice president', 'senior vice', 'cto', 'ceo'];
+  var upwardIndicators = ['[svp_first]', '[svp_last]', 'svp', 'vp', 'vice president', 'senior vice', 'cto', 'ceo'];
   return upwardIndicators.some(function(indicator) { return audienceLower.includes(indicator); });
 }
 
@@ -2637,7 +2669,7 @@ function detectCommType(requestType, summary) {
  *   3. Fixed Prompt 2 MEDIUM/VOICE_NOTE line formatting
  *   4. Three email variants: Medium, High, High+[VP_NAME]
  * 
- * REPLACES: sendEscalationEmail(), buildVpGemEmailSection(), buildRecommendedActions(),
+ * REPLACES: sendEscalationEmail(), build[VP_NAME]GemEmailSection(), buildRecommendedActions(),
  *           buildMeetingInviteTemplate(), detectDifficultNews()
  * 
  * KEEPS UNCHANGED: Everything else from v2.0 (template creation, helpers, etc.)
@@ -2662,19 +2694,19 @@ function sendEscalationEmail(formData, triageResult, rowNumber, starterDocUrl, c
   }
   
   const touchLevel = triageResult.touch_level.toUpperCase();
-  const isVpInvolved = formData.vp_involved && 
-                          formData.vp_involved.toLowerCase().includes('yes');
+  const isExecInvolved = formData.exec_involved && 
+                          formData.exec_involved.toLowerCase().includes('yes');
   
   // Subject line
   const subjectPrefix = touchLevel === 'HIGH' ? '[HIGH TOUCH]' : '[MEDIUM TOUCH]';
-  const vpFlag = isVpInvolved ? ' [VP]' : '';
+  const execFlag = isExecInvolved ? ' [EXEC]' : '';
   const subjectContent = formData.subject || formData.request_type || 'New Request';
-  const subject = `${subjectPrefix}${vpFlag} ${subjectContent} - ${formData.team || 'Unknown Team'}`;
+  const subject = `${subjectPrefix}${execFlag} ${subjectContent} - ${formData.team || 'Unknown Team'}`;
   
   // Build the right email body
   let body;
-  if (isVpInvolved) {
-    body = buildVpEmail(formData, triageResult, rowNumber, starterDocUrl, config);
+  if (isExecInvolved) {
+    body = build[VP_NAME]Email(formData, triageResult, rowNumber, starterDocUrl, config);
   } else if (touchLevel === 'HIGH') {
     body = buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, config);
   } else {
@@ -2687,7 +2719,7 @@ function sendEscalationEmail(formData, triageResult, rowNumber, starterDocUrl, c
       subject,
       '',
       {
-        name: config.SENDER_NAME || '[ORG_NAME] Communications',
+        name: config.SENDER_NAME || '[TEAM_NAME] Communications',
         replyTo: formData.requester_email || config.REPLY_TO,
         htmlBody: body
       }
@@ -2712,7 +2744,7 @@ function buildMediumTouchEmail(formData, triageResult, rowNumber, starterDocUrl,
   const draftStatus = formData.has_draft ? 'Draft provided' : 'No draft — content creation needed';
   
   return `
-<div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
+<div style="font-family: [ORG_FONT], Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #e8f0fe; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
     <strong style="font-size: 15px;">MEDIUM TOUCH — Strategy & Consultation</strong>
@@ -2741,7 +2773,7 @@ function buildMediumTouchEmail(formData, triageResult, rowNumber, starterDocUrl,
 
   <p style="font-size: 12px; color: #5f6368; margin-top: 16px;">
     <a href="${starterDocUrl}">Starter Doc</a> · 
-    <a href="https://docs.google.com/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
+    <a href="https://[DOCS_URL]/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
     <br>Reply to this email to contact ${requesterName} directly.
   </p>
 
@@ -2759,7 +2791,7 @@ function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, c
   const whyEscalated = (triageResult.classification_reasoning?.primary_factors || ['High-stakes communication']).join(', ');
   
   return `
-<div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
+<div style="font-family: [ORG_FONT], Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #fce8e6; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
     <strong style="font-size: 15px;">HIGH TOUCH — Full Partnership Required</strong>
@@ -2789,7 +2821,7 @@ function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, c
 
   <p style="font-size: 12px; color: #5f6368; margin-top: 16px;">
     <a href="${starterDocUrl}">Starter Doc</a> · 
-    <a href="https://docs.google.com/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
+    <a href="https://[DOCS_URL]/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
     <br>Reply to this email to contact ${requesterName} directly.
   </p>
 
@@ -2800,11 +2832,11 @@ function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, c
 /**
  * High Touch [VP_NAME] email — executive comms protocols
  */
-function buildVpEmail(formData, triageResult, rowNumber, starterDocUrl, config) {
+function build[VP_NAME]Email(formData, triageResult, rowNumber, starterDocUrl, config) {
   const requesterName = (formData.requester_email || '').split('@')[0] || 'Requester';
   const deadline = formData.urgency || 'Flexible';
   const mediumConfig = getMediumConfig(formData.request_type);
-const recommendedPrompt = getRecommendedVpPrompt(formData);
+const recommendedPrompt = getRecommended[VP_NAME]Prompt(formData);
   
   // Map recommended prompt to its heading anchor in the [VP_NAME] Starter Doc
   var promptAnchor = 'h.tde7bimrkxoz'; // default: Prompt 1
@@ -2814,10 +2846,10 @@ const recommendedPrompt = getRecommendedVpPrompt(formData);
     promptAnchor = 'h.v8w2fwfcr7rt';
   }  
   return `
-<div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
+<div style="font-family: [ORG_FONT], Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #fce8e6; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
-    <strong style="font-size: 15px;">HIGH TOUCH — [VP_NAME] INVOLVED</strong>
+    <strong style="font-size: 15px;">HIGH TOUCH — EXECUTIVE INVOLVED</strong>
   </div>
 
   <p><strong>${formData.subject || 'New Request'}</strong></p>
@@ -2849,7 +2881,7 @@ const recommendedPrompt = getRecommendedVpPrompt(formData);
 
   <p style="font-size: 12px; color: #5f6368; margin-top: 16px;">
     <a href="${starterDocUrl}">Starter Doc</a> · 
-    <a href="https://docs.google.com/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
+    <a href="https://[DOCS_URL]/spreadsheets/d/${config.TRACKING_SHEET_ID}/edit#gid=0&range=A${rowNumber}">Sheet Row ${rowNumber}</a>${formData.draft_link ? ' · <a href="' + formData.draft_link + '">Their Draft</a>' : ''}
     <br>Reply to this email to contact ${requesterName} directly.
   </p>
 
@@ -2921,14 +2953,14 @@ function testMediumTouchTemplateV2() {
   const config = getConfig();
   
   const testFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
+    requester_email: 'testuser@[ORG_DOMAIN]',
     team: 'Domains',
     request_type: 'Strategy Consultation',
     content_status: 'Nothing yet - need content created',
     subject: 'Comms strategy for new Domain engagement model',
     summary: 'We need help developing a communications strategy for our updated Domain engagement model launching in Q2.',
     target_audience: 'Domain Stewards, Exec Sponsors',
-    vp_involved: 'No',
+    exec_involved: 'No',
     urgency: 'Within 2 weeks',
     has_draft: false
   };
@@ -2960,17 +2992,17 @@ function testHighTouchTemplateV2() {
   const config = getConfig();
   
   const testFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
+    requester_email: 'testuser@[ORG_DOMAIN]',
     team: 'Core PMO',
     request_type: 'Executive Comms',
     content_status: 'Draft ready for review',
     subject: 'Core org restructure announcement',
     summary: 'We need to announce the org restructure to all of Core and communicate changes to partner teams.',
     target_audience: 'Core Engineering (1000+), Partner PAs',
-    vp_involved: 'No',
+    exec_involved: 'No',
     urgency: 'Within 1 week',
     has_draft: true,
-    draft_link: 'https://docs.google.com/document/d/example'
+    draft_link: 'https://[DOCS_URL]/document/d/example'
   };
   
   const testTriageResult = {
@@ -2995,18 +3027,18 @@ function testHighTouchTemplateV2() {
 /**
  * Test High Touch [VP_NAME] path with new templates
  */
-function testVpHighTouchTemplateV2() {
+function test[VP_NAME]HighTouchTemplateV2() {
   const config = getConfig();
   
   const testFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
-    team: '[ORG_NAME] StratOps',
+    requester_email: 'testuser@[ORG_DOMAIN]',
+    team: '[TEAM_NAME] StratOps',
     request_type: 'Email Announcement',
     content_status: 'Outline/rough notes only',
-    subject: 'Q1 [ORG_NAME] Exchange - [VP_NAME] opening remarks',
-    summary: 'Need to draft [VP_NAME]\'s opening remarks for the Q1 [ORG_NAME] Exchange. Should cover 2025 priorities, acknowledge team efforts, and introduce the agenda.',
-    target_audience: '[ORG_NAME] Organization (all hands)',
-    vp_involved: 'Yes - sent by [VP_NAME]',
+    subject: 'Q1 [TEAM_NAME] Exchange - [VP_NAME] opening remarks',
+    summary: 'Need to draft [VP_NAME]\'s opening remarks for the Q1 [TEAM_NAME] Exchange. Should cover 2025 priorities, acknowledge team efforts, and introduce the agenda.',
+    target_audience: '[TEAM_NAME] Organization (all hands)',
+    exec_involved: 'Yes - sent by [VP_NAME]',
     urgency: 'Within 2-3 days',
     has_draft: false
   };
@@ -3015,7 +3047,7 @@ function testVpHighTouchTemplateV2() {
     touch_level: 'high',
     confidence: 100,
     confidence_label: 'high',
-    request_summary: 'Draft [VP_NAME]\'s opening remarks for Q1 [ORG_NAME] Exchange',
+    request_summary: 'Draft [VP_NAME]\'s opening remarks for Q1 [TEAM_NAME] Exchange',
     classification_reasoning: {
       primary_factors: ['[VP_NAME] involvement'],
       escalation_triggers: ['ABSOLUTE RULE: [VP_NAME] involvement']
@@ -3037,14 +3069,14 @@ function testAntiSpinDetection() {
   const config = getConfig();
   
   const testFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
-    team: '[ORG_NAME] Programs',
+    requester_email: 'testuser@[ORG_DOMAIN]',
+    team: '[TEAM_NAME] Programs',
     request_type: 'Email Announcement',
     content_status: 'Outline/rough notes only',
     subject: 'Project Apex timeline update',
     summary: 'We need to inform the team that Project Apex will be delayed by one quarter. The badging data integration isn\'t ready and we can\'t ship in its current state.',
-    target_audience: '[ORG_NAME] Organization',
-    vp_involved: 'Yes - sent by [VP_NAME]',
+    target_audience: '[TEAM_NAME] Organization',
+    exec_involved: 'Yes - sent by [VP_NAME]',
     urgency: 'Within 2-3 days',
     has_draft: false
   };
@@ -3075,14 +3107,14 @@ function testUpwardCommsDetection() {
   const config = getConfig();
   
   const testFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
-    team: '[ORG_NAME]',
+    requester_email: 'testuser@[ORG_DOMAIN]',
+    team: '[TEAM_NAME]',
     request_type: 'Email',
     content_status: 'Outline/rough notes only',
     subject: 'Flag: Unstaffed products process for Core',
-    summary: 'Need to draft an email from [VP_NAME] to [EXEC_NAME_2] flagging the new unstaffed products process we want to roll out to Core Directors.',
-    target_audience: '[EXEC_NAME_2] (SVP)',
-    vp_involved: 'Yes - sent by [VP_NAME]',
+    summary: 'Need to draft an email from [VP_NAME] to [SVP_NAME] flagging the new unstaffed products process we want to roll out to Core Directors.',
+    target_audience: '[SVP_NAME] (SVP)',
+    exec_involved: 'Yes - sent by [VP_NAME]',
     urgency: 'Within 1 week',
     has_draft: false
   };
@@ -3091,7 +3123,7 @@ function testUpwardCommsDetection() {
     touch_level: 'high',
     confidence: 100,
     confidence_label: 'high',
-    request_summary: 'Email from [VP_NAME] to [EXEC_NAME_2] about unstaffed products process',
+    request_summary: 'Email from [VP_NAME] to Jen about unstaffed products process',
     classification_reasoning: {
       primary_factors: ['[VP_NAME] involvement', 'SVP audience'],
       escalation_triggers: ['ABSOLUTE RULE: [VP_NAME] involvement', 'Senior leadership audience']
@@ -3322,7 +3354,7 @@ function sendFridayDigest() {
 
   const automationRate = stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0;
 
-  const digest = `📊 **[ORG_NAME] Comms Agent — Weekly Digest**
+  const digest = `📊 **[TEAM_NAME] Comms Agent — Weekly Digest**
 *Week ending ${now.toISOString().slice(0, 10)}*
 
 **Volume:**
@@ -3358,7 +3390,7 @@ function checkForBypassEmails() {
 
   threads.forEach(thread => {
     const msg = thread.getMessages()[0];
-    pingChatSpace(`🚨 **BYPASS ALERT**\n\n**From:** ${msg.getFrom()}\n**Subject:** ${msg.getSubject()}\n\nSomeone emailed ${config.REPLY_TO} directly. Redirect to [INTERNAL_URL]`, config);
+    pingChatSpace(`🚨 **BYPASS ALERT**\n\n**From:** ${msg.getFrom()}\n**Subject:** ${msg.getSubject()}\n\nSomeone emailed ${config.REPLY_TO} directly. Redirect to [INTERNAL_LINK]`, config);
     thread.addLabel(label);
   });
 }
@@ -3394,13 +3426,13 @@ function testLowTouchPath() {
   const mockEvent = {
     values: [new Date().toISOString()],
     namedValues: {
-      'Email Address': ['[EMAIL_ADDRESS]'],
-      'Your Team/[ORG_NAME] Workstream:': ['Test Team'],
+      'Email Address': ['test@[ORG_DOMAIN]'],
+      'Your Team/[TEAM_NAME] Workstream:': ['Test Team'],
       'Type of Request:': ['Quick Review — Edit my existing draft'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Q1 Update Email'],
       'What are you communicating, and what should the audience do?': ['Hi all, I hope this email finds you well. I wanted to share some Q1 updates. We are excited to announce the new portal is live! Let me know if you have questions. Best, Test'],
-      'Primary Audience': ['[ORG_NAME] team (~50 engineers)'],
+      'Primary Audience': ['[TEAM_NAME] team (~50 engineers)'],
       'Is [VP_NAME] involved?': ['No'],
       'Urgency': ['Within 1 week'],
       'Who will send/distribute this communication?': ['Me'],
@@ -3420,13 +3452,13 @@ function testMediumTouchPath() {
   var mockEvent = {
     values: [new Date().toISOString()],
     namedValues: {
-      'Email Address': ['[EMAIL_ADDRESS]'],
-      'Your Team/[ORG_NAME] Workstream:': ['Test Team'],
+      'Email Address': ['test@[ORG_DOMAIN]'],
+      'Your Team/[TEAM_NAME] Workstream:': ['Test Team'],
       'Type of Request:': ['New Content Creation'],
       'Content Status': ['Nothing yet'],
       'Subject or Title of Communication': ['Q2 Initiative Plan'],
       'What are you communicating, and what should the audience do?': ['Need a comms strategy doc for the Q2 mentorship cohort launch'],
-      'Primary Audience': ['[ORG_NAME] teams'],
+      'Primary Audience': ['[TEAM_NAME] teams'],
       'Is [VP_NAME] involved?': ['No'],
       'Urgency': ['Within 2 weeks'],
       'Who will send/distribute this communication?': ['Me'],
@@ -3442,17 +3474,17 @@ function testMediumTouchPath() {
   }
 }
 
-function testVpHighTouchPath() {
+function test[VP_NAME]HighTouchPath() {
   const mockEvent = {
     values: [new Date().toISOString()],
     namedValues: {
-      'Email Address': ['[EMAIL_ADDRESS]'],
-      'Your Team/[ORG_NAME] Workstream:': ['Test Team'],
+      'Email Address': ['test@[ORG_DOMAIN]'],
+      'Your Team/[TEAM_NAME] Workstream:': ['Test Team'],
       'Type of Request:': ['Quick Review'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Q2 Update from [VP_NAME]'],
       'What are you communicating, and what should the audience do?': ['[VP_NAME] wants to send an update to the team'],
-      'Primary Audience': ['[ORG_NAME] team'],
+      'Primary Audience': ['[TEAM_NAME] team'],
       'Is [VP_NAME] involved?': ['Yes — this is from/to [VP_NAME]'],
       'Urgency': ['This week'],
       'Who will send/distribute this communication?': ['[VP_NAME]'],
@@ -3475,13 +3507,13 @@ function testSiteRelatedEscalation() {
   const mockEvent = {
     values: [new Date().toISOString()],
     namedValues: {
-      'Email Address': ['[EMAIL_ADDRESS]'],
-      'Your Team/[ORG_NAME] Workstream:': ['Domains'],
+      'Email Address': ['test@[ORG_DOMAIN]'],
+      'Your Team/[TEAM_NAME] Workstream:': ['Domains'],
       'Type of Request:': ['Website Update — Update or add content to an existing page'],
       'Content Status': ['I have a draft'],
-      'Subject or Title of Communication': ['Update [ORG_NAME] site with new team info'],
-      'What are you communicating, and what should the audience do?': ['Need to update the Domains page on the [ORG_NAME] [INTERNAL_DOCS] site with our new team structure'],
-      'Primary Audience': ['[ORG_NAME] team'],
+      'Subject or Title of Communication': ['Update [TEAM_NAME] site with new team info'],
+      'What are you communicating, and what should the audience do?': ['Need to update the Domains page on the [TEAM_NAME] g3doc site with our new team structure'],
+      'Primary Audience': ['[TEAM_NAME] team'],
       'Is [VP_NAME] involved?': ['No'],
       'Urgency': ['Within 2 weeks'],
       'Who will send/distribute this communication?': ['Me'],
@@ -3504,17 +3536,17 @@ function testDraftAccessError() {
   const mockEvent = {
     values: [new Date().toISOString()],
     namedValues: {
-      'Email Address': ['[EMAIL_ADDRESS]'],
-      'Your Team/[ORG_NAME] Workstream:': ['Test Team'],
+      'Email Address': ['test@[ORG_DOMAIN]'],
+      'Your Team/[TEAM_NAME] Workstream:': ['Test Team'],
       'Type of Request:': ['Quick Review — Edit my existing draft'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Test Draft Access'],
       'What are you communicating, and what should the audience do?': ['Please review my draft'],
-      'Primary Audience': ['[ORG_NAME] team'],
+      'Primary Audience': ['[TEAM_NAME] team'],
       'Is [VP_NAME] involved?': ['No'],
       'Urgency': ['Within 1 week'],
       'Who will send/distribute this communication?': ['Me'],
-      'Link(s) to draft content, supporting docs, or images': ['https://docs.google.com/document/d/FAKE_DOC_ID_THAT_DOES_NOT_EXIST/edit'],
+      'Link(s) to draft content, supporting docs, or images': ['https://[DOCS_URL]/document/d/FAKE_DOC_ID_THAT_DOES_NOT_EXIST/edit'],
       'Anything else?': ['']
     }
   };
@@ -3557,8 +3589,8 @@ function testQAFixes_v17() {
     classification_reasoning: { primary_factors: ['Test'], escalation_triggers: ['Test trigger'] }
   };
   var emptyFormData = {
-    requester_email: '[EMAIL_ADDRESS]',
-    target_audience: '[ORG_NAME] team',
+    requester_email: 'test@[ORG_DOMAIN]',
+    target_audience: '[TEAM_NAME] team',
     request_type: 'Email Draft',
     summary: 'Test',
     team: 'Test Team',
@@ -3580,9 +3612,9 @@ function testQAFixes_v17() {
   
   // ── Test 4: [VP_NAME] prompt detection ──
   Logger.log('\n--- Test 4: Prompt detection ---');
-  var p1 = getRecommendedVpPrompt({ summary: 'Normal email draft', target_audience: '[ORG_NAME] team' });
-  var p2 = getRecommendedVpPrompt({ summary: 'Unfortunately we need to delay the launch', target_audience: '[ORG_NAME] team' });
-  var p3 = getRecommendedVpPrompt({ summary: 'Quarterly update', target_audience: 'SVP [EXEC_NAME_2]' });
+  var p1 = getRecommended[VP_NAME]Prompt({ summary: 'Normal email draft', target_audience: '[TEAM_NAME] team' });
+  var p2 = getRecommended[VP_NAME]Prompt({ summary: 'Unfortunately we need to delay the launch', target_audience: '[TEAM_NAME] team' });
+  var p3 = getRecommended[VP_NAME]Prompt({ summary: 'Quarterly update', target_audience: 'SVP [SVP_NAME]' });
   
   check('4a - Default → Prompt 1', p1.indexOf('PROMPT 1') > -1);
   check('4b - Difficult news → Prompt 2', p2.indexOf('PROMPT 2') > -1);
@@ -3597,7 +3629,7 @@ function testQAFixes_v17() {
   if (failed > 0) {
     Logger.log('⚠️ FIX FAILURES BEFORE RUNNING FULL PATH TESTS');
   } else {
-    Logger.log('✅ All checks passed — safe to run testVpHighTouchPath()');
+    Logger.log('✅ All checks passed — safe to run test[VP_NAME]HighTouchPath()');
   }
 }
 // ═══════════════════════════════════════════════════════════════════════════
@@ -3652,7 +3684,7 @@ function updateMetricsTab() {
         request_type: (data[i][config.COL_TYPE - 1] || '').toString().trim(),
         subject: (data[i][config.COL_SUBJECT - 1] || '').toString().trim(),
         audience: (data[i][config.COL_AUDIENCE - 1] || '').toString().trim(),
-        vp: (data[i][config.COL_VP - 1] || '').toString().toLowerCase(),
+        [EXECUTIVE/VP]: (data[i][config.COL_EXEC_INVOLVED - 1] || '').toString().toLowerCase(),
         urgency: (data[i][config.COL_URGENCY - 1] || '').toString().trim(),
         touch_level: (data[i][config.COL_TOUCH_LEVEL - 1] || '').toString().toUpperCase().trim(),
         status: (data[i][config.COL_STATUS - 1] || '').toString().trim(),
@@ -3754,14 +3786,14 @@ var METRICS_START_DATE = new Date('2026-02-02T00:00:00');
   );
   currentRow += 1;
   
-  // ═══ SECTION 8: VP RULE TRIGGERS ═══
-  currentRow = writeSectionHeader(metricsSheet, currentRow, '[VP_NAME] RULE TRIGGERS');
-  var vpRows = rows.filter(function(r) { return r.vp.indexOf('yes') !== -1; });
-  var vpInfo = [
-    ['Total [VP_NAME]-flagged requests', vpRows.length],
-    ['% of all requests', rows.length > 0 ? (Math.round((vpRows.length / rows.length) * 100) + '%') : '0%']
+  // ═══ SECTION 8: EXEC RULE TRIGGERS ═══
+  currentRow = writeSectionHeader(metricsSheet, currentRow, 'EXEC RULE TRIGGERS');
+  var execRows = rows.filter(function(r) { return r.exec_flag.indexOf('yes') !== -1; });
+  var execInfo = [
+    ['Total [VP_NAME]-flagged requests', execRows.length],
+    ['% of all requests', rows.length > 0 ? (Math.round((execRows.length / rows.length) * 100) + '%') : '0%']
   ];
-  currentRow = writeKeyValueBlock(metricsSheet, currentRow, vpInfo);
+  currentRow = writeKeyValueBlock(metricsSheet, currentRow, execInfo);
   currentRow += 1;
   
   // ═══ FOOTER ═══
@@ -4130,7 +4162,7 @@ function updateMetricsTab() {
         request_type: (data[i][config.COL_TYPE - 1] || '').toString().trim(),
         subject: (data[i][config.COL_SUBJECT - 1] || '').toString().trim(),
         audience: (data[i][config.COL_AUDIENCE - 1] || '').toString().trim(),
-        vp: (data[i][config.COL_VP - 1] || '').toString().toLowerCase(),
+        [EXECUTIVE/VP]: (data[i][config.COL_EXEC_INVOLVED - 1] || '').toString().toLowerCase(),
         urgency: (data[i][config.COL_URGENCY - 1] || '').toString().trim(),
         touch_level: (data[i][config.COL_TOUCH_LEVEL - 1] || '').toString().toUpperCase().trim(),
         status: (data[i][config.COL_STATUS - 1] || '').toString().trim(),
@@ -4239,14 +4271,14 @@ var METRICS_START_DATE = new Date('2026-02-02T00:00:00');
   );
   currentRow += 1;
   
-  // ═══ SECTION 9: VP RULE TRIGGERS ═══
-  currentRow = writeSectionHeader(metricsSheet, currentRow, '[VP_NAME] RULE TRIGGERS');
-  var vpRows = rows.filter(function(r) { return r.vp.indexOf('yes') !== -1; });
-  var vpInfo = [
-    ['Total [VP_NAME]-flagged requests', vpRows.length],
-    ['% of all requests', rows.length > 0 ? (Math.round((vpRows.length / rows.length) * 100) + '%') : '0%']
+  // ═══ SECTION 9: EXEC RULE TRIGGERS ═══
+  currentRow = writeSectionHeader(metricsSheet, currentRow, 'EXEC RULE TRIGGERS');
+  var execRows = rows.filter(function(r) { return r.exec_flag.indexOf('yes') !== -1; });
+  var execInfo = [
+    ['Total [VP_NAME]-flagged requests', execRows.length],
+    ['% of all requests', rows.length > 0 ? (Math.round((execRows.length / rows.length) * 100) + '%') : '0%']
   ];
-  currentRow = writeKeyValueBlock(metricsSheet, currentRow, vpInfo);
+  currentRow = writeKeyValueBlock(metricsSheet, currentRow, execInfo);
   currentRow += 1;
   
   // ═══ SECTION 10: TIME SAVINGS ESTIMATE ═══
@@ -4745,9 +4777,9 @@ function testHighTouchPath() {
     request_type: 'New Content Creation',
     content_status: 'Nothing yet — need content created',
     subject: 'Q2 Cross-PA Partnership Report for Cloud VP and Android Director',
-    summary: 'Create a quarterly partnership report summarizing [ORG_NAME] cross-PA collaborations for external PA leadership.',
+    summary: 'Create a quarterly partnership report summarizing [TEAM_NAME] cross-PA collaborations for external PA leadership.',
     target_audience: 'Cloud VP, Android Director',
-    vp_involved: 'No',
+    exec_involved: 'No',
     urgency: 'Within 1 week',
     sender: '[OWNER_NAME]',
     draft_link: '',
@@ -4766,3 +4798,4 @@ function testHighTouchPath() {
   handleEscalation(formData, triageResult, rowNumber, config);
   Logger.log('High Touch (non-[VP_NAME]) test complete');
 }
+

@@ -76,7 +76,7 @@ To run this in your own Google Workspace environment:
 |---|---|
 | `MEDIUM_TOUCH_TEMPLATE_ID` | Google Doc template for medium-touch starter docs |
 | `HIGH_TOUCH_TEMPLATE_ID` | Google Doc template for high-touch starter docs |
-| `HIGH_TOUCH_MEGAN_TEMPLATE_ID` | Google Doc template for VP-involved starter docs |
+| `HIGH_TOUCH_VP_TEMPLATE_ID` | Google Doc template for VP-involved starter docs |
 
 4. Set up triggers:
    - `onFormSubmit` -- Triggers > Add Trigger > From spreadsheet > On form submit
