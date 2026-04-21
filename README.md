@@ -130,7 +130,7 @@ For Low touch requests, the revised draft lands in a structured Google Doc with 
 
 ## Results / impact
 
-- **~160 hours/year saved** in manual triage and drafting, measured against prior handling time per touch level.
+- **~160 hours/year saved** in manual triage and drafting. Methodology: prior-quarter median handling time per touch level × current monthly request volume, extrapolated annually. Baseline and volume are tracked on the metrics tab; the figure updates as volume shifts.
 - **Low-touch requests** resolve in minutes instead of a same-day turnaround.
 - **Medium/High escalations** arrive as pre-briefed decisions, not cold reads.
 - **Friday digest** gives the team ongoing visibility into volume, resolution time, and time-savings trends.
