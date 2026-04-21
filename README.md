@@ -4,6 +4,13 @@ Autonomous triage, revision, and escalation for a high-volume internal communica
 
 **Live in production. ~160 hours/year saved** in manual triage and drafting.
 
+## In 60 seconds
+
+- **What it does:** A Google Form submits comms requests → Apps Script routes each to a Gemini prompt → output lands in a Google Doc with Chat/email notifications.
+- **Architecture:** Three prompts (triage, revise, escalate) over a dynamic KB (core + conditional living documents + per-stakeholder profiles).
+- **Impact:** ~160 hours/year saved in a production comms queue.
+- **Read next:** [architecture](ARCHITECTURE.md) · [source walkthrough](src/README.md) · [prompts](prompts/).
+
 ## What it does
 
 A communications team receives requests through an intake form — most are drafts that need polish, some need a senior reviewer. The agent:
@@ -52,6 +59,49 @@ Full system diagram: [`ARCHITECTURE.md`](ARCHITECTURE.md).
 - Auto-generated metrics tab on the tracking spreadsheet
 - Bypass-email monitoring (for requests that skip the form)
 - End-to-end test functions covering Low, Medium, High, VP-involved, site-related, and draft-error paths
+
+## Example: end-to-end run
+
+**Form submission:**
+- Requester: [Engineering Director]
+- Request type: Email draft review
+- Target audience: VP leadership
+- Timeline: This week
+- Attachment: draft Google Doc
+
+**Triage output** (`TRIAGE_PROMPT`):
+
+```json
+{
+  "touch_level": "High",
+  "confidence": 0.91,
+  "reasons": [
+    "VP leadership audience triggers +1 level",
+    "Draft review rather than new content request",
+    "Timeline allows for full review"
+  ],
+  "route": "escalate"
+}
+```
+
+**Escalation briefing** (`ESCALATION_PROMPT`, delivered to the escalation owner):
+
+```
+High-touch review landed.
+
+Context: VP-facing email draft on [topic].
+Stakes: Leadership visibility; first-draft feedback requested.
+Suggested framing: [three framing options with tradeoffs]
+Draft: [Google Doc link]
+Tracking row: [spreadsheet link]
+```
+
+**Delivery:**
+- Google Chat ping to the escalation owner
+- Tracking row updated on the intake spreadsheet
+- Requester notified: "Your request has been escalated for senior review."
+
+The reviewer opens the Chat ping and starts from a briefing, not a cold read.
 
 ## Stack
 
