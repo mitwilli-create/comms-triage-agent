@@ -11,6 +11,12 @@ Autonomous triage, revision, and escalation for a high-volume internal communica
 - **Impact:** ~160 hours/year saved in a production comms queue.
 - **Read next:** [architecture](ARCHITECTURE.md) · [source walkthrough](src/README.md) · [prompts](prompts/).
 
+## What it looks like
+
+The agent writes its output into a Drive folder structure organized by routing decision — `Completed` for autonomously-handled Low touch, `Urgent Review` and `Needs Review` for escalations, and `Client Engagement Summaries` for audience context.
+
+![Drive folder structure showing routing subfolders](docs/images/01-drive-folder-structure.png)
+
 ## What it does
 
 A communications team receives requests through an intake form — most are drafts that need polish, some need a senior reviewer. The agent:
@@ -102,6 +108,12 @@ Tracking row: [spreadsheet link]
 - Requester notified: "Your request has been escalated for senior review."
 
 The reviewer opens the Chat ping and starts from a briefing, not a cold read.
+
+For Low touch requests, the revised draft lands in a structured Google Doc with a built-in rationale section:
+
+![Sample Low Touch output — email draft with audience analysis](docs/images/03-sample-output-doc.png)
+
+![Sample Low Touch output — rationale and quality check](docs/images/03-sample-output-doc-pt2.png)
 
 ## Stack
 
