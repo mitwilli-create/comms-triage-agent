@@ -1,3 +1,7 @@
+> **Impact:** ~160 ops hours/year recaptured across a 1,000-engineer organization at >90% classification accuracy. Three-prompt architecture (triage → revise → escalate) with dynamic knowledge-base loading. Production deployment at Google xGE, 2024–present.
+
+---
+
 # Comms Triage Agent
 
 Autonomous triage, revision, and escalation for a high-volume internal communications intake queue. Built on Google Apps Script + Gemini with a three-prompt architecture.
