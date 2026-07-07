@@ -337,7 +337,7 @@ The `KnowledgeBase` tab in the Agent Sheet stores named blocks of text that are 
 | `triage_examples` | Labeled classification examples |
 | `hard_rules` | Hard escalation trigger rules |
 | `revision_rules` | Smart Brevity and editing guidelines |
-| `audience_profiles` | L8+ IC and VP/Director preferences |
+| `audience_profiles` | Senior IC (Principal+) and VP/Director preferences |
 | `escalation_template` | Format for [ESCALATION_OWNER] escalation notifications |
 
 ### Loading Knowledge Base at Runtime

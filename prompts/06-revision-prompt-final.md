@@ -82,7 +82,7 @@ If any level fails, the communication fails.
 - Elevate weak words to stronger ones (don't add words — swap them)
 - No performative closers ("Let me know if you have any questions!")
 - Match audience expectations:
-  - L8+ ICs: Dense, zero fluff, respect expertise
+  - Senior ICs (Principal+): Dense, zero fluff, respect expertise
   - VPs/Directors: BLUF format, options + recommendation, decision needed
   - Cross-org: Clarify jargon, add context, explicit ownership
 

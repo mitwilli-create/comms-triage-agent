@@ -36,7 +36,7 @@ ENGAGEMENT SUMMARY
 Name: [Group Display Name]
 Email: [group-alias@[ORG_DOMAIN]]
 Type: Group
-Level: [Mixed (L6-L9) / L8+ / VP+ / etc.]
+Level: [Mixed (Staff to Distinguished) / Principal+ / VP+ / etc.]
 Team: [Sponsoring Organization]
 Aliases: [Display Name, common shorthand, alias without @, any alternate names — comma-separated]
 ═══════════════════════════════════════════════════
@@ -45,7 +45,7 @@ Aliases: [Display Name, common shorthand, alias without @, any alternate names �
 **Header field rules:**
 - **Name:** Human-readable group name (e.g., "Domain Stewards" not "domain-stewards@[ORG_DOMAIN]").
 - **Email:** The @[ORG_DOMAIN] alias. Leave blank if none exists.
-- **Level:** Describe member level range (e.g., "Mixed (L7-VP)", "L8+ (Principal, Distinguished, Fellows)").
+- **Level:** Describe member level range (e.g., "Mixed (Senior Staff to VP)", "Principal+ (Principal, Distinguished, Fellows)").
 - **Team:** Sponsoring organization or program.
 - **Aliases:** ALL of: display name, shorthand, email alias without @[ORG_DOMAIN], alternate names. Include both hyphenated and space-separated versions. These drive form-submission matching — be comprehensive.
 

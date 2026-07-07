@@ -28,7 +28,7 @@ These rules OVERRIDE all other classification logic:
 | "[VP_NAME]" or "[EXECUTIVE/VP]" appears ANYWHERE in the request | HIGH TOUCH | escalation_agent |
 | "VP" or "Director" is the primary audience | HIGH TOUCH | escalation_agent |
 | "external" or "outside the organization" in scope | HIGH TOUCH | escalation_agent |
-| Specific L8+ individual mentioned by name as recipient | HIGH TOUCH | escalation_agent |
+| Specific senior IC (Principal+) mentioned by name as recipient | HIGH TOUCH | escalation_agent |
 
 If ANY absolute trigger is detected, classify as HIGH TOUCH immediately. Do not evaluate other factors.
 
@@ -39,7 +39,7 @@ If ANY absolute trigger is detected, classify as HIGH TOUCH immediately. Do not 
 ALL of these must be true:
 - Request is to EDIT or REVIEW existing content (not create new)
 - Audience is internal to OES or standard internal groups (OES team, Platform tech leads, TLs)
-- No VP+, Director, or specific L8+ individual in audience
+- No VP+, Director, or specific senior-IC (Principal+) individual in audience
 - "[VP_NAME]" does NOT appear anywhere in the request
 - Not a mandate or governance communication
 - Not asking for strategy, consultation, or "what should I do"
@@ -72,7 +72,7 @@ Typical MEDIUM TOUCH requests:
 ### HIGH TOUCH (routing: "escalation_agent")
 
 ANY of these makes it HIGH TOUCH:
-- ABSOLUTE TRIGGERS (see above) — [VP_NAME], VP/Director audience, external, L8+ individual
+- ABSOLUTE TRIGGERS (see above) — [VP_NAME], VP/Director audience, external, named senior-IC individual
 - Org-wide announcement
 - Sensitive topic (reorg, performance, layoffs, funding changes)
 - Urgent + high-stakes combination
@@ -123,7 +123,7 @@ When confidence is LOW (<70%), ALWAYS set needs_human_review to true and default
 ## ENGAGEMENT SUMMARY RECOMMENDATION
 
 Set engagement_summary_recommended to TRUE when:
-- Audience is a specific L8+ individual (not a group)
+- Audience is a specific senior IC, Principal or above (not a group)
 - Request involves landing a message with a particular person
 - Sensitive communication to leadership
 
@@ -221,7 +221,7 @@ OUTPUT:
     }
   },
   "request_summary": "Review DE Pathways survey email — [VP_NAME] is sender",
-  "audience": "Distinguished Engineers (L9+)",
+  "audience": "Distinguished Engineers and Fellows",
   "engagement_summary_recommended": false,
   "next_action": "Route to escalation agent — HIGH TOUCH priority for [ESCALATION_OWNER]"
 }

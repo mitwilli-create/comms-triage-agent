@@ -212,7 +212,7 @@ Reason: Clarification needed
 Set engagement_summary field to:
 - "Available" — if requester mentioned they have one or it's attached
 - "Not requested" — if audience is standard/broad (OES team, ATLs, TLs)
-- "Not available — recommend requesting" — if audience is specific L8+ individual
+- "Not available — recommend requesting" — if audience is a specific senior IC (Principal+)
 
 ## OUTPUT FORMAT
 

@@ -33,7 +33,7 @@
 //
 //   TRIAGE FIXES:
 //   - OES Leadership = INTERNAL (does NOT trigger escalation)
-//   - Removed "L8+ by name" inference — trusts form's audience field
+//   - Removed "senior IC by name" inference — trusts form's audience field
 //   - VP/Director rule scoped to EXTERNAL only
 //   - Only [VP_NAME] triggers automatic HIGH TOUCH escalation
 //
@@ -657,7 +657,7 @@ Every edit must include WHY. Format:
 const AUDIENCE_PROFILES_KB = `
 ## AUDIENCE PROFILES
 
-### Senior Technical ICs (L8+ Principal/Distinguished Engineers)
+### Senior Technical ICs (Principal/Distinguished Engineers)
 Preferences:
 - Written docs over meetings
 - Dense but focused information
@@ -1034,7 +1034,7 @@ ${REVISION_EXAMPLES_KB}
 
 FIRST: Detect the audience type from the request. Then apply the appropriate rules.
 
-### IF AUDIENCE CONTAINS: "L8", "L9", "L10", "principal", "distinguished", "fellow", "DE", "PE", "senior IC"
+### IF AUDIENCE CONTAINS: "principal", "distinguished", "fellow", "DE", "PE", "senior IC"
 Apply SENIOR TECHNICAL IC rules:
 - INCREASE information density (more signal per sentence)
 - ADD TL;DR at top if missing
@@ -1243,7 +1243,7 @@ ${AUDIENCE_PROFILES_KB}
 ## AUDIENCE TYPE DETECTION
 Based on the request's target_audience field:
 - If "OES Leadership", "VP", "Director", "exec" → audience_type: "Executive Leadership"
-- If "L8", "L9", "principal", "distinguished", "fellow", "PE", "DE" → audience_type: "Senior Technical ICs"
+- If "principal", "distinguished", "fellow", "PE", "DE" → audience_type: "Senior Technical ICs"
 - If "cross-org", "partner", "external" → audience_type: "Cross-Org Partners"
 - If "Domain Stewards", specific group name → audience_type: "[Group Name]"
 - Otherwise → audience_type: "General OES Team"
@@ -1885,11 +1885,10 @@ function styleTable(table) {
 function getAudienceProfileText(audienceText) {
   const audience = (audienceText || '').toLowerCase();
   
-  if (audience.includes('l8') || audience.includes('l9') || audience.includes('l10') ||
-      audience.includes('principal') || audience.includes('distinguished') ||
+  if (audience.includes('principal') || audience.includes('distinguished') ||
       audience.includes('fellow') || audience.includes(' de ') || audience.includes(' pe ') ||
       audience.includes('de,') || audience.includes('pe,')) {
-    return `AUDIENCE TYPE: Senior Technical ICs (L8+ Principal/Distinguished Engineers)
+    return `AUDIENCE TYPE: Senior Technical ICs (Principal/Distinguished Engineers)
 
 How They Want Information:
 • Format: Written docs (Google Docs, design docs) — "Google Docs is my IDE"

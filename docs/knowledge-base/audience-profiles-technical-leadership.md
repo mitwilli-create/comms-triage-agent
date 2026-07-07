@@ -1,5 +1,5 @@
 Audience Profiles for Technical Leadership Communication
-Source: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com) Audience: OES (L8+ Principal Engineers, Distinguished Engineers, Northwind Fellows) Purpose: Knowledge base for Internal Comms Agent
+Source: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com) Audience: OES (Principal Engineers, Distinguished Engineers, Northwind Fellows) Purpose: Knowledge base for Internal Comms Agent
 
 
 Part 1: Senior IC Preferences (Staff+/Principal/Distinguished)
@@ -206,7 +206,7 @@ For substantial changes or proposals:
 	•	"I intend to..." framing — For proposals seeking feedback
 
 
-Part 5: Northwind-Specific Context (L7+ / OES)
+Part 5: Northwind-Specific Context (Senior Staff+ / OES)
 What Works at the organization Scale
 From Principal Engineer firsthand account:
 
@@ -217,7 +217,7 @@ From Principal Engineer firsthand account:
 "Written communication scales your own impact" — Invest in writing skills
 
 "Build relationships for cross-team alignment" — Docs + relationships, not just docs
-L7+ Reality
+Senior Staff+ Reality
 	•	Shift from coding to comms — "What got you here won't get you there"
 	•	5+ year horizons — They think in systems, not sprints
 	•	Doc-heavy environment — Writing skill = career skill
@@ -233,7 +233,7 @@ Based on research patterns:
 
 
 Part 6: Revision Rules for the Agent
-When Revising for Senior ICs (L8+ Engineers)
+When Revising for Senior ICs (Principal+ Engineers)
 DO:
 
 	•	Increase information density (more signal per sentence)
@@ -289,7 +289,7 @@ If Audience Is...
 Lead With...
 Format As...
 Avoid...
-L8+ IC (Principal/DE)
+Senior IC (Principal/DE)
 Impact + technical substance
 Dense doc, TL;DR top
 Over-explanation, corporate speak

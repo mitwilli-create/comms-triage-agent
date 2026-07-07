@@ -1,5 +1,5 @@
 Audience Profiles — Internal Comms Agent Knowledge Base
-Source: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com) Audience: OES (L8+ Principal Engineers, Distinguished Engineers, Northwind Fellows) Purpose: Guide revision style based on who will READ the communication
+Source: Grok research synthesis (X, Reddit, HN, GitHub, staffeng.com) Audience: OES (Principal Engineers, Distinguished Engineers, Northwind Fellows) Purpose: Guide revision style based on who will READ the communication
 
 
 Part 0: Audience Detection (Agent Logic)
@@ -12,7 +12,7 @@ Apply Profile
 "VP", "Director", "leadership", "exec", "SVP", "C-level"
 VP/Director
 Part 2 rules
-"L8", "Principal", "Staff", "Distinguished", "Fellow", "DE", "senior IC"
+"Principal", "Staff", "Distinguished", "Fellow", "DE", "senior IC"
 Senior IC
 Part 1 rules
 "team", "engineers", "ICs", "org", "all-hands"
@@ -234,14 +234,14 @@ For substantial changes or proposals:
 [What you're still figuring out]
 
 
-Part 5: Northwind-Specific Context (L7+ / OES)
+Part 5: Northwind-Specific Context (Senior Staff+ / OES)
 What Works at the organization Scale
 "At a company of our scale, Staff also means a lot of coordination (read: meetings, docs, and emails)."
 
 "documents is my IDE" — For strategy, values, design docs, advocacy
 
 "Written communication scales your own impact" — Invest in writing skills
-L7+ Reality
+Senior Staff+ Reality
 	•	Shift from coding to comms — "What got you here won't get you there"
 	•	5+ year horizons — They think in systems, not sprints
 	•	Doc-heavy environment — Writing skill = career skill
@@ -255,7 +255,7 @@ What Gets Ignored at the organization
 
 
 Part 6: Revision Rules for the Agent
-When Revising for Senior ICs (L8+ Engineers)
+When Revising for Senior ICs (Principal+ Engineers)
 DO:
 
 	•	Increase information density (more signal per sentence)
@@ -314,7 +314,7 @@ Rationale Template
 Increased density
 "Condensed to increase signal-to-noise ratio — senior ICs prefer dense, scannable content."
 Removed over-explanation
-"Cut background your L8+ audience already knows."
+"Cut background your senior-IC audience already knows."
 Added TL;DR
 "Added summary at top for async reading — engineers can stop when they have enough."
 Cut corporate speak
@@ -322,7 +322,7 @@ Cut corporate speak
 Removed performative closer
 "Cut 'Let me know if you have questions' — senior engineers find this performative."
 Added 'so what'
-"Added implications section — L8+ readers want to know systemic impact."
+"Added implications section — senior-IC readers want to know systemic impact."
 For VP/Director Audiences
 Edit Type
 Rationale Template
@@ -356,7 +356,7 @@ If Audience Is...
 Lead With...
 Format As...
 Avoid...
-L8+ IC (Principal/DE)
+Senior IC (Principal/DE)
 Impact + technical substance
 Dense doc, TL;DR top
 Over-explanation, corporate speak

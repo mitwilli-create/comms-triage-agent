@@ -36,7 +36,7 @@ ENGAGEMENT SUMMARY
 Name: [Full Name]
 Email: [LDAP@[ORG_DOMAIN]]
 Type: Individual
-Level: [L5/L6/L7/L8/L9/VP/Fellow/Director/Manager/TPM/EBP/ABP]
+Level: [Senior/Staff/Senior Staff/Principal/Distinguished/VP/Fellow/Director/Manager/TPM/EBP/ABP]
 Team: [Primary Team / Organization]
 Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 ═══════════════════════════════════════════════════
@@ -45,7 +45,7 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 **Header field rules:**
 - **Name:** Canonical name. No special characters, no LDAP in parentheses.
 - **Email:** Always @[ORG_DOMAIN]. Use the LDAP verified from search.
-- **Level:** Exact Northwind level (L5–L9) or role title (VP, Fellow, Director, Manager, TPM, EBP, ABP).
+- **Level:** Exact Northwind level (Senior through Distinguished) or role title (VP, Fellow, Director, Manager, TPM, EBP, ABP).
 - **Team:** Primary team as it would appear in a directory.
 - **Aliases:** ALL of: full name, first name, LDAP (without @[ORG_DOMAIN]), known nicknames. Comma-separated. These drive form-submission matching — be comprehensive.
 

@@ -19,7 +19,7 @@
 
 ## Prompt 1: Individual team member
 
-**When to use:** Creating communication for a specific L8+ individual you haven't worked with before
+**When to use:** Creating communication for a specific senior technical IC (Principal+) you haven't worked with before
 
 **Navigate to:** Target person's the people directory profiles (the internal portal/[employee-id])
 
@@ -296,7 +296,7 @@ After generating an engagement summary, save it for future reference:
 - **Time-sensitive situations** — just send it
 - **Routine operational requests** — overkill
 
-Engagement summaries add value for **high-stakes communication with unfamiliar L8+ audiences**.
+Engagement summaries add value for **high-stakes communication with unfamiliar senior-IC audiences**.
 
 ---
 
