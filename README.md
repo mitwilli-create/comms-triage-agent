@@ -1,16 +1,16 @@
 # comms-triage-agent
 
-Autonomous triage, revision, and escalation for internal comms intake, built on Apps Script + Gemini with a three-prompt architecture. Deployed across a large engineering organization (Principal / Distinguished / Fellow IC tier, roughly 1,000 engineers); recaptured ~160 operational hours/year at >90% classification accuracy.
+Autonomous triage, revision, and escalation for internal comms intake, built on Apps Script + Gemini with a three-prompt architecture. Built for a large engineering organization (Principal / Distinguished / Fellow IC tier, roughly 1,000 engineers); designed to auto-handle the majority of inbound requests without escalation, projected to recapture ~160 operational hours/year (design targets, derived from pre-automation baselines).
 
 ---
 
 ## What It Does
 
-Incoming comms requests hit a Google Form. The agent runs three sequential prompts — **triage** (classify intent and urgency), **revise** (rewrite or flag for structural issues), **escalate** (route to owner or hold for human review) — with conditional knowledge base loading at each step. No human in the loop unless the confidence threshold isn't met.
+Incoming comms requests hit a Google Form. The agent runs three sequential prompts, with conditional knowledge base loading at each step: **triage** (classify intent and urgency), **revise** (rewrite or flag for structural issues), and **escalate** (route to owner or hold for human review). No human in the loop unless the confidence threshold isn't met.
 
 ## Why It Matters
 
-Senior ICs at the Principal/Distinguished/Fellow tier generate a high volume of comms intake that doesn't need a human first pass — but it does need judgment. This agent applies that judgment at intake, before anything reaches a program manager. The 160 hrs/year figure comes from logging actual triage volume against pre-automation baseline across the org.
+Senior ICs at the Principal/Distinguished/Fellow tier generate a high volume of comms intake that doesn't need a human first pass, but it does need judgment. This agent applies that judgment at intake, before anything reaches a program manager. The ~160 hrs/year figure is a design target: a projection built from pre-automation triage-volume baselines logged across the org, not a measured production outcome.
 
 ---
 
@@ -23,7 +23,7 @@ Form submission → triage prompt (classify + KB load)
                 → output to Sheets + optional email trigger
 ```
 
-Three prompts, not one. Each prompt has a defined scope and a conditional exit. The KB load is gated — not every request pulls the full context window.
+Three prompts, not one. Each prompt has a defined scope and a conditional exit. The KB load is gated: not every request pulls the full context window.
 
 ---
 
@@ -51,22 +51,22 @@ Three prompts, not one. Each prompt has a defined scope and a conditional exit. 
 
 5. **Test with a sample submission.** Run `testTriageAgent()` from the script editor to fire a dry-run against the first row of your Sheet without sending escalation emails.
 
-6. **Review output** in the `Triage_Log` tab — classification label, revision diff, escalation decision, and confidence score per submission.
+6. **Review output** in the `Triage_Log` tab: classification label, revision diff, escalation decision, and confidence score per submission.
 
 ---
 
 ## Methodology Note
 
-The ~160 hrs/year figure is derived from: average triage time per request (pre-automation baseline) × monthly request volume × 12, compared against post-deployment human-review rate. Logging lives in the `Triage_Log` tab. If you're running this in a different org, your baseline will differ — the `config.gs` file exposes the volume and time-per-request constants so you can recalculate against your own numbers.
+The ~160 hrs/year design target is derived from: average triage time per request (pre-automation baseline) × monthly request volume × 12, with an assumed post-deployment human-review rate. It is a projection, not a measured outcome. Logging lives in the `Triage_Log` tab so the projection can be validated against real throughput over time. If you're running this in a different org, your baseline will differ; the `config.gs` file exposes the volume and time-per-request constants so you can recalculate against your own numbers.
 
 ---
 
 ## What This Demonstrates
 
-- **Agentic system design** — multi-step prompt architecture with conditional branching, not a single-shot LLM call
-- **Production judgment** — built for a real organization, with real volume and a senior-IC accountability tier
-- **Ops thinking** — the metric isn't "it works," it's hours recaptured and classification accuracy
-- **Comms domain depth** — the triage logic reflects actual comms intake patterns, not generic classification
+- **Agentic system design:** multi-step prompt architecture with conditional branching, not a single-shot LLM call
+- **Production judgment:** built for a real organization's intake patterns, with a senior-IC accountability tier
+- **Ops thinking:** success is defined in operational terms (hours recaptured), and the volume and time constants are exposed so the design target can be recalculated against any org's baseline
+- **Comms domain depth:** the triage logic reflects actual comms intake patterns, not generic classification
 
 ---
 
