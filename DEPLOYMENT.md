@@ -1,4 +1,4 @@
-# Deployment Guide — OES Internal Comms Triage Agent
+# Deployment Guide: OES Internal Comms Triage Agent
 
 **Version:** 1.0  
 **Last Updated:** February 2026  
@@ -51,12 +51,12 @@ Google Form → Apps Script Trigger → Gemini API (3-prompt chain) → Google S
 2. Create a new project: **File → New Project**
 3. Name it: `OES Comms Triage Agent`
 4. Copy all `.gs` files from this repository into the project:
-   - `Code.gs` — Main trigger and orchestration logic
-   - `Triage.gs` — Touch-level classification prompts
-   - `Revision.gs` — Low-touch editing logic
-   - `Escalation.gs` — Medium/High-touch routing logic
-   - `Utils.gs` — Shared helper functions
-   - `Config.gs` — Environment variables (see Step 3)
+   - `Code.gs`: Main trigger and orchestration logic
+   - `Triage.gs`: Touch-level classification prompts
+   - `Revision.gs`: Low-touch editing logic
+   - `Escalation.gs`: Medium/High-touch routing logic
+   - `Utils.gs`: Shared helper functions
+   - `Config.gs`: Environment variables (see Step 3)
 
 ### Step 2: Link Google Workspace Resources
 
@@ -179,7 +179,7 @@ function checkHardEscalationRules(formData) {
   for (var i = 0; i < triggers.length; i++) {
     if (formData.summary.indexOf(triggers[i]) !== -1 ||
         formData.audience.indexOf(triggers[i]) !== -1) {
-      return 'HIGH';  // Hard escalation — skip AI triage
+      return 'HIGH';  // Hard escalation, skip AI triage
     }
   }
   return null;  // No hard rule triggered
@@ -238,7 +238,7 @@ If the deployment causes errors:
 ## Troubleshooting
 
 ### Agent fires but sends no email
-- Check `DRY_RUN` flag in `Config.gs` — may still be `true`
+- Check `DRY_RUN` flag in `Config.gs`, may still be `true`
 - Check Gmail send quota (500/day limit for standard Workspace)
 - Review Apps Script execution log for errors
 
@@ -248,7 +248,7 @@ If the deployment causes errors:
 - Temporarily increase `RETRY_DELAY_MS` in `Config.gs`
 
 ### Trigger fires multiple times per submission
-- Duplicate triggers installed — check Triggers panel and delete extras
+- Duplicate triggers installed, check Triggers panel and delete extras
 - Re-run `installTrigger()` after clearing duplicates
 
 ### Triage misclassifies a request

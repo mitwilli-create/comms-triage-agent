@@ -6,7 +6,7 @@
 
 ## Tier Definitions
 
-### LOW TOUCH — Tier 3
+### LOW TOUCH: Tier 3
 
 **Core definition:** Async revision with rationale. No meeting, strategy, or coordination required.
 
@@ -15,7 +15,7 @@
 - The audience is internal and familiar
 - The timeline is flexible or the task is simple enough for same-day completion
 - The cost of an error is low and recoverable
-- No strategic decisions needed — only execution
+- No strategic decisions needed, only execution
 
 **Typical request types:**
 - Email draft review and copy editing
@@ -34,12 +34,12 @@
 
 ---
 
-### MEDIUM TOUCH — Tier 2
+### MEDIUM TOUCH: Tier 2
 
 **Core definition:** Strategy or playbook creation requiring synthesis and planning.
 
 **What makes something Medium Touch:**
-- The requester doesn't have a draft — they need a strategy or plan
+- The requester doesn't have a draft, they need a strategy or plan
 - The audience is cross-org
 - The deliverable requires research or coordination with 1–2 stakeholders
 - Moderate business impact if mishandled
@@ -53,7 +53,7 @@
 
 ---
 
-### HIGH TOUCH — Tier 1
+### HIGH TOUCH: Tier 1
 
 **Core definition:** Full partnership from discovery through execution. VP+ visibility, high stakes.
 
@@ -62,7 +62,7 @@
 - Org-wide or external distribution
 - Urgent deadline (<3 days) combined with strategic complexity
 - Significant cost of failure
-- Any involvement of [VP_NAME] — absolute override, no exceptions
+- Any involvement of [VP_NAME], absolute override, no exceptions
 
 **Agent action:** Routes to [ESCALATION_OWNER] immediately with complete briefing. Turnaround: 1–4 weeks.
 

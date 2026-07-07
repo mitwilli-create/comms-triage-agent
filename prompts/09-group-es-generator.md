@@ -18,7 +18,7 @@ These rules ensure the agent can parse and match engagement summaries at runtime
 
 1. **Always start with the EXACT header block below.** No content before it.
 2. **Use the EXACT section headers below.** Do not rename, reorder, or skip sections.
-3. **Do's and Don'ts MUST be a markdown table** with `| DO | DON'T |` columns. Never use bullet lists for this section. Each row must be self-contained — DO content in the DO column, DON'T content in the DON'T column. Never merge cells or wrap content across columns.
+3. **Do's and Don'ts MUST be a markdown table** with `| DO | DON'T |` columns. Never use bullet lists for this section. Each row must be self-contained: DO content in the DO column, DON'T content in the DON'T column. Never merge cells or wrap content across columns.
 4. **No empty source references.** If you cannot cite a source, omit the reference entirely. Never output `()` or `[]` or `[source]` as placeholders.
 5. **One paragraph per item.** Each persona, channel, or priority should be its own paragraph with a bold label prefix.
 6. **Plain text only.** No hyperlinks, no underline markup, no HTML. Markdown bold and headers only.
@@ -27,7 +27,7 @@ These rules ensure the agent can parse and match engagement summaries at runtime
 
 ## OUTPUT FORMAT
 
-### Header Block (MANDATORY — must be first content)
+### Header Block (MANDATORY, must be first content)
 
 ```
 ═══════════════════════════════════════════════════
@@ -38,7 +38,7 @@ Email: [group-alias@[ORG_DOMAIN]]
 Type: Group
 Level: [Mixed (Staff to Distinguished) / Principal+ / VP+ / etc.]
 Team: [Sponsoring Organization]
-Aliases: [Display Name, common shorthand, alias without @, any alternate names — comma-separated]
+Aliases: [Display Name, common shorthand, alias without @, any alternate names, comma-separated]
 ═══════════════════════════════════════════════════
 ```
 
@@ -47,7 +47,7 @@ Aliases: [Display Name, common shorthand, alias without @, any alternate names �
 - **Email:** The @[ORG_DOMAIN] alias. Leave blank if none exists.
 - **Level:** Describe member level range (e.g., "Mixed (Senior Staff to VP)", "Principal+ (Principal, Distinguished, Fellows)").
 - **Team:** Sponsoring organization or program.
-- **Aliases:** ALL of: display name, shorthand, email alias without @[ORG_DOMAIN], alternate names. Include both hyphenated and space-separated versions. These drive form-submission matching — be comprehensive.
+- **Aliases:** ALL of: display name, shorthand, email alias without @[ORG_DOMAIN], alternate names. Include both hyphenated and space-separated versions. These drive form-submission matching, be comprehensive.
 
 ---
 
@@ -81,7 +81,7 @@ Break the group into 2-4 archetypes. For each:
 ### Section 3: How the Group Consumes Information
 
 ```
-**Primary Channel:** [How they typically receive updates — email list, Docs, meetings, Chat.]
+**Primary Channel:** [How they typically receive updates, email list, Docs, meetings, Chat.]
 
 **Meeting Rhythm:** [Regular meetings, cadence, format.]
 
@@ -89,7 +89,7 @@ Break the group into 2-4 archetypes. For each:
 
 **Decision Style:** [Consensus, LGTM-based, executive decision, binding vote.]
 
-**Approval Protocol:** [How they signal agreement — sidebar, email, thumbs-up.]
+**Approval Protocol:** [How they signal agreement, sidebar, email, thumbs-up.]
 ```
 
 ---
@@ -109,7 +109,7 @@ Break the group into 2-4 archetypes. For each:
 
 **Table rules:**
 - 3-5 rows minimum
-- Each cell is ONE complete thought — no wrapping, no continuation
+- Each cell is ONE complete thought, no wrapping, no continuation
 - DO column: actionable instructions (start with a verb)
 - DON'T column: specific behaviors to avoid (start with a verb or noun)
 - Keep each cell under 25 words
@@ -126,26 +126,26 @@ Break the group into 2-4 archetypes. For each:
 **Key Elements:** [What every communication to this group must include.]
 ```
 
-If insufficient data, write: `Insufficient data — recommend direct intake.`
+If insufficient data, write: `Insufficient data, recommend direct intake.`
 
 ---
 
 ## RESEARCH INSTRUCTIONS
 
 When researching this group, look for:
-1. **Group charter or mandate doc** — Mission, scope, membership criteria
-2. **Recent group-wide emails** (last 12 months) — Tone, frequency, topics
-3. **Meeting agendas/notes** — Decision patterns, discussion style
-4. **Member list** — Level distribution, PA distribution, key voices
-5. **Related OKRs** — What the group is measured on
-6. **Historical communications** — What worked, what got ignored
+1. **Group charter or mandate doc**: Mission, scope, membership criteria
+2. **Recent group-wide emails** (last 12 months): Tone, frequency, topics
+3. **Meeting agendas/notes**: Decision patterns, discussion style
+4. **Member list**: Level distribution, PA distribution, key voices
+5. **Related OKRs**: What the group is measured on
+6. **Historical communications**: What worked, what got ignored
 
 **Quality standards:**
 - Source claims in brackets when possible, e.g., [Charter Doc] or [Q3 Meeting Notes]
 - Identify the 3-5 most influential members by name/LDAP
 - Flag sub-factions with different communication preferences
 - Note known friction points or political dynamics relevant to comms
-- If a section has insufficient data, write: `Insufficient data — recommend direct intake.`
+- If a section has insufficient data, write: `Insufficient data, recommend direct intake.`
 - **Never invent details. Never output empty brackets or parentheses.**
 
 **IMPORTANT:** Do not focus on a single individual (like the highest-ranking lead). The output must reflect the dynamics of the entire group.

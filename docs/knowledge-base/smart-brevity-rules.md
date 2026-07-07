@@ -1,4 +1,4 @@
-Smart Brevity Rules — Internal Comms Agent Knowledge Base
+Smart Brevity Rules: Internal Comms Agent Knowledge Base
 Purpose: This document teaches the agent how to revise internal communications using Smart Brevity methodology, and how to explain each edit to AI-skeptical users.
 
 Core Principle: Every revision must include a rationale. Users need to understand WHY a change was made, not just WHAT changed.
@@ -61,20 +61,20 @@ Imagine you're sprinting to catch your VP before an elevator closes. You have 3 
 
 That's your first sentence.
 Requirements
-	•	ONE sentence only — Forces clarity on what matters most
-	•	Most important detail first — Not chronological, not background
-	•	Conversational — The same words you'd say out loud
-	•	Distinct from headline — Build on it, don't repeat it
+	•	ONE sentence only: Forces clarity on what matters most
+	•	Most important detail first: Not chronological, not background
+	•	Conversational: The same words you'd say out loud
+	•	Distinct from headline: Build on it, don't repeat it
 Common Failures
 Problem
 Example
 Fix
 Starts with background
 "As you know, we've been working on this for months..."
-Cut entirely — lead with the news
+Cut entirely, lead with the news
 Multiple sentences
 "We signed the contract. It's our biggest ever. The team worked hard."
-"Acme signed a $2M contract — our largest ever."
+"Acme signed a $2M contract, our largest ever."
 Repeats headline
 Headline: "New remote policy" / First sentence: "We have a new remote policy"
 First sentence should add NEW information
@@ -85,9 +85,9 @@ Buries the lead
 
 4. "Why It Matters" Rules
 Requirements
-	•	Reader-centric — Not why it matters to YOU, why it matters to THEM
+	•	Reader-centric: Not why it matters to YOU, why it matters to THEM
 	•	1-2 sentences maximum
-	•	Concrete impact — What changes for them specifically?
+	•	Concrete impact: What changes for them specifically?
 Audience Calibration
 The same news requires different "Why It Matters" for different audiences:
 
@@ -96,7 +96,7 @@ News: "New Green Partnership Signed"
 Executive
 "This brings us 10% closer to our H2 revenue target."
 Team Lead
-"We'll need to expand hiring — we're now understaffed for this workload."
+"We'll need to expand hiring, we're now understaffed for this workload."
 External/Press
 "This advances our commitment to net zero by 2050."
 
@@ -104,15 +104,15 @@ External/Press
 5. Scannability Rules
 Fact: 60-80% of readers scan, not read.
 Visual Techniques
-	•	Short paragraphs — 1-3 sentences max
-	•	White space — Breaks readers out of scanning fog
-	•	Bold axioms — "Why it matters:" / "What's next:" / "The bottom line:"
-	•	Bullets — Only for genuinely parallel items (not as a crutch)
+	•	Short paragraphs: 1-3 sentences max
+	•	White space: Breaks readers out of scanning fog
+	•	Bold axioms: "Why it matters:" / "What's next:" / "The bottom line:"
+	•	Bullets: Only for genuinely parallel items (not as a crutch)
 Axioms to Use
 Axiom
 When to Use
 Why it matters:
-After first sentence — explains impact
+After first sentence, explains impact
 The big picture:
 Zooms out to broader context
 What's next:
@@ -155,7 +155,7 @@ Active (Prefer)
 "The project will be launched"
 "We're launching the project"
 Foggy Words to Eliminate
-These words signal uncertainty or hedge — cut them unless genuinely uncertain:
+These words signal uncertainty or hedge, cut them unless genuinely uncertain:
 
 	•	Could, may, might, possibly
 	•	Somewhat, relatively, fairly
@@ -213,7 +213,7 @@ Subject: Remote work extended through 2024
 
 Everyone can work from home for the rest of 2024.
 
-Why it matters: You don't need to make childcare or commuting changes — current arrangements can continue.
+Why it matters: You don't need to make childcare or commuting changes, current arrangements can continue.
 
 What's next: Managers will schedule optional in-person team days. Watch for calendar invites by Friday.
 
@@ -233,11 +233,11 @@ I think it is time for our team to revisit our cookie vendor policy. As you know
 
 AFTER (67 words):
 
-Subject: Cookie vendor trial — need 5 volunteers
+Subject: Cookie vendor trial, need 5 volunteers
 
 CookieFinder is offering us a second trial after fixing the issues we flagged.
 
-Why it matters: If CF now works, we could get AI-powered vendor matching — something CS doesn't offer.
+Why it matters: If CF now works, we could get AI-powered vendor matching, something CS doesn't offer.
 
 What's next: Reply by Friday if you want to join the 15-person trial (first trial participants preferred).
 
@@ -267,7 +267,7 @@ Replaced jargon
 Made active voice
 "Changed to active voice so it's clear who is responsible for this action."
 Cut filler phrase
-"Removed '[phrase]' — it added words without adding meaning."
+"Removed '[phrase]', it added words without adding meaning."
 Content Edits
 Edit Type
 Rationale Template
@@ -276,7 +276,7 @@ Deleted repeated info
 Added specific date
 "Added the deadline so readers know exactly when to act."
 Cut hedging language
-"Removed 'possibly' — if you're announcing it, commit to it."
+"Removed 'possibly', if you're announcing it, commit to it."
 Added 'Why it matters'
 "Added impact statement so readers understand why this affects them."
 Tone Edits
@@ -314,10 +314,10 @@ Overall
 
 11. Edge Cases
 When NOT to Cut
-	•	Legal/compliance language — Flag for human review, don't rewrite
-	•	Technical specifications — Precision matters more than brevity
-	•	Sensitive personnel matters — Nuance may be intentional
-	•	Direct quotes from leadership — Don't alter without approval
+	•	Legal/compliance language: Flag for human review, don't rewrite
+	•	Technical specifications: Precision matters more than brevity
+	•	Sensitive personnel matters: Nuance may be intentional
+	•	Direct quotes from leadership: Don't alter without approval
 When to Escalate
 If the original content has any of these, escalate rather than revise autonomously:
 

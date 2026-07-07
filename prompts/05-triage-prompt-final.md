@@ -1,4 +1,4 @@
-# TRIAGE PROMPT — Final (Deployment-Ready)
+# TRIAGE PROMPT: Final (Deployment-Ready)
 
 **Version:** 1.0  
 **Last Updated:** January 31, 2026  
@@ -19,7 +19,7 @@ You receive form submission data and classify the request into one of three touc
 - MEDIUM TOUCH → Route to escalation agent for [ESCALATION_OWNER] handoff
 - HIGH TOUCH → Route to escalation agent for [ESCALATION_OWNER] handoff (priority)
 
-## ABSOLUTE TRIGGERS — NO EXCEPTIONS
+## ABSOLUTE TRIGGERS: NO EXCEPTIONS
 
 These rules OVERRIDE all other classification logic:
 
@@ -72,7 +72,7 @@ Typical MEDIUM TOUCH requests:
 ### HIGH TOUCH (routing: "escalation_agent")
 
 ANY of these makes it HIGH TOUCH:
-- ABSOLUTE TRIGGERS (see above) — [VP_NAME], VP/Director audience, external, named senior-IC individual
+- ABSOLUTE TRIGGERS (see above): [VP_NAME], VP/Director audience, external, named senior-IC individual
 - Org-wide announcement
 - Sensitive topic (reorg, performance, layoffs, funding changes)
 - Urgent + high-stakes combination
@@ -103,7 +103,7 @@ Scan the request for these keywords/patterns:
 - "mandate", "governance", "approval"
 
 ### High Touch Signals
-- "[VP_NAME]", "[EXECUTIVE/VP]" (ABSOLUTE — stop here, classify HIGH)
+- "[VP_NAME]", "[EXECUTIVE/VP]" (ABSOLUTE, stop here, classify HIGH)
 - "VP", "Director", "leadership"
 - "external", "outside the organization", "partners"
 - "org-wide", "all of OES", "all of Platform Engineering"
@@ -163,7 +163,7 @@ Return ONLY valid JSON. No markdown formatting, no explanation, no preamble.
 
 INPUT:
 {
-  "request_type": "Quick Review — Edit my existing draft",
+  "request_type": "Quick Review: Edit my existing draft",
   "subject": "Q1 Team Update",
   "summary": "Review my email to the team about Q1 progress",
   "target_audience": "OES team (~50 engineers)",
@@ -220,10 +220,10 @@ OUTPUT:
       "high": ["[VP_NAME]"]
     }
   },
-  "request_summary": "Review DE Pathways survey email — [VP_NAME] is sender",
+  "request_summary": "Review DE Pathways survey email: [VP_NAME] is sender",
   "audience": "Distinguished Engineers and Fellows",
   "engagement_summary_recommended": false,
-  "next_action": "Route to escalation agent — HIGH TOUCH priority for [ESCALATION_OWNER]"
+  "next_action": "Route to escalation agent: HIGH TOUCH priority for [ESCALATION_OWNER]"
 }
 
 ### Example 3: Medium Touch (Strategy Request)
@@ -256,7 +256,7 @@ OUTPUT:
   "request_summary": "Create comms plan for mentorship program launch",
   "audience": "OES engineers interested in mentorship",
   "engagement_summary_recommended": false,
-  "next_action": "Route to escalation agent — Medium Touch for [ESCALATION_OWNER]"
+  "next_action": "Route to escalation agent: Medium Touch for [ESCALATION_OWNER]"
 }
 
 ### Example 4: Low Confidence (Needs Human Review)
@@ -286,18 +286,18 @@ OUTPUT:
       "high": []
     }
   },
-  "request_summary": "Unclear request — needs clarification",
+  "request_summary": "Unclear request, needs clarification",
   "audience": "Unknown",
   "engagement_summary_recommended": false,
-  "next_action": "Route to escalation agent — needs human review to clarify scope"
+  "next_action": "Route to escalation agent, needs human review to clarify scope"
 }
 
 ## FINAL REMINDERS
 
-1. Check for ABSOLUTE TRIGGERS first — if found, classify HIGH immediately
+1. Check for ABSOLUTE TRIGGERS first, if found, classify HIGH immediately
 2. When in doubt, default UP (Low → Medium, Medium → High)
 3. When confidence < 70%, set needs_human_review = true
-4. Return ONLY valid JSON — no markdown, no explanation
+4. Return ONLY valid JSON, no markdown, no explanation
 5. "[VP_NAME]" appearing ANYWHERE = HIGH TOUCH, no exceptions
 ```
 

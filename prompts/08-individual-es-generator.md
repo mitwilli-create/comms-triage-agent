@@ -18,7 +18,7 @@ These rules ensure the agent can parse and match engagement summaries at runtime
 
 1. **Always start with the EXACT header block below.** No content before it.
 2. **Use the EXACT section headers below.** Do not rename, reorder, or skip sections.
-3. **Do's and Don'ts MUST be a markdown table** with `| DO | DON'T |` columns. Never use bullet lists for this section. Each row must be self-contained — DO content in the DO column, DON'T content in the DON'T column. Never merge cells or wrap content across columns.
+3. **Do's and Don'ts MUST be a markdown table** with `| DO | DON'T |` columns. Never use bullet lists for this section. Each row must be self-contained: DO content in the DO column, DON'T content in the DON'T column. Never merge cells or wrap content across columns.
 4. **No empty source references.** If you cannot cite a source, omit the reference entirely. Never output `()` or `[]` or `[source]` as placeholders.
 5. **One paragraph per item.** Each trigger, priority, or intelligence point should be its own paragraph with a bold label prefix.
 6. **Plain text only.** No hyperlinks, no underline markup, no HTML. Markdown bold and headers only.
@@ -27,7 +27,7 @@ These rules ensure the agent can parse and match engagement summaries at runtime
 
 ## OUTPUT FORMAT
 
-### Header Block (MANDATORY — must be first content)
+### Header Block (MANDATORY, must be first content)
 
 ```
 ═══════════════════════════════════════════════════
@@ -38,7 +38,7 @@ Email: [LDAP@[ORG_DOMAIN]]
 Type: Individual
 Level: [Senior/Staff/Senior Staff/Principal/Distinguished/VP/Fellow/Director/Manager/TPM/EBP/ABP]
 Team: [Primary Team / Organization]
-Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
+Aliases: [Full Name, First Name, LDAP, any known nicknames, comma-separated]
 ═══════════════════════════════════════════════════
 ```
 
@@ -47,7 +47,7 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 - **Email:** Always @[ORG_DOMAIN]. Use the LDAP verified from search.
 - **Level:** Exact Northwind level (Senior through Distinguished) or role title (VP, Fellow, Director, Manager, TPM, EBP, ABP).
 - **Team:** Primary team as it would appear in a directory.
-- **Aliases:** ALL of: full name, first name, LDAP (without @[ORG_DOMAIN]), known nicknames. Comma-separated. These drive form-submission matching — be comprehensive.
+- **Aliases:** ALL of: full name, first name, LDAP (without @[ORG_DOMAIN]), known nicknames. Comma-separated. These drive form-submission matching, be comprehensive.
 
 ---
 
@@ -58,7 +58,7 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 
 **Area of Expertise:** [3-5 areas, comma-separated]
 
-**Core Mission:** [One sentence — their primary professional objective. Use their own words when available.]
+**Core Mission:** [One sentence, their primary professional objective. Use their own words when available.]
 ```
 
 ---
@@ -66,11 +66,11 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 ### Section 2: Executive Engagement Strategy
 
 ```
-**Heuristic:** "[2-4 word tagline]" — [One sentence explaining the tagline]
+**Heuristic:** "[2-4 word tagline]": [One sentence explaining the tagline]
 
 **The "[Name]" Trigger:** [What gets their immediate attention. Be specific and actionable.]
 
-**The "[Dimension]" Trigger:** [A second trigger — different dimension from the first.]
+**The "[Dimension]" Trigger:** [A second trigger, different dimension from the first.]
 
 **The "[Dimension]" Trigger:** [Optional third trigger if pattern is clear.]
 ```
@@ -96,7 +96,7 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 ```
 **Interaction Style:** [1-2 sentences on how they communicate.]
 
-**Preferred Medium:** [Async/Sync, Docs/Chat/Email/Code Review — be specific.]
+**Preferred Medium:** [Async/Sync, Docs/Chat/Email/Code Review, be specific.]
 
 **Responsiveness:** [Fast/Moderate/Slow, with context.]
 
@@ -117,7 +117,7 @@ Aliases: [Full Name, First Name, LDAP, any known nicknames — comma-separated]
 **Format Preference:** [Fireside chat, workshop, lightning talk, panel, etc.]
 ```
 
-If insufficient data, write: `Insufficient data — recommend direct intake.`
+If insufficient data, write: `Insufficient data, recommend direct intake.`
 
 ---
 
@@ -136,7 +136,7 @@ If insufficient data, write: `Insufficient data — recommend direct intake.`
 
 **Table rules:**
 - 3-5 rows minimum
-- Each cell is ONE complete thought — no wrapping, no continuation
+- Each cell is ONE complete thought, no wrapping, no continuation
 - DO column: actionable instructions (start with a verb)
 - DON'T column: specific behaviors to avoid (start with a verb or noun)
 - Keep each cell under 25 words
@@ -146,19 +146,19 @@ If insufficient data, write: `Insufficient data — recommend direct intake.`
 ## RESEARCH INSTRUCTIONS
 
 When researching this individual, look for:
-1. **the people directory profiles** — Role, team, tenure, badges
-2. **Recent CLs** (last 6 months) — Active codebases, collaboration patterns
-3. **documents authored** (last 12 months) — Strategy docs, design docs, presentations
-4. **Email/Chat patterns** — Communication style, response speed
-5. **Internal talks/presentations** — Topics, audiences, format preferences
-6. **Peer recognition** — Kudos sent/received, collaboration signals
-7. **OKR/planning docs** — Current priorities and strategic direction
+1. **the people directory profiles**: Role, team, tenure, badges
+2. **Recent CLs** (last 6 months): Active codebases, collaboration patterns
+3. **documents authored** (last 12 months): Strategy docs, design docs, presentations
+4. **Email/Chat patterns**: Communication style, response speed
+5. **Internal talks/presentations**: Topics, audiences, format preferences
+6. **Peer recognition**: Kudos sent/received, collaboration signals
+7. **OKR/planning docs**: Current priorities and strategic direction
 
 **Quality standards:**
 - Source claims in brackets when possible, e.g., [the people directory profiles] or [Doc: Q4 Planning]
 - Use direct quotes when they reveal communication style or priorities
 - Flag uncertainty: "Inferred from..." vs "Confirmed by..."
-- If a section has insufficient data, write: `Insufficient data — recommend direct intake.`
+- If a section has insufficient data, write: `Insufficient data, recommend direct intake.`
 - **Never invent details. Never output empty brackets or parentheses.**
 
 ---
@@ -175,7 +175,7 @@ Examples:
 - No LDAPs in parentheses in the filename
 - No special characters (accents, unicode, curly quotes)
 - No ALL CAPS
-- No long prefixes — always start with "ES - "
+- No long prefixes, always start with "ES - "
 
 ---
 

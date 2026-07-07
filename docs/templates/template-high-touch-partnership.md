@@ -30,7 +30,7 @@ Consider before proceeding:
 
 ☐ What could go wrong if this communication misses the mark?  ☐ Who else needs to review before send (stakeholders, leadership)?  ☐ Are there timing dependencies (other announcements, events)?  ☐ Is there political context that affects messaging?  ☐ What's the fallback if the primary approach doesn't land?
 
-Risk Level: [Low / Medium / High] — Update after assessment
+Risk Level: [Low / Medium / High]: Update after assessment
 STAKEHOLDER MAP
 
 RECOMMENDED APPROACH

@@ -7,7 +7,7 @@ How They Want to Receive Information
 Preference
 Details
 Format
-Written docs (documents, design docs, strategy docs) — "documents is my IDE"
+Written docs (documents, design docs, strategy docs): "documents is my IDE"
 Length
 Dense but focused; comprehensive for review but not verbose
 Detail
@@ -15,29 +15,29 @@ Technical depth appreciated, but with clear "so what"
 Frequency
 Frequent simple updates > big occasional announcements
 Autonomy
-"I don't assign tasks, I assign missions" — high-level goals, not prescriptive steps
+"I don't assign tasks, I assign missions", high-level goals, not prescriptive steps
 What Makes Them Engage
-	•	High signal-to-noise ratio — Dense information, zero fluff
-	•	Long-term systemic impact — They care about 5+ year horizons
-	•	Technical precision — Accuracy matters; they'll spot errors
-	•	Direct feedback loops — No intermediaries diluting the signal
-	•	Clear ownership — Who decides what, and when
-	•	Knowledge sharing — Updates that teach, not just inform
+	•	High signal-to-noise ratio: Dense information, zero fluff
+	•	Long-term systemic impact: They care about 5+ year horizons
+	•	Technical precision: Accuracy matters; they'll spot errors
+	•	Direct feedback loops: No intermediaries diluting the signal
+	•	Clear ownership: Who decides what, and when
+	•	Knowledge sharing: Updates that teach, not just inform
 What Makes Them Ignore/Delete
-	•	Corporate speak — "Learnings," "alignments," "ideations," "synergies"
-	•	Buried asks — CTA in paragraph 4 of a wall of text
-	•	Intermediary dilution — "Adding a PM in the middle causes loss in translation"
-	•	Spotlight-chasing — Updates that exist for visibility, not value
-	•	Over-explanation demands — Assuming they need everything spelled out
-	•	Performative closers — "Let me know if you have any questions!"
+	•	Corporate speak: "Learnings," "alignments," "ideations," "synergies"
+	•	Buried asks: CTA in paragraph 4 of a wall of text
+	•	Intermediary dilution: "Adding a PM in the middle causes loss in translation"
+	•	Spotlight-chasing: Updates that exist for visibility, not value
+	•	Over-explanation demands: Assuming they need everything spelled out
+	•	Performative closers: "Let me know if you have any questions!"
 Pet Peeves (Direct Quotes from Research)
-"Distinguished engineers know less than you think." — They don't need to deeply engage every query
+"Distinguished engineers know less than you think.": They don't need to deeply engage every query
 
-"Information density (signal to noise)" — Concise, dense, flowing narrative
+"Information density (signal to noise)": Concise, dense, flowing narrative
 
-"The (lack of) knowledge sharing bit is my ultimate workplace pet peeve." — Share insights, don't hoard
+"The (lack of) knowledge sharing bit is my ultimate workplace pet peeve.": Share insights, don't hoard
 
-"Annoying obligatory, performative ending questions or offers of further assistance" — Skip the fluff
+"Annoying obligatory, performative ending questions or offers of further assistance": Skip the fluff
 
 
 Part 2: VP/Director Preferences (Engineering Leadership)
@@ -57,9 +57,9 @@ BLUF Email Template
 Context: [2-3 sentences on why this matters now]
 
 Options:
-1. [Option A] — [tradeoff]
-2. [Option B] — [tradeoff]  
-3. [Option C] — [tradeoff]
+1. [Option A]: [tradeoff]
+2. [Option B]: [tradeoff]  
+3. [Option C]: [tradeoff]
 
 Recommendation: [Your pick and why]
 
@@ -77,11 +77,11 @@ Our customer is interested in ABC features requiring this update. They've been o
 Decision-Framing Structure (5 Parts)
 From engineering leadership research:
 
-	•	Context — What's happening, what triggered this, who's affected
-	•	Risks — Technical, customer, operational, timeline (naming risks shows depth)
-	•	Options — At least 3 (avoid "just ship it" single-path)
-	•	Recommendation — Your pick for system stability, not single feature
-	•	Decision Needed — Who decides, what call, by when
+	•	Context: What's happening, what triggered this, who's affected
+	•	Risks: Technical, customer, operational, timeline (naming risks shows depth)
+	•	Options: At least 3 (avoid "just ship it" single-path)
+	•	Recommendation: Your pick for system stability, not single feature
+	•	Decision Needed: Who decides, what call, by when
 What VPs Read vs. Skip
 They Read
 They Skip
@@ -140,7 +140,7 @@ Why they fail: Safe statements that elevate the speaker while burying real decis
 Chaotic Communication (What Goes Wrong)
 Real example of fragmented comms that annoys senior engineers:
 
-Email 1: "Fix your timesheet (after you CALLED IN SICK)" Email 2: "So I uploaded our HR documents to ChatGPT to—" Email 3: "Why is the security compliance taking so long?" Email 4: "Can you take a look at this ticket?" Email 5: "Why isn't the security stuff getting done?" Email 6: "Since we wrongfully fired... we need help" Email 7: "Is it DNS?"
+Email 1: "Fix your timesheet (after you CALLED IN SICK)" Email 2: "So I uploaded our HR documents to ChatGPT to..." Email 3: "Why is the security compliance taking so long?" Email 4: "Can you take a look at this ticket?" Email 5: "Why isn't the security stuff getting done?" Email 6: "Since we wrongfully fired... we need help" Email 7: "Is it DNS?"
 
 Why it fails: No prioritization, context switching, buried asks in noise.
 Wall of Text Failure Mode
@@ -159,9 +159,9 @@ Part 4: Frameworks That Work
 The "Communicate Immediately" Framework
 Assume you'll be interrupted. Structure everything so the reader gets value even if they stop after:
 
-	•	One line — Title/subject as complete sentence ("Technique X improves Metric Y by 3%")
-	•	One paragraph — First para = full core message, conclusion first
-	•	Fractal organization — Condensed → detail, can stop at any level
+	•	One line: Title/subject as complete sentence ("Technique X improves Metric Y by 3%")
+	•	One paragraph: First para = full core message, conclusion first
+	•	Fractal organization: Condensed → detail, can stop at any level
 The 5-15 Update Format
 For regular status updates to leadership:
 
@@ -196,14 +196,14 @@ For substantial changes or proposals:
 ## Open Questions
 [What you're still figuring out]
 GitHub Engineering's 8 Principles
-	•	Async-first — Write things down
-	•	TL;DR at top — Always
-	•	Make work visible — Overcommunicate
-	•	Use native tools — GitHub/Docs, not email as knowledge store
-	•	Document tradeoffs — Context for future readers
-	•	Maintain docs — Update, don't let them rot
-	•	Inclusive language — Accessible to all
-	•	"I intend to..." framing — For proposals seeking feedback
+	•	Async-first: Write things down
+	•	TL;DR at top: Always
+	•	Make work visible: Overcommunicate
+	•	Use native tools: GitHub/Docs, not email as knowledge store
+	•	Document tradeoffs: Context for future readers
+	•	Maintain docs: Update, don't let them rot
+	•	Inclusive language: Accessible to all
+	•	"I intend to..." framing: For proposals seeking feedback
 
 
 Part 5: Northwind-Specific Context (Senior Staff+ / OES)
@@ -212,24 +212,24 @@ From Principal Engineer firsthand account:
 
 "At a company of our scale, Staff also means a lot of coordination (read: meetings, docs, and emails)."
 
-"documents is my IDE" — For strategy, values, design docs, advocacy
+"documents is my IDE": For strategy, values, design docs, advocacy
 
-"Written communication scales your own impact" — Invest in writing skills
+"Written communication scales your own impact": Invest in writing skills
 
-"Build relationships for cross-team alignment" — Docs + relationships, not just docs
+"Build relationships for cross-team alignment": Docs + relationships, not just docs
 Senior Staff+ Reality
-	•	Shift from coding to comms — "What got you here won't get you there"
-	•	5+ year horizons — They think in systems, not sprints
-	•	Doc-heavy environment — Writing skill = career skill
-	•	Cross-org coordination — They connect teams that don't know they should connect
-	•	Frequent simple > occasional big — For visibility and alignment
+	•	Shift from coding to comms: "What got you here won't get you there"
+	•	5+ year horizons: They think in systems, not sprints
+	•	Doc-heavy environment: Writing skill = career skill
+	•	Cross-org coordination: They connect teams that don't know they should connect
+	•	Frequent simple > occasional big: For visibility and alignment
 What Likely Gets Ignored at the organization
 Based on research patterns:
 
-	•	Email overload — Volume makes filtering brutal
-	•	Duplicate announcements — Multiple teams saying similar things
-	•	External/mismatched formats — Stick to internal tool norms
-	•	Low-clarity writing — Ambiguity = delete
+	•	Email overload: Volume makes filtering brutal
+	•	Duplicate announcements: Multiple teams saying similar things
+	•	External/mismatched formats: Stick to internal tool norms
+	•	Low-clarity writing: Ambiguity = delete
 
 
 Part 6: Revision Rules for the Agent

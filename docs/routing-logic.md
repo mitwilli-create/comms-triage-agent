@@ -85,8 +85,8 @@ INCOMING REQUEST
 | Majority M, or any single H | Medium Touch |
 | 2+ H, or any org-wide/external scope | High Touch |
 
-### Rule 2: Absolute Override — [VP_NAME]
-If [VP_NAME] is mentioned anywhere in the request — including as a recipient, approver, sender, or reference — the classification is automatically High Touch. No other factors apply.
+### Rule 2: Absolute Override: [VP_NAME]
+If [VP_NAME] is mentioned anywhere in the request, including as a recipient, approver, sender, or reference, the classification is automatically High Touch. No other factors apply.
 
 ### Rule 3: Confidence Floor
 Any classification below 70% confidence must be escalated, regardless of the L/M/H result.
@@ -95,7 +95,7 @@ Any classification below 70% confidence must be escalated, regardless of the L/M
 When any factor is ambiguous or unknown, apply the higher-risk assumption.
 
 ### Rule 5: Strategy = Medium Minimum
-If the requester uses language like "I need advice on," "help me think through," or "what's the best approach" — the request is at minimum Medium Touch.
+If the requester uses language like "I need advice on," "help me think through," or "what's the best approach", the request is at minimum Medium Touch.
 
 ---
 
@@ -105,6 +105,6 @@ If the requester uses language like "I need advice on," "help me think through,"
 
 **Requester provides incorrect information during confirmation:** Re-assess with corrected information. Restart factor scoring.
 
-**Mid-execution, agent realizes request is higher touch:** Stop execution. Don't deliver partial output. Escalate with note: "Reclassified during execution — [reason]."
+**Mid-execution, agent realizes request is higher touch:** Stop execution. Don't deliver partial output. Escalate with note: "Reclassified during execution: [reason]."
 
 **[ESCALATION_OWNER] is unavailable:** Notify requester of delay. Hold the request. Don't attempt to handle Medium or High Touch autonomously under any circumstances.

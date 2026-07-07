@@ -277,24 +277,24 @@ After generating an engagement summary, save it for future reference:
 
 ## Tips for Better Results
 
-1. **Pin the page first** — LLM Extension needs the page pinned to access its content
+1. **Pin the page first**: LLM Extension needs the page pinned to access its content
 
-2. **Refresh if stale** — If the person's profile was recently updated, refresh before pinning
+2. **Refresh if stale**: If the person's profile was recently updated, refresh before pinning
 
-3. **Combine sources** — For important communications, pin their profile AND a recent doc they wrote
+3. **Combine sources**: For important communications, pin their profile AND a recent doc they wrote
 
-4. **Verify key facts** — LLM can hallucinate; spot-check specific claims before relying on them
+4. **Verify key facts**: LLM can hallucinate; spot-check specific claims before relying on them
 
-5. **Update periodically** — Re-run engagement summaries every 6-12 months for frequent contacts
+5. **Update periodically**: Re-run engagement summaries every 6-12 months for frequent contacts
 
 ---
 
 ## When NOT to Use Engagement Summaries
 
-- **Broad distribution lists** (e.g., eng-announce@) — too generic
-- **People you know well** — trust your judgment
-- **Time-sensitive situations** — just send it
-- **Routine operational requests** — overkill
+- **Broad distribution lists** (e.g., eng-announce@), too generic
+- **People you know well**, trust your judgment
+- **Time-sensitive situations**, just send it
+- **Routine operational requests**, overkill
 
 Engagement summaries add value for **high-stakes communication with unfamiliar senior-IC audiences**.
 

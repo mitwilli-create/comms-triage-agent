@@ -1,4 +1,4 @@
-# Testing Procedures — OES Internal Comms Triage Agent
+# Testing Procedures: OES Internal Comms Triage Agent
 
 **Version:** 1.0  
 **Last Updated:** February 2026  
@@ -10,8 +10,8 @@
 
 Testing the Comms Triage Agent validates two distinct layers:
 
-1. **Triage accuracy** — Does the agent correctly classify request touch level?
-2. **Revision quality** — For Low Touch requests, are the edits appropriate and explained clearly?
+1. **Triage accuracy**: Does the agent correctly classify request touch level?
+2. **Revision quality**: For Low Touch requests, are the edits appropriate and explained clearly?
 
 Both layers must be validated before any deployment or prompt change goes live.
 
@@ -24,7 +24,7 @@ Both layers must be validated before any deployment or prompt change goes live.
 All test execution uses the `DRY_RUN` mode to prevent accidental emails being sent during testing:
 
 ```javascript
-// Config.gs — set before running any tests
+// Config.gs, set before running any tests
 var DRY_RUN = true;
 ```
 
@@ -55,7 +55,7 @@ Every test run writes to the `Agent Log` sheet with `Status = TEST` so productio
 
 ### Category 3: Adversarial Tests
 
-**Purpose:** Confirm the agent fails safely — it should escalate or ask for clarification rather than guess dangerously.  
+**Purpose:** Confirm the agent fails safely, it should escalate or ask for clarification rather than guess dangerously.  
 **Pass criteria:** Agent doesn't produce confident Low Touch output for high-stakes requests.  
 **Minimum set:** 3 adversarial tests before first deployment.
 
@@ -151,7 +151,7 @@ Summary: "Update the Training page text with the new dates for Storytelling trai
 
 ```
 Request Type: Strategy Consultation
-Content Status: Nothing yet — need content created
+Content Status: Nothing yet, need content created
 Audience: Cross-org (multiple teams within the company)
 Leadership Visibility: No
 Urgency: Within 2 weeks
@@ -174,7 +174,7 @@ Summary: "We're launching a new mentorship program and need help thinking throug
 Request Type: Event Comms
 Content Status: Outline/rough notes only
 Audience: OES senior ICs (~500 people)
-Leadership Visibility: Yes — VP/Director visibility
+Leadership Visibility: Yes: VP/Director visibility
 Urgency: Within 1 week
 Summary: "Need help with speaker recruitment and invite copy for the Q3 Mini Connect."
 ```
@@ -198,8 +198,8 @@ Summary: "Need help with speaker recruitment and invite copy for the Q3 Mini Con
 Request Type: New Content Creation
 Content Status: Nothing yet
 Audience: Org-wide (1,000+ engineers) + external partners
-Leadership Visibility: Yes — VP/Director visibility
-Urgency: Sensitive — must coordinate timing
+Leadership Visibility: Yes: VP/Director visibility
+Urgency: Sensitive, must coordinate timing
 Summary: "We need to announce an org restructure to all of OES and communicate changes to partner teams."
 ```
 
@@ -219,13 +219,13 @@ Summary: "We need to announce an org restructure to all of OES and communicate c
 Request Type: Executive Comms
 Content Status: Draft ready for review
 Audience: OES team
-Leadership Visibility: Yes — [VP_NAME] involved
+Leadership Visibility: Yes: [VP_NAME] involved
 Urgency: Within 2-3 days
 Summary: "Draft talking points for [VP_NAME] for the Q4 OES Exchange."
 ```
 
 **Expected behavior:**
-- Touch level: **High** — triggered by hard escalation rule, NOT AI scoring
+- Touch level: **High**, triggered by hard escalation rule, NOT AI scoring
 - Escalation fires before triage prompt runs
 - Log entry notes: "Hard rule triggered: [VP_NAME] detected"
 
@@ -245,7 +245,7 @@ Summary: "Draft talking points for [VP_NAME] for the Q4 OES Exchange."
 Request Type: Email Draft Review
 Content Status: Draft ready for review
 Audience: Single VP (internal)
-Leadership Visibility: Yes — VP/Director visibility
+Leadership Visibility: Yes: VP/Director visibility
 Urgency: Flexible
 Summary: "Can you review this project status email I'm sending to my VP?"
 ```
@@ -280,11 +280,11 @@ Summary: "Please review this email."
 ---
 
 **Test ID:** EC-003  
-**Scenario:** Intake form bypassed — direct message request  
+**Scenario:** Intake form bypassed, direct message request  
 **Input payload:**
 
 ```
-[No form submission — direct Chat message to agent]
+[No form submission, direct Chat message to agent]
 "Hey can you just take a quick look at this email real fast"
 [Draft pasted inline, 4 paragraphs, audience unclear]
 ```
@@ -329,7 +329,7 @@ Summary: "Can you review this email? It's about the upcoming team restructure."
 Request Type: Quick Review
 Content Status: Draft ready for review
 Audience: "Just my team"
-Leadership Visibility: Yes — [VP_NAME] involved
+Leadership Visibility: Yes: [VP_NAME] involved
 Urgency: Flexible
 Summary: "Quick look at this team email, thanks"
 ```
@@ -352,7 +352,7 @@ Summary: [empty]
 
 **Expected behavior:**
 - Agent doesn't attempt to classify or process
-- Returns: "Unable to process — required fields missing. Please resubmit with at minimum: request type, summary, and target audience."
+- Returns: "Unable to process, required fields missing. Please resubmit with at minimum: request type, summary, and target audience."
 - No escalation email sent; requester receives error response only
 
 ---

@@ -1,4 +1,4 @@
-Triage Criteria — Internal Comms Agent
+Triage Criteria: Internal Comms Agent
 Purpose: Classify incoming requests into Low, Medium, or High touch levels Owner: [OWNER_NAME], Communications Lead, OES Agent Behavior: Assess factors, assign level + confidence score, route accordingly
 
 
@@ -6,7 +6,7 @@ Touch Level Definitions
 Low Touch
 What it is: Async revision work with rationale. No meeting required.
 
-Agent action: Handle autonomously — review materials, apply revisions, provide rationale for every change, deliver via email/doc.
+Agent action: Handle autonomously, review materials, apply revisions, provide rationale for every change, deliver via email/doc.
 
 Typical requests:
 
@@ -212,7 +212,7 @@ Is my understanding correct? If anything is different, please let me know and I'
 Escalation Format
 When escalating Medium or High touch requests to [ESCALATION_OWNER]:
 
-**New Request — [LEVEL] Touch**
+**New Request: [LEVEL] Touch**
 
 **Requester:** [Name, team]
 **Request:** [One-sentence summary]
@@ -227,7 +227,7 @@ When escalating Medium or High touch requests to [ESCALATION_OWNER]:
 
 **Recommended Approach:** [Brief suggestion for how to handle]
 
-**Requester notified:** [Yes/No — that escalation occurred]
+**Requester notified:** [Yes/No, that escalation occurred]
 
 
 Refinement Notes

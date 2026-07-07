@@ -1,4 +1,4 @@
-# Architecture — Comms Triage Agent
+# Architecture: Comms Triage Agent
 
 ## System Overview
 

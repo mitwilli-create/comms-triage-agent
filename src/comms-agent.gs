@@ -1,6 +1,6 @@
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * OES INTERNAL COMMS AGENT v1.4 — Apps Script Implementation
+ * OES INTERNAL COMMS AGENT v1.4: Apps Script Implementation
  * ═══════════════════════════════════════════════════════════════════════════
 // PURPOSE: Automated triage and revision of internal communications requests
 // OWNER: [OWNER_NAME], Communications Lead, OES
@@ -11,18 +11,18 @@
 // VERSION HISTORY
 // ═══════════════════════════════════════════════════════════════════════════
 //
-// v1.5 (Feb 2, 2026) — Quick Fixes & Prompt Refinement
+// v1.5 (Feb 2, 2026): Quick Fixes & Prompt Refinement
 //   FUNCTION FIXES:
 //   - callGeminiForRevision: Now uses minimal KB (embedded only) for faster Low Touch
 //   - callGeminiForEscalation: Now loads full dynamic KB for [ESCALATION_OWNER] briefings
 //
 //   REVISION_PROMPT FIXES:
-//   - Added "Edit Not Reinvent" philosophy — preserves user voice, doesn't over-engineer
+//   - Added "Edit Not Reinvent" philosophy, preserves user voice, doesn't over-engineer
 //   - Added "Go deeper" and other phrases to forbidden list
-//   - Added TL;DR rule — auto-adds summary for emails >100 words
-//   - Added explicit CTA rule — every email gets visible call to action
+//   - Added TL;DR rule, auto-adds summary for emails >100 words
+//   - Added explicit CTA rule, every email gets visible call to action
 //
-// v1.4 (Feb 2, 2026) — KB Architecture & Output Quality
+// v1.4 (Feb 2, 2026): KB Architecture & Output Quality
 //   ARCHITECTURE:
 //   - Implemented 3-tier Dynamic KB: Core KB (always), Living Docs (conditional), 
 //     Engagement Summaries (name-matched)
@@ -33,7 +33,7 @@
 //
 //   TRIAGE FIXES:
 //   - OES Leadership = INTERNAL (does NOT trigger escalation)
-//   - Removed "senior IC by name" inference — trusts form's audience field
+//   - Removed "senior IC by name" inference, trusts form's audience field
 //   - VP/Director rule scoped to EXTERNAL only
 //   - Only [VP_NAME] triggers automatic HIGH TOUCH escalation
 //
@@ -44,7 +44,7 @@
 //   - Word count statistics removed entirely
 //   - "Edit not reinvent" philosophy for Low Touch
 //   - Forbidden phrases enforced (no "Smart Brevity", "Go deeper", etc.)
-//   - Rationale format: "1. **Category** — What. Why."
+//   - Rationale format: "1. **Category**: What. Why."
 //   - Audience analysis duplication fixed
 //
 //   BUG FIXES:
@@ -53,21 +53,21 @@
 //   - HTML stripping from Google Doc body
 //   - Email notification spacing tightened
 //
-// v1.3 (Jan 31, 2026) — Template System & Error Handling
+// v1.3 (Jan 31, 2026): Template System & Error Handling
 //   - Template-based document generation (EMAIL_TEMPLATE_ID)
 //   - Enhanced draft access error handling
 //   - Site-related requests auto-escalate to MEDIUM TOUCH
 //   - [VP_NAME] rule hardcoded bypass (100% confidence, immediate escalation)
 //   - Escalation starter docs for [ESCALATION_OWNER]
 //
-// v1.2 (Jan 30, 2026) — Core Functionality
+// v1.2 (Jan 30, 2026): Core Functionality
 //   - Gemini API integration
 //   - Form parsing and triage logic
 //   - Low/Medium/High touch routing
 //   - Chat Space notifications
 //   - Sheet status updates
 //
-// v1.1 (Jan 29, 2026) — Initial Build
+// v1.1 (Jan 29, 2026): Initial Build
 //   - Basic form submission handling
 //   - Proof of concept triage
 //
@@ -605,14 +605,14 @@ Every communication follows this structure:
 - Declarative statements, not questions
 
 ### First Sentence (Barstool Test)
-- ONE sentence only — forces clarity
-- Most important detail first — not chronological
+- ONE sentence only, forces clarity
+- Most important detail first, not chronological
 - The same words you'd say out loud if sprinting to catch your VP
 
 ### Why It Matters
-- Reader-centric — not why it matters to YOU
+- Reader-centric, not why it matters to YOU
 - 1-2 sentences maximum
-- Concrete impact — what changes for them?
+- Concrete impact, what changes for them?
 
 ### What to Cut (Target: 30-50% reduction)
 Always cut:
@@ -697,10 +697,10 @@ Avoid:
 
 ### Cross-Org Communications
 Key considerations:
-- No assumed context — explain OES terminology
-- Relevance first — lead with their benefit
-- Clear ownership — who does what
-- Minimal jargon — spell out acronyms
+- No assumed context, explain OES terminology
+- Relevance first, lead with their benefit
+- Clear ownership, who does what
+- Minimal jargon, spell out acronyms
 
 ### General OES Team
 Preferences:
@@ -710,14 +710,14 @@ Preferences:
 - Consistent formatting
 `;
 
-// REVISION_EXAMPLES_KB — Last reviewed: Feb 2026
+// REVISION_EXAMPLES_KB: Last reviewed: Feb 2026
 // Review quarterly or after major style shifts
 // These examples teach the revision agent [OWNER_NAME]'s editing patterns
 
 const REVISION_EXAMPLES_KB = `
 ## REVISION EXAMPLES
 
-These examples demonstrate how to transform communications content. Each shows a principle in action — learn the pattern, not the specific content.
+These examples demonstrate how to transform communications content. Each shows a principle in action, learn the pattern, not the specific content.
 
 ---
 
@@ -738,10 +738,10 @@ AFTER:
 **Action Requested:** Please click the 'Feedback' link next to the proposed decision below. You can also forward this email to key technical leaders who may have valuable insights."
 
 WHY THIS WORKS:
-- Added "Why it Matters" header — readers immediately know relevance
-- Separated action from context — ask is now prominent
-- Cut repetitive process explanation — readers don't need the backstory
-- Subject line changed from "[Announce]" to "[FEEDBACK REQUESTED]" — signals action needed
+- Added "Why it Matters" header, readers immediately know relevance
+- Separated action from context, ask is now prominent
+- Cut repetitive process explanation, readers don't need the backstory
+- Subject line changed from "[Announce]" to "[FEEDBACK REQUESTED]", signals action needed
 
 ---
 
@@ -811,9 +811,9 @@ AFTER:
 
 WHY THIS WORKS:
 - Original didn't credit the team that did the work
-- "OES-orchestrated" was chosen over "OES-driven" — accurate to the team's role (facilitator, not owner)
+- "OES-orchestrated" was chosen over "OES-driven", accurate to the team's role (facilitator, not owner)
 - Attribution should reflect actual contribution level
-- Rule: When adding credit, use verbs that match the team's actual role (orchestrated, facilitated, supported — not "drove" or "led" if you didn't)
+- Rule: When adding credit, use verbs that match the team's actual role (orchestrated, facilitated, supported, not "drove" or "led" if you didn't)
 
 ---
 
@@ -830,9 +830,9 @@ Subject: "Feedback Requested: Shape future Mini Connects (by EOD Sept 3)"
 TL;DR: "Please take 2 minutes before EOD next Wednesday (9/3) to complete this survey. Your input directly shapes our future topics."
 
 WHY THIS WORKS:
-- Original had no deadline — easy to ignore
+- Original had no deadline, easy to ignore
 - Deadline in subject line creates urgency before opening
-- "Your input directly shapes" — explains why their action matters
+- "Your input directly shapes", explains why their action matters
 - Rule: Every request needs a deadline and a reason why their response matters
 
 ---
@@ -848,7 +848,7 @@ AFTER:
 "OES helped drive the Config-Push Greenlight Greenlight, accelerating convergence of configuration and data push mechanisms across the company to Cascade and Relay. This effort significantly reduced configs push ecosystem fragmentation (~10 mechanisms closed/migrated, ~8 in progress), improved production principle compliance, and enhanced company-wide reliability. We exited Greenlight on March 11, 2025."
 
 WHY THIS WORKS:
-- "Accelerating convergence" is vague — what does that mean in practice?
+- "Accelerating convergence" is vague, what does that mean in practice?
 - "(~10 mechanisms closed/migrated, ~8 in progress)" makes impact concrete
 - Numbers let readers grasp scale without having to trust your adjectives
 - Rule: Replace vague impact claims with specific metrics wherever possible
@@ -857,13 +857,13 @@ WHY THIS WORKS:
 
 ## PRINCIPLES SUMMARY
 
-1. **Structure for scanning** — Headers, bullets, TL;DR at top
-2. **Eliminate jargon** — If audience might not know it, explain it
-3. **Cut the confusing** — If you can't clarify it in 2-3 tries, remove it
-4. **Optimize for mobile** — Shorter titles, content above the fold
-5. **Add accurate attribution** — Credit teams with verbs matching their actual role
-6. **Include deadlines** — Every request needs a "by when" and "why it matters"
-7. **Quantify impact** — Replace adjectives with numbers
+1. **Structure for scanning**: Headers, bullets, TL;DR at top
+2. **Eliminate jargon**: If audience might not know it, explain it
+3. **Cut the confusing**: If you can't clarify it in 2-3 tries, remove it
+4. **Optimize for mobile**: Shorter titles, content above the fold
+5. **Add accurate attribution**: Credit teams with verbs matching their actual role
+6. **Include deadlines**: Every request needs a "by when" and "why it matters"
+7. **Quantify impact**: Replace adjectives with numbers
 
 `;
 
@@ -883,7 +883,7 @@ You receive form submission data and classify the request into one of three touc
 - MEDIUM TOUCH → Route to escalation agent for [ESCALATION_OWNER] handoff
 - HIGH TOUCH → Route to escalation agent for [ESCALATION_OWNER] handoff (priority)
 
-## ABSOLUTE TRIGGERS — NO EXCEPTIONS
+## ABSOLUTE TRIGGERS: NO EXCEPTIONS
 
 These rules OVERRIDE all other classification logic:
 
@@ -894,20 +894,20 @@ These rules OVERRIDE all other classification logic:
 | "external", "outside OES", "cross-PA" appears in scope | HIGH TOUCH | escalation_agent |
 | "website", "site", "wiki", "web page", "landing page" in request type or summary | MEDIUM TOUCH minimum | escalation_agent |
 
-## OES LEADERSHIP — NEVER ESCALATE
+## OES LEADERSHIP: NEVER ESCALATE
 
 CRITICAL: OES has its own leadership team. Communications TO or FROM OES leadership are INTERNAL and should be LOW TOUCH.
 
 OES Leadership includes (but is not limited to):
-- [EXEC_NAME] (Chief of Product) — INTERNAL, do not escalate
-- [ESCALATION_OWNER] — INTERNAL, do not escalate
-- Any Director, VP, or senior leader WITHIN OES — INTERNAL, do not escalate
-- "OES Leadership" as an audience — INTERNAL, do not escalate
+- [EXEC_NAME] (Chief of Product): INTERNAL, do not escalate
+- [ESCALATION_OWNER]: INTERNAL, do not escalate
+- Any Director, VP, or senior leader WITHIN OES: INTERNAL, do not escalate
+- "OES Leadership" as an audience: INTERNAL, do not escalate
 
 The ONLY OES leader who triggers escalation is [VP_NAME] (the [VP_NAME] Rule).
 
 DO NOT escalate just because someone has "Director" or "VP" in their title if they are part of OES.
-DO NOT infer titles from names — trust the Primary Audience field.
+DO NOT infer titles from names, trust the Primary Audience field.
 
 ## WHEN TO ESCALATE FOR VP/DIRECTOR
 
@@ -917,15 +917,15 @@ ONLY escalate for VP/Director if:
 
 If Primary Audience is "OES Leadership" → LOW TOUCH (not escalation)
 
-## INTERNAL OES AUDIENCES — NEVER ESCALATE FOR AUDIENCE ALONE
+## INTERNAL OES AUDIENCES: NEVER ESCALATE FOR AUDIENCE ALONE
 
 These audiences are INTERNAL and should be LOW TOUCH unless other factors ([VP_NAME], site content, strategy request) apply:
-- "OES Leadership" — internal leadership team
-- "OES teams" — internal teams
-- "Multiple teams within OES" — still internal
-- "In-House Engineering" — internal
-- "STSO" — internal
-- "Domain Stewards" — internal OES program participants
+- "OES Leadership", internal leadership team
+- "OES teams", internal teams
+- "Multiple teams within OES", still internal
+- "In-House Engineering", internal
+- "STSO", internal
+- "Domain Stewards", internal OES program participants
 - Any audience clearly within OES organization
 
 If ANY absolute trigger is detected, classify at that level or higher immediately.
@@ -1004,12 +1004,12 @@ const REVISION_PROMPT = `You are the OES Internal Comms revision engine.
 
 ## INTERFACE
 - Output is sent via [TEAM_EMAIL_PREFIX]@ email alias
-- Users see emails from "OES Communications" — NOT from an AI agent
+- Users see emails from "OES Communications", NOT from an AI agent
 
 ## NORTH STAR
 Every revision must increase the likelihood the audience will READ it AND ACT on it.
 
-## EDITING PHILOSOPHY — EDIT, NOT REINVENT
+## EDITING PHILOSOPHY: EDIT, NOT REINVENT
 
 You are EDITING the user's draft, not rewriting it from scratch.
 
@@ -1039,18 +1039,18 @@ Apply SENIOR TECHNICAL IC rules:
 - INCREASE information density (more signal per sentence)
 - ADD TL;DR at top if missing
 - REMOVE corporate speak ("learnings" → "lessons", "alignments" → "agreements")
-- RESPECT their expertise — do NOT over-explain basics
+- RESPECT their expertise, do NOT over-explain basics
 - INCLUDE "so what" / implications
 - KEEP structure scannable
 
 ### IF AUDIENCE CONTAINS: "[VP_NAME]" or "[VP_NAME_LAST]"
-STOP — Return routing_error. [VP_NAME] communications require human review.
+STOP: Return routing_error. [VP_NAME] communications require human review.
 
-### OES LEADERSHIP — DO NOT ESCALATE
+### OES LEADERSHIP: DO NOT ESCALATE
 "OES Leadership" is INTERNAL. Do not return routing_error for:
-- [EXEC_NAME] (Chief of Product) — OES internal
-- Any OES Director or VP — OES internal
-- "OES Leadership" as audience — OES internal
+- [EXEC_NAME] (Chief of Product): OES internal
+- Any OES Director or VP: OES internal
+- "OES Leadership" as audience: OES internal
 
 Only escalate for VP/Director if explicitly OUTSIDE OES (e.g., "Platform VP", "Cloud Director").
 
@@ -1072,16 +1072,16 @@ Apply GENERAL OES TEAM rules:
 ### Never Hallucinate
 - NEVER invent meeting names, channel names, dates, processes
 - Use placeholders: [DATE], [CHANNEL], [LINK], [CONTACT]
-- This organization uses GChat and Gmail — NOT Slack
+- This organization uses GChat and Gmail, NOT Slack
 
 ### [VP_NAME] Rule (ABSOLUTE)
 - If "[VP_NAME]" or "[VP_NAME_LAST]" appears ANYWHERE, return routing_error
 
-### OES LEADERSHIP — DO NOT ESCALATE
+### OES LEADERSHIP: DO NOT ESCALATE
 OES has its own internal leadership. These are NOT external VP/Directors:
-- "OES Leadership" as audience — INTERNAL, proceed with revision
-- [EXEC_NAME] — INTERNAL, proceed with revision
-- Any Director or VP within OES — INTERNAL, proceed with revision
+- "OES Leadership" as audience: INTERNAL, proceed with revision
+- [EXEC_NAME]: INTERNAL, proceed with revision
+- Any Director or VP within OES: INTERNAL, proceed with revision
 
 Only return routing_error for VP/Director if they are OUTSIDE OES (e.g., "Platform VP", "Cloud Director", "PA leadership outside OES").
 
@@ -1094,7 +1094,7 @@ If Primary Audience is "OES Leadership" → PROCEED with revision, do NOT return
 - "principles"
 - "best practices"
 - "restructured to follow"
-- "Go deeper" — use explicit CTAs instead (e.g., "Full report: [LINK]", "Details: [LINK]")
+- "Go deeper", use explicit CTAs instead (e.g., "Full report: [LINK]", "Details: [LINK]")
 - "adhering to"
 - "per our conversation"
 - "please be advised"
@@ -1106,7 +1106,7 @@ Instead, describe the SPECIFIC change and its CONCRETE benefit to the reader.
 ### TL;DR RULE
 If the revised email body exceeds 100 words:
 - ADD a TL;DR section at the very top (before any greeting placeholder)
-- Format: "TL;DR: [One sentence — key message and CTA]"
+- Format: "TL;DR: [One sentence, key message and CTA]"
 - Keep TL;DR under 25 words
 - If email is under 100 words, do NOT add TL;DR (it's already brief)
 
@@ -1131,25 +1131,25 @@ Place CTA either:
 - In the TL;DR (if present), OR
 - As the final line before closing placeholder
 
-If no clear action exists in the original, use: "No action needed — for your awareness."
+If no clear action exists in the original, use: "No action needed, for your awareness."
 
 ### CORE RULES
 - Front-load key message and ask
 - Bullet points over paragraphs for lists
 - Cut background audience already knows
 - Kill marketing language ("excited to announce", "thrilled")
-- NEVER use "Go Deeper" as a heading or label — use "More Details", "Additional Context", or "Learn More" instead
+- NEVER use "Go Deeper" as a heading or label, use "More Details", "Additional Context", or "Learn More" instead
 - Add "OES" attribution where deserved
-- REMOVE salutation, replace with: [SALUTATION — Add your greeting]
-- REMOVE closing, replace with: [CLOSING — Add your sign-off]
+- REMOVE salutation, replace with: [SALUTATION: Add your greeting]
+- REMOVE closing, replace with: [CLOSING: Add your sign-off]
 
 ## OUTPUT FORMAT RULES
 
 ### email_draft_doc.body (PLAIN TEXT ONLY)
-- NO HTML tags — this goes into a Google Doc
+- NO HTML tags, this goes into a Google Doc
 - Use actual line breaks (newlines)
 - Use "• " (bullet character) for bullet points
-- Do NOT include salutation/closing placeholders — template adds those
+- Do NOT include salutation/closing placeholders, template adds those
 
 ### notification_email (HTML FORMAT)
 - Use <strong> for bold
@@ -1157,11 +1157,11 @@ If no clear action exists in the original, use: "No action needed — for your a
 - Use &bull; for bullets
 
 ### audience_specific_notes (PLAIN TEXT ONLY)
-- Output ONLY the analysis content — no prefix label
-- DO NOT include "Audience Analysis:" at the start — the template adds that label
+- Output ONLY the analysis content, no prefix label
+- DO NOT include "Audience Analysis:" at the start, the template adds that label
 - Keep to 1-2 sentences max
 
-CORRECT: "Revised for senior IC audience — increased information density, removed over-explanation."
+CORRECT: "Revised for senior IC audience, increased information density, removed over-explanation."
 WRONG: "Audience Analysis: Revised for senior IC audience..."
 
 ### rationale array
@@ -1171,12 +1171,12 @@ Each item must have:
 - "why": Concrete reader benefit (NOT methodology compliance)
 
 BAD example: "Restructured to follow best practices for clarity"
-GOOD example: "Removed 'I hope this email finds you well' — saves reader 2 seconds, gets to the point immediately"
+GOOD example: "Removed 'I hope this email finds you well', saves reader 2 seconds, gets to the point immediately"
 
 ### word_count calculation
 - word_count_original: Count words in the ORIGINAL draft submitted by user
 - word_count_revised: Count words in YOUR revised version
-- If revised > original, that's okay — say "added structure" not "reduction"
+- If revised > original, that's okay, say "added structure" not "reduction"
 
 ## NOTIFICATION EMAIL FORMAT
 
@@ -1190,7 +1190,7 @@ Your draft for "<strong>[subject]</strong>" is ready for review.<br><br>
 2. Fill in [brackets]<br>
 3. Send when ready<br><br>
 Questions? Reply to this email.<br><br>
-— OES Communications
+- OES Communications
 
 RULES:
 - NO summary of changes in email (document has full rationale)
@@ -1210,7 +1210,7 @@ RULES:
   },
   "email_draft_doc": {
     "subject_line": "Revised subject line",
-    "body": "PLAIN TEXT revised email body — no HTML, no salutation/closing",
+    "body": "PLAIN TEXT revised email body, no HTML, no salutation/closing",
     "rationale": [
       {"category": "Conciseness", "change": "Removed 'I hope this email finds you well'", "why": "Gets to the point immediately, respects reader time"}
     ],
@@ -1224,7 +1224,7 @@ RULES:
 const ESCALATION_PROMPT = `You are the OES Internal Comms escalation formatter.
 
 ## YOUR ROLE
-Format brief escalation summaries for [ESCALATION_OWNER]. Keep Chat messages SHORT — details live in the sheet.
+Format brief escalation summaries for [ESCALATION_OWNER]. Keep Chat messages SHORT, details live in the sheet.
 
 ## KB SCOPING RULES
 You will receive knowledge base documents for context. Only reference documents directly relevant to the request type:
@@ -1237,7 +1237,7 @@ You will receive knowledge base documents for context. Only reference documents 
 
 Do NOT cross-reference program-specific docs when the request is about a different program.
 
-## KNOWLEDGE BASE — AUDIENCE PROFILES
+## KNOWLEDGE BASE: AUDIENCE PROFILES
 ${AUDIENCE_PROFILES_KB}
 
 ## AUDIENCE TYPE DETECTION
@@ -1262,16 +1262,16 @@ Medium Touch:
 *From:* [email]
 *Request:* [one sentence max]
 *Why:* [one sentence max]
-*Row:* [ROW] — {{SHEET_LINK}}
+*Row:* [ROW]: {{SHEET_LINK}}
 
 High Touch:
 🔴 *HIGH TOUCH*
 *From:* [email]
 *Request:* [one sentence max]
 *Why:* [one sentence max]
-*Row:* [ROW] — {{SHEET_LINK}}
+*Row:* [ROW]: {{SHEET_LINK}}
 
-IMPORTANT: Keep Chat messages under 5 lines. No bullet lists. No "recommended approach" in Chat — put that in the sheet.
+IMPORTANT: Keep Chat messages under 5 lines. No bullet lists. No "recommended approach" in Chat, put that in the sheet.
 
 ## SHEET STATUS VALUES
 - "Escalated - Medium"
@@ -1287,7 +1287,7 @@ IMPORTANT: Keep Chat messages under 5 lines. No bullet lists. No "recommended ap
     "subject": "Your OES Comms request has been received",
     "body": "Professional email confirming receipt and escalation. Use requester's subject, NOT row number."
   },
-"recommended_approach": "PLAIN TEXT ONLY — no markdown, no asterisks, no bullet symbols. Use numbered lists with line breaks. Specific to THIS request — only reference KB docs relevant to the request type.",
+"recommended_approach": "PLAIN TEXT ONLY, no markdown, no asterisks, no bullet symbols. Use numbered lists with line breaks. Specific to THIS request, only reference KB docs relevant to the request type.",
   "audience_type": "Detected audience type per rules above"
 }`;
 
@@ -1403,7 +1403,7 @@ function isSiteRelatedRequest(formData) {
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// FORM PARSING — UPDATE TO MATCH YOUR FORM
+// FORM PARSING: UPDATE TO MATCH YOUR FORM
 // ═══════════════════════════════════════════════════════════════════════════
 
 function parseFormResponse(e) {
@@ -1431,7 +1431,7 @@ request_type: responses['Type of Request:'] ? responses['Type of Request:'][0] :
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// GEMINI API — v1.3 CHANGE 1: system_instruction separation
+// GEMINI API, v1.3 CHANGE 1: system_instruction separation
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -1531,7 +1531,7 @@ function callGeminiForTriage(formData, config) {
 function callGeminiForRevision(formData, originalContent, config) {
   // LOW TOUCH: Only uses SMART_BREVITY_KB and AUDIENCE_PROFILES_KB 
   // which are already embedded in REVISION_PROMPT
-  // No dynamic KB loading for Low Touch — keeps context small and fast
+  // No dynamic KB loading for Low Touch, keeps context small and fast
   Logger.log('Low Touch revision - using minimal KB (embedded in prompt)');
   
   const input = `## FORM DATA:\n${JSON.stringify(formData, null, 2)}\n\n## ORIGINAL CONTENT TO REVISE:\n${originalContent}`;
@@ -1552,7 +1552,7 @@ function callGeminiForEscalation(formData, triageResult, rowNumber, config) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// LOW TOUCH HANDLER — v1.3 CHANGE 2: Enhanced draft access error handling
+// LOW TOUCH HANDLER, v1.3 CHANGE 2: Enhanced draft access error handling
 // ═══════════════════════════════════════════════════════════════════════════
 
 function handleLowTouch(formData, triageResult, rowNumber, config) {
@@ -1600,7 +1600,7 @@ Please check that:
 
 Your request has been escalated to our team who will follow up. You can also resubmit with an updated link at the intranet.
 
-— OES Communications`,
+- OES Communications`,
       config
     );
     return;
@@ -1769,7 +1769,7 @@ function createEmailDraftDoc(formData, revisionResult, config) {
   // Rationale list - format as numbered text
   let rationaleText = '';
   (edd.rationale || []).forEach((item, i) => {
-    rationaleText += (i + 1) + '. ' + item.category + ': ' + item.change + ' — ' + item.why + '\n';
+    rationaleText += (i + 1) + '. ' + item.category + ': ' + item.change + ': ' + item.why + '\n';
   });
   body.replaceText('\\{\\{RATIONALE_LIST\\}\\}', rationaleText.trim());
   
@@ -1834,7 +1834,7 @@ function handleEscalation(formData, triageResult, rowNumber, config) {
 
 /**
  * ═══════════════════════════════════════════════════════════════════════════
- * [ESCALATION_OWNER] ESCALATION PACKAGE v2.0 — FINAL
+ * [ESCALATION_OWNER] ESCALATION PACKAGE v2.0: FINAL
  * ═══════════════════════════════════════════════════════════════════════════
  * 
  * PURPOSE: Optimized escalation experience for [ESCALATION_OWNER] during [OWNER_NAME]'s leave
@@ -1850,7 +1850,7 @@ function handleEscalation(formData, triageResult, rowNumber, config) {
  *      (approximately lines 1794-2500 in OES_comms_agent_1.5_OPTIMIZED.txt)
  *   3. Test with testMediumTouchPath(), testHighTouchPath(), testVpHighTouchPath()
  * 
- * NO NEW TRIGGERS REQUIRED — Uses existing onFormSubmit trigger
+ * NO NEW TRIGGERS REQUIRED: Uses existing onFormSubmit trigger
  * 
  * ═══════════════════════════════════════════════════════════════════════════
  */
@@ -1891,21 +1891,21 @@ function getAudienceProfileText(audienceText) {
     return `AUDIENCE TYPE: Senior Technical ICs (Principal/Distinguished Engineers)
 
 How They Want Information:
-• Format: Written docs (Google Docs, design docs) — "Google Docs is my IDE"
+• Format: Written docs (Google Docs, design docs): "Google Docs is my IDE"
 • Length: Dense but focused; comprehensive for review but not verbose
 • Detail: Technical depth appreciated, but with clear "so what"
 
 What Makes Them Engage:
-• High signal-to-noise ratio — Dense information, zero fluff
-• Long-term systemic impact — They care about 5+ year horizons
-• Technical precision — Accuracy matters; they'll spot errors
-• Clear ownership — Who decides what, and when
+• High signal-to-noise ratio: Dense information, zero fluff
+• Long-term systemic impact: They care about 5+ year horizons
+• Technical precision: Accuracy matters; they'll spot errors
+• Clear ownership: Who decides what, and when
 
 What Makes Them Ignore/Delete:
 • Corporate speak: "Learnings," "alignments," "synergies"
-• Buried asks — CTA in paragraph 4 of a wall of text
-• Over-explanation — Assuming they need everything spelled out
-• Performative closers — "Let me know if you have any questions!"
+• Buried asks: CTA in paragraph 4 of a wall of text
+• Over-explanation: Assuming they need everything spelled out
+• Performative closers: "Let me know if you have any questions!"
 
 Communication Do's:
 ✓ Lead with the technical substance
@@ -1947,10 +1947,10 @@ Communication Do's:
     return `AUDIENCE TYPE: Cross-Org Partners
 
 Key Considerations:
-• No assumed context — Explain OES terminology
-• Relevance first — Lead with their benefit
-• Clear ownership — Who does what
-• Minimal jargon — Spell out acronyms
+• No assumed context: Explain OES terminology
+• Relevance first: Lead with their benefit
+• Clear ownership: Who does what
+• Minimal jargon: Spell out acronyms
 
 Communication Do's:
 ✓ Explain any OES-specific terms
@@ -1983,7 +1983,7 @@ function generateRecommendedApproach(formData, touchLevel) {
   
   if (level === 'HIGH') {
     if (formData.vp_involved && formData.vp_involved.toLowerCase().includes('yes')) {
-      return `HIGH TOUCH APPROACH — [VP_NAME] Communications:
+      return `HIGH TOUCH APPROACH: [VP_NAME] Communications:
 1. Review request context and any draft materials
 2. Use [VP_NAME] Gem prompt (Section 5) to draft initial content
 3. Compare against recent [VP_NAME] communications for voice consistency
@@ -1995,7 +1995,7 @@ function generateRecommendedApproach(formData, touchLevel) {
 Estimated Timeline: 2-5 business days depending on complexity`;
     }
     
-    return `HIGH TOUCH APPROACH — Full Partnership:
+    return `HIGH TOUCH APPROACH: Full Partnership:
 1. Schedule discovery call with requester (15-30 min)
 2. Gather all context, stakeholders, and constraints
 3. Develop full comms strategy and timeline
@@ -2008,7 +2008,7 @@ Estimated Timeline: 1-4 weeks depending on scope`;
   }
   
   if (requestType.includes('website') || requestType.includes('site') || requestType.includes('wiki')) {
-    return `MEDIUM TOUCH APPROACH — Site/Web Content:
+    return `MEDIUM TOUCH APPROACH: Site/Web Content:
 1. Review existing site structure and navigation
 2. Identify where new content fits in IA
 3. Draft content following site style guide
@@ -2019,7 +2019,7 @@ Estimated Timeline: 3-7 business days`;
   }
   
   if (requestType.includes('mandate') || requestType.includes('governance') || requestType.includes('approval')) {
-    return `MEDIUM TOUCH APPROACH — Mandate/Governance:
+    return `MEDIUM TOUCH APPROACH: Mandate/Governance:
 1. Review mandate requirements against OES Approvals User Guide
 2. Identify required approvers and delegates
 3. Draft presentation or approval request materials
@@ -2029,7 +2029,7 @@ Estimated Timeline: Varies by mandate size (Small: 1 week, Large: 2-4 weeks)`;
   }
   
   if (requestType.includes('new content') || requestType.includes('create')) {
-    return `MEDIUM TOUCH APPROACH — New Content Creation:
+    return `MEDIUM TOUCH APPROACH: New Content Creation:
 1. Gather all source materials and context
 2. Identify key messages and audience
 3. Draft initial content applying Smart Brevity
@@ -2039,7 +2039,7 @@ Estimated Timeline: Varies by mandate size (Small: 1 week, Large: 2-4 weeks)`;
 Estimated Timeline: 3-5 business days`;
   }
   
-  return `MEDIUM TOUCH APPROACH — General:
+  return `MEDIUM TOUCH APPROACH: General:
 1. Review request and gather any missing context
 2. Draft initial content or strategy
 3. Apply Smart Brevity principles
@@ -2060,11 +2060,11 @@ function generateDraftOutline(formData) {
 
 SUBJECT LINE: [Action-oriented, specific, ≤10 words]
 
-[SALUTATION — Add your greeting]
+[SALUTATION: Add your greeting]
 
-TL;DR: [One sentence — the key message]
+TL;DR: [One sentence, the key message]
 
-Why it matters: [Why the reader should care — 1-2 sentences max]
+Why it matters: [Why the reader should care: 1-2 sentences max]
 
 What's next: [Clear action item with deadline if applicable]
 • [Specific action 1]
@@ -2072,7 +2072,7 @@ What's next: [Clear action item with deadline if applicable]
 
 Go deeper: [Optional link for more details]
 
-[CLOSING — Add your sign-off]
+[CLOSING: Add your sign-off]
 
 ───────────────────────────────────────────────────────────
 Target: <200 words total. Apply Smart Brevity throughout.`;
@@ -2081,7 +2081,7 @@ Target: <200 words total. Apply Smart Brevity throughout.`;
   if (requestType.includes('strategy') || requestType.includes('plan')) {
     return `STRATEGY DOCUMENT OUTLINE:
 
-EXECUTIVE SUMMARY: [1 paragraph — problem, solution, outcome]
+EXECUTIVE SUMMARY: [1 paragraph, problem, solution, outcome]
 
 SITUATION: [Current state and why change is needed]
 
@@ -2316,12 +2316,12 @@ function buildReplacementMap(formData, triageResult, rowNumber, timestamp, escal
 // Build additional notes section (conditional)
   const additionalNotesSection = formData.additional_notes 
     ? 'Additional Notes:\n' + formData.additional_notes
-    : 'Additional Notes: None provided — ask requester for context during consultation.';
+    : 'Additional Notes: None provided, ask requester for context during consultation.';
   
   // Build draft link section (conditional)
   const draftLinkSection = formData.draft_link
     ? 'Draft Link: ' + formData.draft_link
-    : 'Draft Link: No draft attached — requester will need to provide source materials.';
+    : 'Draft Link: No draft attached, requester will need to provide source materials.';
   
   // Get audience profile
   const audienceProfile = getAudienceProfileText(formData.target_audience);
@@ -2555,7 +2555,7 @@ function getRecommendedVpPrompt(formData) {
 function detectDifficultNews(summary, notes) {
   const content = (summary + ' ' + (notes || '')).toLowerCase();
   
-  // Multi-word phrases — safe to use .includes()
+  // Multi-word phrases, safe to use .includes()
   var exactPhrases = [
     'bad news', 'unfortunately', 'not going to', 'won\'t be able',
     'have to inform', 'disappointing', 'i regret', 'push back', 'pushed back'
@@ -2565,7 +2565,7 @@ function detectDifficultNews(summary, notes) {
     return true;
   }
   
-  // Single words — use \b word boundary to avoid substring matches
+  // Single words, use \b word boundary to avoid substring matches
   // e.g., 'change' should NOT match 'Exchange'
   var boundaryWords = [
     'delay', 'delayed', 'cancel', 'cancelled', 'canceled',
@@ -2582,7 +2582,7 @@ function detectDifficultNews(summary, notes) {
     }
   }
   
-  // 'change' — only match if NOT part of 'exchange'
+  // 'change', only match if NOT part of 'exchange'
   if (/\bchange\b/i.test(content) && !/exchange/i.test(content)) {
     return true;
   }
@@ -2626,7 +2626,7 @@ function detectCommType(requestType, summary) {
 /**
 
 * ═══════════════════════════════════════════════════════════════════════════
- * ESCALATION EMAIL v3.0 — BLUF REDESIGN
+ * ESCALATION EMAIL v3.0: BLUF REDESIGN
  * ═══════════════════════════════════════════════════════════════════════════
  * 
  * CHANGES FROM v2.0:
@@ -2646,7 +2646,7 @@ function detectCommType(requestType, summary) {
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// ESCALATION EMAIL v3.0 — BLUF FORMAT
+// ESCALATION EMAIL v3.0: BLUF FORMAT
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
@@ -2703,18 +2703,18 @@ function sendEscalationEmail(formData, triageResult, rowNumber, starterDocUrl, c
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
- * Medium Touch email — strategy/consultation needed
+ * Medium Touch email, strategy/consultation needed
  */
 function buildMediumTouchEmail(formData, triageResult, rowNumber, starterDocUrl, config) {
   const requesterName = (formData.requester_email || '').split('@')[0] || 'Requester';
   const deadline = formData.urgency || 'Flexible';
-  const draftStatus = formData.has_draft ? 'Draft provided' : 'No draft — content creation needed';
+  const draftStatus = formData.has_draft ? 'Draft provided' : 'No draft, content creation needed';
   
   return `
 <div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #e8f0fe; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
-    <strong style="font-size: 15px;">MEDIUM TOUCH — Strategy & Consultation</strong>
+    <strong style="font-size: 15px;">MEDIUM TOUCH: Strategy & Consultation</strong>
   </div>
 
   <p><strong>${formData.subject || 'New Request'}</strong></p>
@@ -2749,19 +2749,19 @@ function buildMediumTouchEmail(formData, triageResult, rowNumber, starterDocUrl,
 
 
 /**
- * High Touch email (no [VP_NAME]) — full partnership required
+ * High Touch email (no [VP_NAME]), full partnership required
  */
 function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, config) {
   const requesterName = (formData.requester_email || '').split('@')[0] || 'Requester';
   const deadline = formData.urgency || 'Flexible';
-  const draftStatus = formData.has_draft ? 'Draft provided' : 'No draft — content creation needed';
+  const draftStatus = formData.has_draft ? 'Draft provided' : 'No draft, content creation needed';
   const whyEscalated = (triageResult.classification_reasoning?.primary_factors || ['High-stakes communication']).join(', ');
   
   return `
 <div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #fce8e6; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
-    <strong style="font-size: 15px;">HIGH TOUCH — Full Partnership Required</strong>
+    <strong style="font-size: 15px;">HIGH TOUCH: Full Partnership Required</strong>
   </div>
 
   <p><strong>${formData.subject || 'New Request'}</strong></p>
@@ -2780,7 +2780,7 @@ function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, c
 
   <div style="background: #fafafa; padding: 12px 16px; border-left: 3px solid #ea4335; margin: 16px 0;">
     <strong>Next Steps:</strong><br>
-    1. Open <a href="${starterDocUrl}">Starter Doc</a> — has risk assessment, stakeholder map, and comm plan<br>
+    1. Open <a href="${starterDocUrl}">Starter Doc</a>, has risk assessment, stakeholder map, and comm plan<br>
     2. Generate engagement summaries (prompts in doc)<br>
     3. Schedule 45-min intake with ${requesterName}<br>
     4. Develop strategy, draft, iterate, deliver
@@ -2797,7 +2797,7 @@ function buildHighTouchEmail(formData, triageResult, rowNumber, starterDocUrl, c
 
 
 /**
- * High Touch [VP_NAME] email — executive comms protocols
+ * High Touch [VP_NAME] email, executive comms protocols
  */
 function buildVpEmail(formData, triageResult, rowNumber, starterDocUrl, config) {
   const requesterName = (formData.requester_email || '').split('@')[0] || 'Requester';
@@ -2816,7 +2816,7 @@ const recommendedPrompt = getRecommendedVpPrompt(formData);
 <div style="font-family: Google Sans, Roboto, Arial, sans-serif; font-size: 14px; color: #202124; max-width: 600px;">
 
   <div style="background: #fce8e6; padding: 12px 16px; border-radius: 8px; margin-bottom: 16px;">
-    <strong style="font-size: 15px;">HIGH TOUCH — [VP_NAME] INVOLVED</strong>
+    <strong style="font-size: 15px;">HIGH TOUCH: [VP_NAME] INVOLVED</strong>
   </div>
 
   <p><strong>${formData.subject || 'New Request'}</strong></p>
@@ -2839,7 +2839,7 @@ const recommendedPrompt = getRecommendedVpPrompt(formData);
 
   <div style="background: #fafafa; padding: 12px 16px; border-left: 3px solid #ea4335; margin: 16px 0;">
     <strong>Next Steps:</strong><br>
-    1. Open <a href="${starterDocUrl}">Starter Doc</a> — has [VP_NAME] Gem prompts, voice checklist, and escalation protocol<br>
+    1. Open <a href="${starterDocUrl}">Starter Doc</a>, has [VP_NAME] Gem prompts, voice checklist, and escalation protocol<br>
     2. Run recommended prompt in [VP_NAME] Gem<br>
     3. Verify output against Voice Checklist<br>
     4. Share draft with ${requesterName} FIRST for context check<br>
@@ -3147,7 +3147,7 @@ function updateEngagementSummary(formData, touchLevel, outcome, notes, config) {
     const timestamp = new Date().toISOString().slice(0, 16).replace('T', ' ');
     
     const newEntry = `
-## ${timestamp} — ${formData.request_type || 'Request'}
+## ${timestamp}: ${formData.request_type || 'Request'}
 
 **Touch Level:** ${touchLevel.toUpperCase()}
 **Outcome:** ${outcome}
@@ -3321,7 +3321,7 @@ function sendFridayDigest() {
 
   const automationRate = stats.total > 0 ? Math.round((stats.completed / stats.total) * 100) : 0;
 
-  const digest = `📊 **OES Comms Agent — Weekly Digest**
+  const digest = `📊 **OES Comms Agent: Weekly Digest**
 *Week ending ${now.toISOString().slice(0, 10)}*
 
 **Volume:**
@@ -3386,7 +3386,7 @@ function testChatSpaceWebhook() {
     Logger.log('ERROR: CHAT_SPACE_WEBHOOK not set in Script Properties');
     return;
   }
-  pingChatSpace('🧪 **Test message** — Webhook working! (v1.7)', config);
+  pingChatSpace('🧪 **Test message**: Webhook working! (v1.7)', config);
 }
 
 function testLowTouchPath() {
@@ -3395,7 +3395,7 @@ function testLowTouchPath() {
     namedValues: {
       'Email Address': ['[EMAIL_ADDRESS]'],
       'Your Team/OES Workstream:': ['Test Team'],
-      'Type of Request:': ['Quick Review — Edit my existing draft'],
+      'Type of Request:': ['Quick Review: Edit my existing draft'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Q1 Update Email'],
       'What are you communicating, and what should the audience do?': ['Hi all, I hope this email finds you well. I wanted to share some Q1 updates. We are excited to announce the new portal is live! Let me know if you have questions. Best, Test'],
@@ -3452,7 +3452,7 @@ function testVpHighTouchPath() {
       'Subject or Title of Communication': ['Q2 Update from [VP_NAME]'],
       'What are you communicating, and what should the audience do?': ['[VP_NAME] wants to send an update to the team'],
       'Primary Audience': ['OES team'],
-      'Is [VP_NAME] involved?': ['Yes — this is from/to [VP_NAME]'],
+      'Is [VP_NAME] involved?': ['Yes, this is from/to [VP_NAME]'],
       'Urgency': ['This week'],
       'Who will send/distribute this communication?': ['[VP_NAME]'],
       'Link(s) to draft content, supporting docs, or images': [''],
@@ -3476,7 +3476,7 @@ function testSiteRelatedEscalation() {
     namedValues: {
       'Email Address': ['[EMAIL_ADDRESS]'],
       'Your Team/OES Workstream:': ['Domains'],
-      'Type of Request:': ['Website Update — Update or add content to an existing page'],
+      'Type of Request:': ['Website Update: Update or add content to an existing page'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Update OES site with new team info'],
       'What are you communicating, and what should the audience do?': ['Need to update the Domains page on the OES wiki site with our new team structure'],
@@ -3505,7 +3505,7 @@ function testDraftAccessError() {
     namedValues: {
       'Email Address': ['[EMAIL_ADDRESS]'],
       'Your Team/OES Workstream:': ['Test Team'],
-      'Type of Request:': ['Quick Review — Edit my existing draft'],
+      'Type of Request:': ['Quick Review: Edit my existing draft'],
       'Content Status': ['I have a draft'],
       'Subject or Title of Communication': ['Test Draft Access'],
       'What are you communicating, and what should the audience do?': ['Please review my draft'],
@@ -3528,7 +3528,7 @@ function testDraftAccessError() {
 /**
  * v1.7: QA validation for v1.7 fixes.
  * Covers: fallback text, prompt anchor mapping, PRIMARY_FACTORS removal.
- * LLM Extension prompts now live in templates — no code tests needed.
+ * LLM Extension prompts now live in templates, no code tests needed.
  *
  * Run this BEFORE running full path tests.
  * All 8 checks should return true.
@@ -3596,11 +3596,11 @@ function testQAFixes_v17() {
   if (failed > 0) {
     Logger.log('⚠️ FIX FAILURES BEFORE RUNNING FULL PATH TESTS');
   } else {
-    Logger.log('✅ All checks passed — safe to run testVpHighTouchPath()');
+    Logger.log('✅ All checks passed, safe to run testVpHighTouchPath()');
   }
 }
 // ═══════════════════════════════════════════════════════════════════════════
-// METRICS TAB — v1.7
+// METRICS TAB, v1.7
 // ═══════════════════════════════════════════════════════════════════════════
 // 
 // PURPOSE: Auto-generates a "Metrics" tab in the tracking spreadsheet
@@ -3616,13 +3616,13 @@ function testQAFixes_v17() {
 //   - Reads from REQUESTS_TAB ('Requests')
 //   - Creates/overwrites 'Metrics' tab
 //
-// ES5 COMPATIBLE — no let/const/arrow functions/template literals
+// ES5 COMPATIBLE, no let/const/arrow functions/template literals
 // ═══════════════════════════════════════════════════════════════════════════
 
 
 /**
  * Main function: Creates or updates the Metrics tab with current data.
- * Safe to run repeatedly — overwrites existing Metrics tab each time.
+ * Safe to run repeatedly, overwrites existing Metrics tab each time.
  */
 function updateMetricsTab() {
   var config = getConfig();
@@ -3953,8 +3953,8 @@ function writeSummaryBlock(sheet, row, summary) {
     ['High Touch (escalated)', summary.high],
     ['', ''],
     ['Status: Completed', summary.completed],
-    ['Status: Escalated — Medium', summary.escalatedMed],
-    ['Status: Escalated — High', summary.escalatedHigh],
+    ['Status: Escalated: Medium', summary.escalatedMed],
+    ['Status: Escalated: High', summary.escalatedHigh],
     ['Status: Pending', summary.pending],
     ['', ''],
     ['✅ Automation rate (completed / total)', summary.automationRate + '%'],
@@ -4032,13 +4032,13 @@ function writeKeyValueBlock(sheet, row, items) {
  * Formats a date as YYYY-MM-DD.
  */
 function formatDate(date) {
-  if (!date || isNaN(date.getTime())) return '—';
+  if (!date || isNaN(date.getTime())) return '-';
   return date.toISOString().slice(0, 10);
 }
 
 
 // ═══════════════════════════════════════════════════════════════════════════
-// METRICS TAB — v1.7.1
+// METRICS TAB, v1.7.1
 // ═══════════════════════════════════════════════════════════════════════════
 // 
 // PURPOSE: Auto-generates a "Metrics" tab in the tracking spreadsheet
@@ -4049,7 +4049,7 @@ function formatDate(date) {
 //   - Manual: Run updateMetricsTab() from Script Editor
 //   - Scheduled: Optional weekly trigger alongside Friday Digest
 //
-// SETUP — TWO CHANGES TO YOUR MAIN SCRIPT:
+// SETUP: TWO CHANGES TO YOUR MAIN SCRIPT:
 //
 //   CHANGE 1: Add this line to onFormSubmit(), right before the 
 //   closing catch block. Find this line:
@@ -4086,7 +4086,7 @@ function formatDate(date) {
 //   That's 3 lines total added to your main script. Every path now
 //   refreshes metrics before exiting.
 //
-//   CHANGE 2: None needed for the sheet — COL_PROCESSED (col 17) already
+//   CHANGE 2: None needed for the sheet: COL_PROCESSED (col 17) already
 //   records completion time. Resolution time = COL_PROCESSED - COL_TIMESTAMP.
 //
 // DEPENDENCIES: 
@@ -4094,13 +4094,13 @@ function formatDate(date) {
 //   - Reads from REQUESTS_TAB ('Requests')
 //   - Creates/overwrites 'Metrics' tab
 //
-// ES5 COMPATIBLE — no let/const/arrow functions/template literals
+// ES5 COMPATIBLE, no let/const/arrow functions/template literals
 // ═══════════════════════════════════════════════════════════════════════════
 
 
 /**
  * Main function: Creates or updates the Metrics tab with current data.
- * Safe to run repeatedly — overwrites existing Metrics tab each time.
+ * Safe to run repeatedly, overwrites existing Metrics tab each time.
  */
 function updateMetricsTab() {
   var config = getConfig();
@@ -4186,7 +4186,7 @@ var METRICS_START_DATE = new Date('2026-02-02T00:00:00');
   currentRow += 1; // spacer
   
   // ═══ SECTION 2: TIME TO RESOLUTION ═══
-  currentRow = writeSectionHeader(metricsSheet, currentRow, 'TIME TO RESOLUTION — LOW TOUCH (AGENT-HANDLED)');
+  currentRow = writeSectionHeader(metricsSheet, currentRow, 'TIME TO RESOLUTION: LOW TOUCH (AGENT-HANDLED)');
   currentRow = writeResolutionBlock(metricsSheet, currentRow, resolutionStats);
   currentRow += 1;
   
@@ -4742,7 +4742,7 @@ function testHighTouchPath() {
     requester_name: '',
     team: 'Platform Partnerships',
     request_type: 'New Content Creation',
-    content_status: 'Nothing yet — need content created',
+    content_status: 'Nothing yet, need content created',
     subject: 'Q2 Cross-PA Partnership Report for Cloud VP and Android Director',
     summary: 'Create a quarterly partnership report summarizing OES cross-PA collaborations for external PA leadership.',
     target_audience: 'Cloud VP, Android Director',
